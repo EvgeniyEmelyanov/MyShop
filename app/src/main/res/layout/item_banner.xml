@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_height="115dp"
+    tools:layout_margin="20dp"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_for_item_banner" />
+
+    <TextView
+        android:id="@+id/firstText_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/aclonica_regular"
+        android:gravity="center|start"
+        android:text="Fresh Vegetables"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/secondText_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="61dp"
+        android:fontFamily="@font/airbnb_cereal_w_md"
+        android:text="Get Up To 40% OFF"
+        android:textColor="#53B175"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

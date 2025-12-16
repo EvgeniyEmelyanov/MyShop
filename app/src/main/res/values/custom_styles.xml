@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bannerProductName" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/txt_banner_product_name_price</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:gravity">start|center_horizontal</item>
+
+    </style>
+
+
+    <style name="bannerProductWeight" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/txt_banner_price_tag</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:gravity">start|center_horizontal</item>
+
+    </style>
+
+
+    <style name="bannerProductPrice" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/txt_banner_product_name_price</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:gravity">start|center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+
+
+    </style>
+
+    <style name="productContainer" >
+        <item name="android:background">@drawable/shape_rounded_for_products_banner</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginEnd">15dp</item>
+
+    </style>
+
+    <style name="btnAddProducts" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/bg_for_button_add</item>
+        <item name="android:src">@drawable/ic_for_button_add</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="tint">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.SectionTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/txt_banner_product_name_price</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:gravity">center|start</item>
+
+    </style>
+
+    <style name="TextAppearance.GroceriesTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textColor">@color/title_for_item_groceries</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+</resources>

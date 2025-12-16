@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groceryCardRoot"
+    android:layout_width="250dp"
+    android:layout_height="105dp"
+    android:layout_marginEnd="15dp"
+    android:background="@drawable/shape_rounded_for_item_groceries"
+    android:orientation="horizontal"
+    android:paddingStart="17dp"
+    tools:ignore="RtlSymmetry"
+    tools:layout_height="105dp"
+    tools:layout_width="250dp"
+    tools:backgroundTint="@color/bg_grocery_pulses"
+    tools:layout_margin="20dp">
+
+
+    <ImageView
+        android:id="@+id/ivGroceriesPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:srcCompat="@drawable/pulses_picture">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tvGroceriesTitle"
+        style="@style/TextAppearance.GroceriesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="15dp"
+        android:text="Pulses">
+
+    </TextView>
+
+</LinearLayout>

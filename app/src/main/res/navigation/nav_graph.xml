@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/shopFragment">
+
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.myshop.ShopFragment"
+        android:label="Shop" />
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.example.myshop.ExploreFragment"
+        android:label="Explore" />
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.myshop.CartFragment"
+        android:label="Cart" />
+
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.myshop.FavouriteFragment"
+        android:label="Favourite" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.myshop.AccountFragment"
+        android:label="Account" />
+
+</navigation>
