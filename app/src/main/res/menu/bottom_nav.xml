@@ -11,8 +11,7 @@
     <item
         android:id="@+id/exploreFragment"
         android:icon="@drawable/ic_nav_explore"
-        android:title="Explore"
-        android:textCollor="@drawable/"/>
+        android:title="Explore" />
 
     <item
         android:id="@+id/cartFragment"

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/exploreCardRoot"
+    android:layout_width="175dp"
+    android:layout_height="190dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/shape_rounded_explorer_banner"
+    tools:backgroundTint="#2653B175"
+    android:layout_marginVertical="15dp"
+    android:layout_marginEnd="15dp">
+
+    <ImageView
+        android:id="@+id/ivExploreBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="31dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="28dp" />
+
+    <TextView
+        android:id="@+id/tvExploreBanner"
+        style="@style/TextAppearance.AppCompat.TitleForExploreBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Frash Fruits \n&amp; Vegetable" />
+</LinearLayout>
