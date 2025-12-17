@@ -11,6 +11,31 @@
     <color name="bg_grocery_rice">#3853B175</color>
     <color name="bg_grocery_meat">#FFECEC</color>
 
+    <!-- Fresh Fruits & Vegetable -->
+    <color name="bg_fruits">#EAF7F0</color>
+    <color name="stroke_fruits">#53B175</color>
+
+    <!-- Cooking Oil & Ghee -->
+    <color name="bg_oil">#FFF3E6</color>
+    <color name="stroke_oil">#F8A44C</color>
+
+    <!-- Meat & Fish -->
+    <color name="bg_meat">#FFECEC</color>
+    <color name="stroke_meat">#F3603F</color>
+
+    <!-- Bakery & Snacks -->
+    <color name="bg_bakery">#F3ECFF</color>
+    <color name="stroke_bakery">#D3B0FF</color>
+
+    <!-- Dairy & Eggs -->
+    <color name="bg_dairy">#FFF8E1</color>
+    <color name="stroke_dairy">#FBC02D</color>
+
+    <!-- Beverages -->
+    <color name="bg_beverages">#E9F6FF</color>
+    <color name="stroke_beverages">#4FC3F7</color>
+
+
 </resources>
 
 
