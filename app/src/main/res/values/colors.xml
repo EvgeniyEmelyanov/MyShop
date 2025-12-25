@@ -34,8 +34,9 @@
     <!-- Beverages -->
     <color name="bg_beverages">#E9F6FF</color>
     <color name="stroke_beverages">#4FC3F7</color>
+    <color name="stroke_btn_cart_banner">#F0F0F0</color>
 
-
+    <color name="green_53B175">#53B175</color>
 </resources>
 
 

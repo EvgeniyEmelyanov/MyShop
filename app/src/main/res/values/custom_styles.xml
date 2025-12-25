@@ -85,9 +85,34 @@
 
     </style>
 
+    <style name="btn_add_cart_banner" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">46dp</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:background">@drawable/bg_for_btn_cart_banner_add_decrease</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:scaleType">fitCenter</item>
 
 
+    </style>
 
+        <style name="TextAppearance.AppCompat.ProductTitleForCartBanner" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:letterSpacing">0.01</item>
+
+
+    </style>
+
+    <style name="TextAppearance.AppCompat.NumberPicker" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/txt_banner_product_name_price</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:gravity">center_horizontal</item>
+
+    </style>
 
 
 

@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="25dp"
         android:orientation="vertical">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
+            android:layout_gravity="center"
             android:layout_marginTop="58dp"
             android:layout_marginBottom="9dp"
             android:src="@drawable/ic_carrot" />
@@ -28,26 +31,185 @@
             android:text="Dhaka, Banassre" />
 
         <EditText
-            android:layout_width="365dp"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:layout_gravity="center"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/shape_rounded_edit_text"
             android:drawableStart="@drawable/ic_vector"
-            android:drawablePadding="2dp"
-            android:fontFamily="@font/gilroy_black"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/gilroy_semibold"
             android:hint="Search Store"
-            android:textSize="14sp" />
+            android:paddingStart="15dp"
+            android:textSize="14sp"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpBanners"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp" >
-
+            tools:layout_height="116dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/shape_rounded_banner"
+            tools:listitem="@layout/item_banner">
 
 
         </androidx.viewpager2.widget.ViewPager2>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="21dp">
+
+            <TextView
+                android:id="@+id/tvSeeAllFirst"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="4.5dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center|end"
+                android:text="See all"
+                android:textColor="#53B175"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvExclusiveOffer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvExclusiveOffer"
+                style="@style/TextAppearance.SectionTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Exclusive Offer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSeeAllFirst"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvExclusiveOffer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product_cart" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="21dp">
+
+            <TextView
+                android:id="@+id/tvSeeAllSecond"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="4.5dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center|end"
+                android:text="See all"
+                android:textColor="#53B175"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBestSelling"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvBestSelling"
+                style="@style/TextAppearance.SectionTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Best Selling"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSeeAllSecond"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bestSellingProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product_cart" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="21dp">
+
+            <TextView
+                android:id="@+id/tvSeeAllThird"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4.5dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="4.5dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center|end"
+                android:text="See all"
+                android:textColor="#53B175"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvGroceries"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvGroceries"
+                style="@style/TextAppearance.SectionTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Groceries"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSeeAllThird"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGroceries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_groceries" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGroceriesProductCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product_cart" />
+
 
 
     </LinearLayout>

@@ -35,9 +35,9 @@
         android:fontFamily="@font/gilroy_semibold"
         android:hint="Search Store"
         android:paddingStart="15dp"
+        android:layout_marginBottom="20dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -45,15 +45,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExploreBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="208dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.115" />
-
+        tools:listitem="@layout/item_explore_banner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+

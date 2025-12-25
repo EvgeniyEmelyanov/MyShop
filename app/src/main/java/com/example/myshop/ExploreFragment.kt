@@ -4,66 +4,83 @@ import ExploreBannerAdapter
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myshop.databinding.FragmentExploreBinding
 
-class ExploreFragment : Fragment() {
+class ExploreFragment : Fragment(R.layout.fragment_explore) {
+
+    private var _binding: FragmentExploreBinding? = null
+    private val binding get() = _binding!!
+
+    val exploreCategories = listOf(
+        ExploreBanner(
+            R.drawable.ic_fruits,
+            "Fresh Fruits\n& Vegetable",
+            R.color.bg_fruits,
+            R.color.stroke_fruits
+        ),
+        ExploreBanner(
+            R.drawable.ic_oil,
+            "Cooking Oil\n& Ghee",
+            R.color.bg_oil,
+            R.color.stroke_oil
+        ),
+        ExploreBanner(
+            R.drawable.ic_meat,
+            "Meat & Fish",
+            R.color.bg_meat,
+            R.color.stroke_meat
+        ),
+        ExploreBanner(
+            R.drawable.ic_bakery,
+            "Bakery & Snacks",
+            R.color.bg_bakery,
+            R.color.stroke_bakery
+        ),
+        ExploreBanner(
+            R.drawable.ic_dairy,
+            "Dairy & Eggs",
+            R.color.bg_dairy,
+            R.color.stroke_dairy
+        ),
+        ExploreBanner(
+            R.drawable.ic_beverages,
+            "Beverages",
+            R.color.bg_beverages,
+            R.color.stroke_beverages
+        )
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val exploreCategories = listOf(
-            ExploreBanner(
-                image = R.drawable.ic_fruits,
-                title = "Fresh Fruits\n& Vegetable",
-                backgroundColorRes = R.color.bg_fruits,
-                strokeColorRes = R.color.stroke_fruits
-            ),
-            ExploreBanner(
-                image = R.drawable.ic_oil,
-                title = "Cooking Oil\n& Ghee",
-                backgroundColorRes = R.color.bg_oil,
-                strokeColorRes = R.color.stroke_oil
-            ),
-            ExploreBanner(
-                image = R.drawable.ic_meat,
-                title = "Meat & Fish",
-                backgroundColorRes = R.color.bg_meat,
-                strokeColorRes = R.color.stroke_meat
-            ),
-            ExploreBanner(
-                image = R.drawable.ic_bakery,
-                title = "Bakery & Snacks",
-                backgroundColorRes = R.color.bg_bakery,
-                strokeColorRes = R.color.stroke_bakery
-            ),
-            ExploreBanner(
-                image = R.drawable.ic_dairy,
-                title = "Dairy & Eggs",
-                backgroundColorRes = R.color.bg_dairy,
-                strokeColorRes = R.color.stroke_dairy
-            ),
-            ExploreBanner(
-                image = R.drawable.ic_beverages,
-                title = "Beverages",
-                backgroundColorRes = R.color.bg_beverages,
-                strokeColorRes = R.color.stroke_beverages
-            )
-        )
+        _binding = FragmentExploreBinding.bind(view)
 
-        val rvExploreBanner: RecyclerView = view.findViewById(R.id.rvExploreBanner)
-        rvExploreBanner.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        binding.rvExploreBanner.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = ExploreBannerAdapter(exploreCategories)
+            setHasFixedSize(true)
 
-        rvExploreBanner.adapter = ExploreBannerAdapter(exploreCategories)
-
-
-
-
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    GridSpacingItemDecoration(
+                        spanCount = 2,
+                        spacing = dpToPx(15),
+                        includeEdge = false
+                    )
+                )
+            }
+        }
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun dpToPx(dp: Int): Int =
+        (dp * resources.displayMetrics.density).toInt()
 }
+
+

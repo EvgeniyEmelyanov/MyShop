@@ -1,46 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/exploreCardRoot"
-    android:layout_width="175dp"
-    android:layout_height="190dp"
-    android:layout_marginVertical="15dp"
-    android:layout_marginEnd="15dp"
-
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_margin="0dp"
     app:cardCornerRadius="18dp"
-    app:strokeWidth="1dp"
     app:cardUseCompatPadding="false"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp">
 
-    tools:cardBackgroundColor="#2653B175"
-    tools:strokeColor="#53B175">
-
-    <!-- Контент карточки -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="28dp"
-        android:paddingBottom="15dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ivExploreBanner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            tools:src="@drawable/ic_fruits" />
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvExploreBanner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/tvExploreBanner"
-            style="@style/TextAppearance.AppCompat.TitleForExploreBanner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Fresh Fruits\n&amp; Vegetable" />
+            android:gravity="center"
+            android:textSize="16sp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Fresh Fruits\n&amp; Vegetable"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
