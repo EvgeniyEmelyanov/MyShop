@@ -1,32 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/shopFragment">
 
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.myshop.ShopFragment"
-        android:label="Shop" />
+        android:label="Shop"
+        tools:layout="@layout/fragment_shop">
+
+
+        <action
+            android:id="@+id/action_shopFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.example.myshop.ExploreFragment"
-        android:label="Explore" />
+        android:label="Explore"
+        tools:layout="@layout/fragment_explore" />
 
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.myshop.CartFragment"
-        android:label="Cart" />
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.example.myshop.FavouriteFragment"
-        android:label="Favourite" />
+        android:label="Favourite"
+        tools:layout="@layout/fragment_favourite" />
 
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.myshop.AccountFragment"
         android:label="Account" />
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.myshop.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail">
+
+        <argument
+            android:name="productId"
+            app:argType="string" />
+
+    </fragment>
 
 </navigation>

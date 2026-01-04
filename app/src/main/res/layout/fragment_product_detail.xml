@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ProductDetailFragment">
+
+    <!-- ЕДИНСТВЕННЫЙ контейнер контента -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Верхний блок с картинкой -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clHeaderImage"
+            android:layout_width="0dp"
+            android:layout_height="370dp"
+            android:background="@drawable/shape_image_view_product_detail"
+            android:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_picture"
+                android:layout_width="215dp"
+                android:layout_height="189dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/banana_picture" />
+
+            <ImageButton
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/ic_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnBackToFirstFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/ic_back_to_first_fragment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Название -->
+        <TextView
+            android:id="@+id/tvProductTitle"
+            style="@style/TextAppearance.GroceriesTitle.Fragment.Product.Detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnAddToFavorite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clHeaderImage"
+            tools:text="Name product" />
+
+        <!-- Избранное -->
+        <ImageButton
+            android:id="@+id/btnAddToFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/ic_btn_favourite"
+            app:layout_constraintBottom_toBottomOf="@id/tvProductTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvProductTitle" />
+
+        <!-- Вес/описание -->
+        <TextView
+            android:id="@+id/tvProductWeight"
+            style="@style/TextAppearance.AppCompat.ProductWeight.FragmentProductDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvProductTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvProductTitle"
+            tools:text="Weight product" />
+
+        <!-- Минус -->
+        <ImageButton
+            android:id="@+id/btnProductAdd"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_decrease_for_btn"
+            app:layout_constraintStart_toStartOf="@id/tvProductWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvProductWeight" />
+
+        <!-- Кол-во -->
+        <TextView
+            android:id="@+id/tvProductCount"
+            style="@style/TextAppearance.AppCompat.NumberPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:paddingHorizontal="12dp"
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
+            app:layout_constraintStart_toEndOf="@id/btnProductAdd"
+            app:layout_constraintTop_toTopOf="@id/btnProductAdd" />
+
+        <!-- Плюс -->
+        <ImageButton
+            android:id="@+id/btnProductDecrease"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add_for_btn_green"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
+            app:layout_constraintStart_toEndOf="@id/tvProductCount"
+            app:layout_constraintTop_toTopOf="@id/btnProductAdd" />
+
+        <!-- Цена -->
+        <TextView
+            android:id="@+id/tvProductPrice"
+            style="@style/TextAppearance.AppCompat.ProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnProductAdd"
+            tools:text="$4.99" />
+
+        <!-- Разделитель -->
+        <View
+            android:id="@+id/firstLine"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnProductAdd" />
+
+        <!-- Заголовок секции -->
+        <TextView
+            android:id="@+id/tvProductDetailHeader"
+            style="@style/TextAppearance.AppCompat.ProductHeaderDescription.FragmentProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="18dp"
+            android:text="Product Detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstLine" />
+
+        <ImageButton
+            android:id="@+id/btnToggleDescription"
+            android:layout_width="9dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="25dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/tvProductDetailHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvProductDetailHeader"
+            app:layout_constraintVertical_bias="0.666" />
+
+
+        <!-- ВАЖНО: чтобы ScrollView знал, где конец контента -->
+        <!-- Добавь сюда твои дальнейшие блоки и привяжи самый нижний -->
+
+        <TextView
+            android:id="@+id/tvProductDescription"
+            style="@style/TextAppearance.AppCompat.ProductWeight.FragmentProductDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="4dp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textIsSelectable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDetailHeader"
+            tools:text="Apples are nutritious. Apples may be good for weight loss. Apples may be good for your heart. As part of a healthful and varied diet." />
+
+        <TextView
+            android:id="@+id/tvNutrition"
+            style="@style/TextAppearance.AppCompat.ProductHeaderDescription.FragmentProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:text="Nutritions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNutritionValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:cardBackgroundColor="@color/bg_cardNutritionValue"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNutrition"
+            app:layout_constraintEnd_toStartOf="@+id/back_arrow"
+            app:layout_constraintTop_toTopOf="@+id/tvNutrition"
+            app:layout_constraintVertical_bias="1.0"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/tvNutrition1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="4dp"
+                android:text="100g" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="19dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescription" />
+
+
+        <View
+            android:id="@+id/bottomSpacer"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/back_arrow"
+            android:layout_width="9dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="25dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/cardNutritionValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardNutritionValue"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="17dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNutrition" />
+
+
+        <TextView
+            android:id="@+id/tvReview"
+            style="@style/TextAppearance.AppCompat.ProductHeaderDescription.FragmentProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:text="Review"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <LinearLayout
+            android:id="@+id/layoutStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:divider="@drawable/divider_5dp"
+            android:orientation="horizontal"
+            android:showDividers="middle"
+            app:layout_constraintBottom_toBottomOf="@id/tvReview"
+            app:layout_constraintEnd_toStartOf="@+id/back_arrow2"
+            app:layout_constraintTop_toTopOf="@id/tvReview"
+            app:layout_constraintVertical_bias="1.0">
+
+            <ImageButton
+                android:id="@+id/btn_star1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_star" />
+
+            <ImageButton
+                android:id="@+id/btn_star2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_star" />
+
+            <ImageButton
+                android:id="@+id/btn_star3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_star" />
+
+            <ImageButton
+                android:id="@+id/btn_star4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_star" />
+
+            <ImageButton
+                android:id="@+id/btn_star5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_star" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/back_arrow2"
+            android:layout_width="9dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="24dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutStars"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layoutStars"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/btn_confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="20dp"
+            android:text="Add to Basket"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvReview"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

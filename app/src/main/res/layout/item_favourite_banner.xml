@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/apple_picture" />
+
+    <TextView
+        android:id="@+id/tvProductTitle"
+        style="@style/TextAppearance.AppCompat.ProductTitleForCartBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Bell Pepper Red" />
+
+    <TextView
+        android:id="@+id/tvProductWeight"
+        style="@style/bannerProductWeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@id/tvProductTitle"
+        app:layout_constraintStart_toStartOf="@id/tvProductTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvProductTitle"
+        tools:text="1kg, Price" />
+
+
+    <TextView
+        android:id="@+id/tvProductPrice"
+        style="@style/TextAppearance.AppCompat.ProductPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingEnd="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductWeight"
+        app:layout_constraintEnd_toStartOf="@+id/back_arrow"
+        app:layout_constraintTop_toTopOf="@+id/tvProductTitle"
+        tools:text="$4.99" />
+
+    <ImageButton
+        android:id="@+id/back_arrow"
+        android:layout_width="9dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_back_arrow"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/tvProductPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvProductPrice" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

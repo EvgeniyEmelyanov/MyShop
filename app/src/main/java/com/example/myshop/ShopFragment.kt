@@ -4,15 +4,25 @@ import Banner
 import BannerAdapter
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.myshop.ProductStore.productForExclusiveOffers
+import com.example.myshop.databinding.FragmentShopBinding
 
 class ShopFragment : Fragment(R.layout.fragment_shop) {
 
+    private var _binding: FragmentShopBinding? = null
+    private val binding get() = _binding!!
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        _binding = FragmentShopBinding.bind(view)
 
         val vp = view.findViewById<ViewPager2>(R.id.vpBanners)
 
@@ -25,193 +35,175 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
 
         vp.adapter = BannerAdapter(banners)
 
-        val productForExclusiveOffers = listOf(
-            ProductForExclusiveOffer(
-                "Red Apple",
-                "1kg, Price/kg",
-                "$4.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Organic Bananas",
-                "7pcs, Price/ea",
-                "$3.49",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Bell Pepper Red",
-                "1kg, Price/kg",
-                "$2.99",
-                R.drawable.apple_picture
-            ),
 
-            ProductForExclusiveOffer(
-                "Strawberries",
-                "500g, Price/pack",
-                "$5.49",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Blueberries",
-                "250g, Price/pack",
-                "$3.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Grapes Seedless",
-                "1kg, Price/kg",
-                "$4.29",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Mandarins",
-                "1kg, Price/kg",
-                "$2.79",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Avocado Hass",
-                "2pcs, Price/ea",
-                "$3.59",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Pineapple",
-                "1pc, Price/ea",
-                "$2.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer("Kiwi", "6pcs, Price/ea", "$3.19", R.drawable.apple_picture),
-            ProductForExclusiveOffer("Mango", "1pc, Price/ea", "$2.49", R.drawable.apple_picture),
-            ProductForExclusiveOffer(
-                "Watermelon",
-                "1pc, Price/ea",
-                "$6.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Tomatoes Cherry",
-                "400g, Price/pack",
-                "$2.69",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Cucumber",
-                "1pc, Price/ea",
-                "$0.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer("Carrots", "1kg, Price/kg", "$1.39", R.drawable.apple_picture),
-            ProductForExclusiveOffer(
-                "Broccoli",
-                "1pc, Price/ea",
-                "$1.79",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Potatoes",
-                "2kg, Price/bag",
-                "$2.49",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer("Onions", "1kg, Price/kg", "$1.09", R.drawable.apple_picture),
-            ProductForExclusiveOffer("Milk 2%", "1L, Price/ea", "$1.29", R.drawable.apple_picture),
-            ProductForExclusiveOffer(
-                "Greek Yogurt",
-                "500g, Price/pack",
-                "$2.99",
-                R.drawable.apple_picture
-            ),
-            ProductForExclusiveOffer(
-                "Cheddar Cheese",
-                "200g, Price/pack",
-                "$3.49",
-                R.drawable.apple_picture
+        binding.rvExclusiveOffer.apply {
+            adapter = ExclusiveOfferAdapter(productForExclusiveOffers) {
+                productId -> findNavController().navigate(
+                    R.id.action_shopFragment_to_productDetailFragment,
+                bundleOf("productId" to productId)
+                )
+            }
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
             )
-        )
-
-
-        val rvExclusiveOffer: RecyclerView = view.findViewById(R.id.rvExclusiveOffer)
-
-
-        rvExclusiveOffer.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        }
 
 
 
-        rvExclusiveOffer.adapter = ExclusiveOfferAdapter(productForExclusiveOffers)
+
 
         val productForBestSelling = listOf(
-            ProductForBestSelling("Red Apple", "1kg, Price/kg", "$4.99", R.drawable.apple_picture),
             ProductForBestSelling(
-                "Organic Bananas",
-                "7pcs, Price/ea",
-                "$3.49",
-                R.drawable.apple_picture
+                id = "apple_red",
+                title = "Red Apple",
+                weight = "1kg, Price/kg",
+                price = "$4.99",
+                imageRes = R.drawable.apple_picture
             ),
             ProductForBestSelling(
-                "Bell Pepper Red",
-                "1kg, Price/kg",
-                "$2.99",
-                R.drawable.apple_picture
+                id = "banana_organic",
+                title = "Organic Bananas",
+                weight = "7pcs, Price/ea",
+                price = "$3.49",
+                imageRes = R.drawable.apple_picture
             ),
             ProductForBestSelling(
-                "Strawberries",
-                "500g, Price/pack",
-                "$5.49",
-                R.drawable.apple_picture
+                id = "pepper_red",
+                title = "Bell Pepper Red",
+                weight = "1kg, Price/kg",
+                price = "$2.99",
+                imageRes = R.drawable.apple_picture
             ),
             ProductForBestSelling(
-                "Blueberries",
-                "250g, Price/pack",
-                "$3.99",
-                R.drawable.apple_picture
+                id = "strawberries",
+                title = "Strawberries",
+                weight = "500g, Price/pack",
+                price = "$5.49",
+                imageRes = R.drawable.apple_picture
             ),
             ProductForBestSelling(
-                "Grapes Seedless",
-                "1kg, Price/kg",
-                "$4.29",
-                R.drawable.apple_picture
-            ),
-            ProductForBestSelling("Mandarins", "1kg, Price/kg", "$2.79", R.drawable.apple_picture),
-            ProductForBestSelling(
-                "Avocado Hass",
-                "2pcs, Price/ea",
-                "$3.59",
-                R.drawable.apple_picture
-            ),
-            ProductForBestSelling("Pineapple", "1pc, Price/ea", "$2.99", R.drawable.apple_picture),
-            ProductForBestSelling("Kiwi", "6pcs, Price/ea", "$3.19", R.drawable.apple_picture),
-            ProductForBestSelling("Mango", "1pc, Price/ea", "$2.49", R.drawable.apple_picture),
-            ProductForBestSelling("Watermelon", "1pc, Price/ea", "$6.99", R.drawable.apple_picture),
-            ProductForBestSelling(
-                "Tomatoes Cherry",
-                "400g, Price/pack",
-                "$2.69",
-                R.drawable.apple_picture
-            ),
-            ProductForBestSelling("Cucumber", "1pc, Price/ea", "$0.99", R.drawable.apple_picture),
-            ProductForBestSelling("Carrots", "1kg, Price/kg", "$1.39", R.drawable.apple_picture),
-            ProductForBestSelling("Broccoli", "1pc, Price/ea", "$1.79", R.drawable.apple_picture),
-            ProductForBestSelling("Potatoes", "2kg, Price/bag", "$2.49", R.drawable.apple_picture),
-            ProductForBestSelling("Onions", "1kg, Price/kg", "$1.09", R.drawable.apple_picture),
-            ProductForBestSelling("Milk 2%", "1L, Price/ea", "$1.29", R.drawable.apple_picture),
-            ProductForBestSelling(
-                "Greek Yogurt",
-                "500g, Price/pack",
-                "$2.99",
-                R.drawable.apple_picture
+                id = "blueberries",
+                title = "Blueberries",
+                weight = "250g, Price/pack",
+                price = "$3.99",
+                imageRes = R.drawable.apple_picture
             ),
             ProductForBestSelling(
-                "Cheddar Cheese",
-                "200g, Price/pack",
-                "$3.49",
-                R.drawable.apple_picture
+                id = "grapes_seedless",
+                title = "Grapes Seedless",
+                weight = "1kg, Price/kg",
+                price = "$4.29",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "mandarins",
+                title = "Mandarins",
+                weight = "1kg, Price/kg",
+                price = "$2.79",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "avocado_hass",
+                title = "Avocado Hass",
+                weight = "2pcs, Price/ea",
+                price = "$3.59",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "pineapple",
+                title = "Pineapple",
+                weight = "1pc, Price/ea",
+                price = "$2.99",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "kiwi",
+                title = "Kiwi",
+                weight = "6pcs, Price/ea",
+                price = "$3.19",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "mango",
+                title = "Mango",
+                weight = "1pc, Price/ea",
+                price = "$2.49",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "watermelon",
+                title = "Watermelon",
+                weight = "1pc, Price/ea",
+                price = "$6.99",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "tomatoes_cherry",
+                title = "Tomatoes Cherry",
+                weight = "400g, Price/pack",
+                price = "$2.69",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "cucumber",
+                title = "Cucumber",
+                weight = "1pc, Price/ea",
+                price = "$0.99",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "carrots",
+                title = "Carrots",
+                weight = "1kg, Price/kg",
+                price = "$1.39",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "broccoli",
+                title = "Broccoli",
+                weight = "1pc, Price/ea",
+                price = "$1.79",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "potatoes",
+                title = "Potatoes",
+                weight = "2kg, Price/bag",
+                price = "$2.49",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "onions",
+                title = "Onions",
+                weight = "1kg, Price/kg",
+                price = "$1.09",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "milk_2_percent",
+                title = "Milk 2%",
+                weight = "1L, Price/ea",
+                price = "$1.29",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "yogurt_greek",
+                title = "Greek Yogurt",
+                weight = "500g, Price/pack",
+                price = "$2.99",
+                imageRes = R.drawable.apple_picture
+            ),
+            ProductForBestSelling(
+                id = "cheddar_cheese",
+                title = "Cheddar Cheese",
+                weight = "200g, Price/pack",
+                price = "$3.49",
+                imageRes = R.drawable.apple_picture
             )
         )
+
 
         val bestSellingProducts: RecyclerView = view.findViewById(R.id.bestSellingProducts)
 
@@ -298,7 +290,8 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
                 ("Cheddar Cheese", "200g, Price/pack", "$3.49", R.drawable.apple_picture)
         )
 
-        val rvGroceriesProductsForCard: RecyclerView = view.findViewById(R.id.rvGroceriesProductCard)
+        val rvGroceriesProductsForCard: RecyclerView =
+            view.findViewById(R.id.rvGroceriesProductCard)
 
         rvGroceriesProductsForCard.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -306,7 +299,15 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
             false
         )
 
-        rvGroceriesProductsForCard.adapter = GroceriesProductCardAdapter(groceriesProductsForCardAdapter)
+        rvGroceriesProductsForCard.adapter =
+            GroceriesProductCardAdapter(groceriesProductsForCardAdapter)
+
+//        findNavController().navigate(
+//            R.id.action_shopFragment_to_productDetailFragment,
+//            bundleOf("productId" to "apple_red")
+//        )
+
+
     }
 }
 

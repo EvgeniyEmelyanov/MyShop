@@ -3,16 +3,16 @@ package com.example.myshop
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Rect
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class CartDividerDecoration(
     context: Context,
-    private val colorRes: Int,
+    colorRes: Int,
     private val heightPx: Int,
-    private val leftPaddingPx: Int,
-    private val rightPaddingPx: Int,
+    private val insetPx: Int,          // ← один параметр: 25dp
     private val skipLast: Boolean = true
 ) : RecyclerView.ItemDecoration() {
 
@@ -22,16 +22,19 @@ class CartDividerDecoration(
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        val childCount = parent.childCount
-        val lastIndex = if (skipLast) childCount - 1 else childCount
+        val adapter = parent.adapter ?: return
+        val lastPos = adapter.itemCount - 1
 
-        for (i in 0 until lastIndex) {
+        val left = insetPx
+        val right = parent.width - insetPx
+
+        for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
+            val pos = parent.getChildAdapterPosition(child)
+            if (pos == RecyclerView.NO_POSITION) continue
+            if (skipLast && pos == lastPos) continue
+
             val params = child.layoutParams as RecyclerView.LayoutParams
-
-            val left = parent.paddingLeft + leftPaddingPx
-            val right = parent.width - parent.paddingRight - rightPaddingPx
-
             val top = child.bottom + params.bottomMargin
             val bottom = top + heightPx
 
@@ -39,13 +42,13 @@ class CartDividerDecoration(
         }
     }
 
-    override fun getItemOffsets(
-        outRect: android.graphics.Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        // место под линию
-        outRect.bottom = heightPx
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        val adapter = parent.adapter ?: return
+        val lastPos = adapter.itemCount - 1
+
+        val pos = parent.getChildAdapterPosition(view)
+        if (pos == RecyclerView.NO_POSITION) return
+
+        outRect.bottom = if (skipLast && pos == lastPos) 0 else heightPx
     }
 }

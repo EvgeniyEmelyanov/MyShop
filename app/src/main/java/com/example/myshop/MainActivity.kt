@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNav.setupWithNavController(navController)
-
+        
 
         // 1) Убираем “пилюлю” выбранного пункта (Active Indicator)
         bottomNav.isItemActiveIndicatorEnabled = false

@@ -22,7 +22,7 @@ class BestSellingAdapter(
 
         fun bind(productForBestSelling: ProductForBestSelling){
             imageView.setImageResource(productForBestSelling.imageRes)
-            productTitle.text = productForBestSelling.name
+            productTitle.text = productForBestSelling.title
             productWeight.text = productForBestSelling.weight
             productPrice.text = productForBestSelling.price
 

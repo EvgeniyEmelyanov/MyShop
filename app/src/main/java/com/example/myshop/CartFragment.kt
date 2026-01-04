@@ -112,8 +112,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         context = requireContext(),
                         colorRes = R.color.line_for_products_banner,
                         heightPx = requireContext().dpToPx(1),
-                        leftPaddingPx = requireContext().dpToPx(25),
-                        rightPaddingPx = requireContext().dpToPx(25),
+                        insetPx = requireContext().dpToPx(25),
                         skipLast = true
                     )
                 )

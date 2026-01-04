@@ -1,43 +1,43 @@
 package com.example.myshop
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myshop.databinding.ItemProductCartBinding
 
 class ExclusiveOfferAdapter(
-    private val productForExclusiveOffers: List<ProductForExclusiveOffer>
+    private val productForExclusiveOffers: List<ProductForExclusiveOffer>,
+    private val onRootClick: (String) -> Unit
 ) : RecyclerView.Adapter<ExclusiveOfferAdapter.ExclusiveOfferViewHolder>() {
 
-    inner class ExclusiveOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ExclusiveOfferViewHolder(private var binding: ItemProductCartBinding) :
+        RecyclerView.ViewHolder(
+            binding.root
+        ) {
 
-        val imageView: ImageView = itemView.findViewById(R.id.ivProductPicture)
-        val productTitle: TextView = itemView.findViewById(R.id.tvProductTitle)
-        val productWeight: TextView = itemView.findViewById(R.id.tvProductWeight)
-        val productPrice: TextView = itemView.findViewById(R.id.tvProductPrice)
-        val btnProductAdd: ImageButton = itemView.findViewById(R.id.btnProductAdd)
+        fun bind(item: ProductForExclusiveOffer) = with(binding) {
+            ivProductPicture.setImageResource(item.imageRes)
+            tvProductTitle.text = item.title
+            tvProductWeight.text = item.weight
+            tvProductPrice.text = item.price
 
-        fun bind(productForExclusiveOffer: ProductForExclusiveOffer) {
-            imageView.setImageResource(productForExclusiveOffer.imageRes)
-            productTitle.text = productForExclusiveOffer.name
-            productWeight.text = productForExclusiveOffer.weight
-            productPrice.text = productForExclusiveOffer.price
+            binding.root.setOnClickListener {
+                onRootClick (item.id)
+            }
+
         }
-
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExclusiveOfferViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_product_cart, parent, false)
-        return ExclusiveOfferViewHolder(itemView)
+        val binding = ItemProductCartBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ExclusiveOfferViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ExclusiveOfferViewHolder, position: Int) {
-        val product = productForExclusiveOffers[position]
-        holder.bind(product)
+        holder.bind(productForExclusiveOffers[position])
     }
 
     override fun getItemCount(): Int {

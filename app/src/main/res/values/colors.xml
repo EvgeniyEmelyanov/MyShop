@@ -2,14 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="txt_banner_price_tag">#7C7C7C</color>
-    <color name="txt_banner_product_name_price">#181725</color>
+    <color name="txt_price_tag_text_description">#7C7C7C</color>
+    <color name="txt_product_name_price_description">#181725</color>
     <color name="txt_botton_add_goods">#53B175</color>
     <color name="line_for_products_banner">#E2E2E2</color>
     <color name="title_for_item_groceries">#3E423F</color>
     <color name="bg_grocery_pulses">#33F8A44C</color>
     <color name="bg_grocery_rice">#3853B175</color>
     <color name="bg_grocery_meat">#FFECEC</color>
+    <color name="bg_cardNutritionValue">#EBEBEB</color>
 
     <!-- Fresh Fruits & Vegetable -->
     <color name="bg_fruits">#EAF7F0</color>
@@ -37,6 +38,14 @@
     <color name="stroke_btn_cart_banner">#F0F0F0</color>
 
     <color name="green_53B175">#53B175</color>
+
+
+    <color name="bg_btn_confirm_button">#53B175</color>
+
+    <color name="txt_color_for_confirm_button">#FFF9FF</color>
+
+
+
 </resources>
 
 
