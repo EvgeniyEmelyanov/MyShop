@@ -97,7 +97,7 @@
 
         <!-- Минус -->
         <ImageButton
-            android:id="@+id/btnProductAdd"
+            android:id="@+id/btn_btnProductIncrease"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_marginTop="30dp"
@@ -116,9 +116,9 @@
             android:layout_marginStart="12dp"
             android:paddingHorizontal="12dp"
             android:text="1"
-            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
-            app:layout_constraintStart_toEndOf="@id/btnProductAdd"
-            app:layout_constraintTop_toTopOf="@id/btnProductAdd" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
+            app:layout_constraintStart_toEndOf="@id/btn_btnProductIncrease"
+            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease" />
 
         <!-- Плюс -->
         <ImageButton
@@ -129,9 +129,9 @@
             android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
             android:scaleType="centerInside"
             android:src="@drawable/ic_add_for_btn_green"
-            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
+            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
             app:layout_constraintStart_toEndOf="@id/tvProductCount"
-            app:layout_constraintTop_toTopOf="@id/btnProductAdd" />
+            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease" />
 
         <!-- Цена -->
         <TextView
@@ -140,9 +140,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/btnProductAdd"
+            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnProductAdd"
+            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease"
             tools:text="$4.99" />
 
         <!-- Разделитель -->
@@ -155,7 +155,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnProductAdd" />
+            app:layout_constraintTop_toBottomOf="@id/btn_btnProductIncrease" />
 
         <!-- Заголовок секции -->
         <TextView
@@ -355,6 +355,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/bnt_AddToCart"
             style="@style/btn_confirm_button"
             android:layout_width="0dp"
             android:layout_height="65dp"

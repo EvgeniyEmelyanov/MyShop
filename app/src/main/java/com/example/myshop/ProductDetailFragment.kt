@@ -38,14 +38,20 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         binding.tvProductTitle.text = product.title
         binding.tvProductWeight.text = product.weight
         binding.tvProductPrice.text = product.price
+        binding.tvProductDescription.text = product.productDescription
         binding.ivPicture.setImageResource(product.imageRes)
+
+
+        binding.bntAddToCart.setOnClickListener {
+            AppState.cartManager.addToCart(productId)
+        }
 
 
         binding.btnBackToFirstFragment.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        var isDescriptionExpanded: Boolean = false
+        var isDescriptionExpanded = false
 
         binding.btnToggleDescription.setOnClickListener {
             isDescriptionExpanded = !isDescriptionExpanded
@@ -58,6 +64,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 binding.btnToggleDescription.rotation = 0f
             }
         }
+
     }
 
 

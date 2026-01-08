@@ -5,43 +5,47 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemProductCartBinding
 
-class ExclusiveOfferAdapter(
-    private val productForExclusiveOffers: List<ProductForExclusiveOffer>,
-    private val onRootClick: (String) -> Unit
-) : RecyclerView.Adapter<ExclusiveOfferAdapter.ExclusiveOfferViewHolder>() {
+class ProductHorizontalAdapter(
+    private val item: List<Product>,
+    private val onRootClick: (String) -> Unit,
+    private val onAddBtnClick: (String) -> Unit
+) : RecyclerView.Adapter<ProductHorizontalAdapter.VH>() {
 
-    inner class ExclusiveOfferViewHolder(private var binding: ItemProductCartBinding) :
+    inner class VH(private var binding: ItemProductCartBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {
 
-        fun bind(item: ProductForExclusiveOffer) = with(binding) {
+        fun bind(item: Product) = with(binding) {
             ivProductPicture.setImageResource(item.imageRes)
             tvProductTitle.text = item.title
             tvProductWeight.text = item.weight
             tvProductPrice.text = item.price
 
+
             binding.root.setOnClickListener {
                 onRootClick (item.id)
             }
 
+            binding.bntAddToCartFromItemCard.setOnClickListener {
+                onAddBtnClick(item.id)
+            }
         }
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExclusiveOfferViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding = ItemProductCartBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ExclusiveOfferViewHolder(binding)
+        return VH(binding)
     }
 
-    override fun onBindViewHolder(holder: ExclusiveOfferViewHolder, position: Int) {
-        holder.bind(productForExclusiveOffers[position])
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        holder.bind(item[position])
     }
 
     override fun getItemCount(): Int {
-        return productForExclusiveOffers.size
+        return item.size
 
     }
 }

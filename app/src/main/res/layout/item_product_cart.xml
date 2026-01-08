@@ -54,7 +54,7 @@
             tools:text="4.99$" />
 
         <ImageButton
-            android:id="@+id/btnProductAdd"
+            android:id="@+id/bnt_AddToCartFromItemCard"
             style="@style/btnAddProducts"
             android:layout_width="46dp"
             android:layout_height="46dp"

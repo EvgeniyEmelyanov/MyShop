@@ -2,99 +2,62 @@ package com.example.myshop
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.FragmentCartBinding
 import com.evgeniyemelyanov.core.ui.dpToPx
-
+import com.example.myshop.databinding.FragmentCartBinding
 
 
 class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
+    private lateinit var cartAdapter: CartAdapter
 
 
-    val cartItems = listOf(
-        CartCategory(
-            imageRes = R.drawable.pepper_picture,
-            title = "Bell Pepper Red",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$4.99"
-        ),
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Egg Chicken Red",
-            weight = "4pcs, Price",
-            count = "1",
-            price = "$1.99"
-        ),
-        CartCategory(
-            imageRes = R.drawable.banana_picture,
-            title = "Organic Bananas",
-            weight = "12kg, Price",
-            count = "1",
-            price = "$3.00"
-        ),
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Ginger",
-            weight = "250gm, Price",
-            count = "1",
-            price = "$2.99"
-        ),
-        CartCategory(
-            imageRes = R.drawable.pepper_picture,
-            title = "Red Apple",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$4.99"
-        ),
-        CartCategory(
-            imageRes = R.drawable.banana_picture,
-            title = "Banana Pack",
-            weight = "7pcs, Price",
-            count = "1",
-            price = "$3.49"
-        ),
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$2.79"
-        ),
+    private fun buildCartUiList(): List<CartUiModel> {
+        val cartItems: List<CartItem> = AppState.cartManager.getItems()
 
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$2.79"
-        ),
+        return cartItems.mapNotNull { cartItem ->
+            val product = ProductStore.findById(cartItem.productId) ?: return@mapNotNull null
 
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$2.79"
-        ),
+            val quantityText = when (val a = cartItem.amount) {
+                is Amount.Pieces -> "${a.count} pcs"
+                is Amount.Grams -> "${a.grams} g"
+            }
 
-        CartCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            count = "1",
-            price = "$2.79"
-        )
+            val lineTotalText = when (val a = cartItem.amount) {
+                is Amount.Pieces -> {
+                    val cents = AppState.cartManager.lineTotalCents(cartItem)
+                    AppState.cartManager.formatCents(cents)
+                }
 
-    )
+                is Amount.Grams -> {
+                    val cents = AppState.cartManager.lineTotalCents(cartItem)
+                    AppState.cartManager.formatCents(cents)
+                }
+            }
+
+            CartUiModel(
+                productId = product.id,
+                title = product.title,
+                imageRes = product.imageRes,
+                weightText = product.weight,
+                quantityText = quantityText,
+                lineTotalText = lineTotalText
+            )
+        }
+    }
+
+    private fun renderCart() {
+        // 1) список
+        cartAdapter.submitList(buildCartUiList())
+
+        // 2) общий итог
+        val totalCents = AppState.cartManager.cartTotalCents()
+        binding.tvCheckoutTotal.text = AppState.cartManager.formatCents(totalCents)
+    }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,8 +65,20 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         _binding = FragmentCartBinding.bind(view)
 
+        cartAdapter = CartAdapter(
+            items = emptyList(),
+            onClickIncrease = { productId ->
+                AppState.cartManager.increase(productId)
+                renderCart()
+            },
+            onClickDecrease = { productId ->
+                AppState.cartManager.decrease(productId)
+                renderCart()
+            }
+        )
+
         binding.rvProductsCart.apply {
-            adapter = CartBannerAdapter(cartItems)
+            adapter = cartAdapter
             layoutManager = LinearLayoutManager(requireContext())
 
             if (itemDecorationCount == 0) {
@@ -118,14 +93,15 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 )
             }
         }
-
+        renderCart()
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
 }
+    }
+
+
 
 

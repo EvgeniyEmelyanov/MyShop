@@ -75,7 +75,7 @@
         tools:text="1" />
 
     <ImageButton
-        android:id="@+id/btnProductAdd"
+        android:id="@+id/btn_btnProductIncrease"
         android:layout_width="46dp"
         android:layout_height="46dp"
         android:layout_marginStart="12dp"
