@@ -1,108 +1,70 @@
 package com.example.myshop
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentFavouriteBinding
 
-class FavouriteFragment : Fragment() {
+class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
 
-    val cartItems = listOf(
-        FavouriteCategory(
-            imageRes = R.drawable.pepper_picture,
-            title = "Bell Pepper Red",
-            weight = "1kg, Price",
-            price = "$4.99"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Egg Chicken Red",
-            weight = "4pcs, Price",
-            price = "$1.99"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.banana_picture,
-            title = "Organic Bananas",
-            weight = "12kg, Price",
-            price = "$3.00"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Ginger",
-            weight = "250gm, Price",
-            price = "$2.99"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.pepper_picture,
-            title = "Red Apple",
-            weight = "1kg, Price",
-            price = "$4.99"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.banana_picture,
-            title = "Banana Pack",
-            weight = "7pcs, Price",
-            price = "$3.49"
-        ),
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            price = "$2.79"
-        ),
-
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            price = "$2.79"
-        ),
-
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            price = "$2.79"
-        ),
-
-        FavouriteCategory(
-            imageRes = R.drawable.apple_picture,
-            title = "Fresh Apple",
-            weight = "1kg, Price",
-            price = "$2.79"
-        )
-    )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_favourite, container, false)
-        return (view)
-    }
-
+    private val vm: FavouriteViewModel by viewModels()
+    private lateinit var favouriteAdapter: FavouriteAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         _binding = FragmentFavouriteBinding.bind(view)
 
+        favouriteAdapter = FavouriteAdapter(
+            items = emptyList(),
+            onClickBtnArrow = { id ->
+                val args = Bundle().apply { putString("productId", id) }
+                findNavController().navigate(
+                    R.id.action_favouriteFragment_to_productDetailFragment,
+                    args
+                )
+            }
+        )
+
         binding.rvProductsCart.apply {
-            adapter = FavouriteBannerAdapter(cartItems)
+            adapter = favouriteAdapter
             layoutManager = LinearLayoutManager(requireContext())
 
-
-
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    FavouriteDividerDecoration(
+                        context = requireContext(),
+                        colorRes = R.color.line_for_products_banner,
+                        heightPx = requireContext().dpToPx(1),
+                        insetPx = requireContext().dpToPx(25),
+                        skipLast = true
+                    )
+                )
+            }
         }
+
+        vm.state.observe(viewLifecycleOwner) { state ->
+            favouriteAdapter.submitList(state.items)
+        }
+
+        vm.load()
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.load()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

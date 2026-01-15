@@ -1,10 +1,9 @@
 package com.example.myshop
 
-data class CartUiModel(
+data class FavouriteUiModel(
     val productId: String,
     val titleText: String,
     val imageRes: Int,
     val weightText: String,
-    val quantityText: String,
-    val lineTotalText: String
+    val priceText: String
 )

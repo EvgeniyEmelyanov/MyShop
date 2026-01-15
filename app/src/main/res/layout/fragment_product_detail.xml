@@ -76,8 +76,12 @@
             android:id="@+id/btnAddToFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/ic_btn_favourite"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_btn_favourite"
+            android:padding="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@id/tvProductTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvProductTitle" />
@@ -96,12 +100,15 @@
             tools:text="Weight product" />
 
         <!-- Минус -->
-        <ImageButton
-            android:id="@+id/btn_btnProductIncrease"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnProductDecrease"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="0dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_decrease_for_btn"
             app:layout_constraintStart_toStartOf="@id/tvProductWeight"
@@ -111,27 +118,32 @@
         <TextView
             android:id="@+id/tvProductCount"
             style="@style/TextAppearance.AppCompat.NumberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:paddingHorizontal="12dp"
-            android:text="1"
-            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
-            app:layout_constraintStart_toEndOf="@id/btn_btnProductIncrease"
-            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease" />
-
-        <!-- Плюс -->
-        <ImageButton
-            android:id="@+id/btnProductDecrease"
-            android:layout_width="46dp"
+            android:layout_width="100dp"
             android:layout_height="46dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
-            android:scaleType="centerInside"
+            android:paddingHorizontal="12dp"
+            android:text="1"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductDecrease"
+            app:layout_constraintStart_toEndOf="@id/btnProductDecrease"
+            app:layout_constraintTop_toTopOf="@id/btnProductDecrease" />
+
+        <!-- Плюс -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnProductIncrease"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="0dp"
+            android:scaleType="center"
             android:src="@drawable/ic_add_for_btn_green"
-            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductDecrease"
             app:layout_constraintStart_toEndOf="@id/tvProductCount"
-            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease" />
+            app:layout_constraintTop_toTopOf="@id/btnProductDecrease" />
 
         <!-- Цена -->
         <TextView
@@ -140,9 +152,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_btnProductIncrease"
+            app:layout_constraintBottom_toBottomOf="@id/btnProductIncrease"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_btnProductIncrease"
+            app:layout_constraintTop_toTopOf="@id/btnProductIncrease"
             tools:text="$4.99" />
 
         <!-- Разделитель -->
@@ -155,7 +167,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_btnProductIncrease" />
+            app:layout_constraintTop_toBottomOf="@id/btnProductDecrease" />
 
         <!-- Заголовок секции -->
         <TextView
@@ -191,15 +203,15 @@
             style="@style/TextAppearance.AppCompat.ProductWeight.FragmentProductDetail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
+            android:paddingHorizontal="25dp"
             android:layout_marginTop="8dp"
             android:includeFontPadding="false"
-            android:visibility="gone"
             android:justificationMode="inter_word"
             android:lineSpacingExtra="4dp"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textIsSelectable="true"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProductDetailHeader"
@@ -224,7 +236,7 @@
             app:cardBackgroundColor="@color/bg_cardNutritionValue"
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvNutrition"
-            app:layout_constraintEnd_toStartOf="@+id/back_arrow"
+            app:layout_constraintEnd_toStartOf="@+id/btnBackArrow"
             app:layout_constraintTop_toTopOf="@+id/tvNutrition"
             app:layout_constraintVertical_bias="1.0"
             app:strokeWidth="0dp">
@@ -261,7 +273,7 @@
             app:layout_constraintTop_toBottomOf="parent" />
 
         <ImageButton
-            android:id="@+id/back_arrow"
+            android:id="@+id/btnBackArrow"
             android:layout_width="9dp"
             android:layout_height="14dp"
             android:layout_marginEnd="25dp"

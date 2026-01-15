@@ -11,9 +11,17 @@ class CartManager(
 
     private val itemsMap: MutableMap<String, CartItem> = LinkedHashMap()
 
+    fun getItem(productId: String): CartItem? {
+        return itemsMap[productId]
+    }
+
     fun getItems(): List<CartItem> = itemsMap.values.toList()
 
     fun clear() = itemsMap.clear()
+
+    fun removeItem(productId: String) {
+        itemsMap.remove(productId)
+    }
 
     fun addToCart(productId: String) {
         val product = ProductStore.findById(productId) ?: return

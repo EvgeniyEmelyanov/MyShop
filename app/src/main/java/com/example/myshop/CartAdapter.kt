@@ -8,7 +8,8 @@ import com.example.myshop.databinding.ItemCartBannerBinding
 class CartAdapter(
     private var items: List<CartUiModel>,
     private val onClickIncrease: (String) -> Unit,
-    private val onClickDecrease: (String) -> Unit
+    private val onClickDecrease: (String) -> Unit,
+    private val onClickDelete: (String) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.VH>() {
 
 
@@ -18,17 +19,21 @@ class CartAdapter(
         fun bind(item: CartUiModel) = with(binding) {
 
             imageView.setImageResource(item.imageRes)
-            tvProductTitle.text = item.title
+            tvProductTitle.text = item.titleText
             tvProductWeight.text = item.weightText
             tvProductCount.text = item.quantityText
             tvProductPrice.text = item.lineTotalText
 
-            btnBtnProductIncrease.setOnClickListener {
+            btnProductIncreaseItemCartBanner.setOnClickListener {
                 onClickIncrease(item.productId)
             }
 
-            btnProductDecrease.setOnClickListener {
+            btnProductDecreaseItemCartBanner.setOnClickListener {
                 onClickDecrease(item.productId)
+            }
+
+            btnDeleteItem.setOnClickListener {
+                onClickDelete (item.productId)
             }
         }
     }

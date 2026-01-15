@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="12dp">
@@ -48,12 +49,12 @@
         android:layout_height="wrap_content"
         android:paddingEnd="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductWeight"
-        app:layout_constraintEnd_toStartOf="@+id/back_arrow"
+        app:layout_constraintEnd_toStartOf="@+id/btnBackArrow"
         app:layout_constraintTop_toTopOf="@+id/tvProductTitle"
         tools:text="$4.99" />
 
     <ImageButton
-        android:id="@+id/back_arrow"
+        android:id="@+id/btnBackArrow"
         android:layout_width="9dp"
         android:layout_height="14dp"
         android:src="@drawable/ic_back_arrow"
