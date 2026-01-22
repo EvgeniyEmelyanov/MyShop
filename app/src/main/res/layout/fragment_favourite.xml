@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/textView2" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCheckout"
+        android:id="@+id/btnAddAllToCart"
         style="@style/btn_confirm_button"
         android:layout_width="0dp"
         android:layout_height="67dp"
@@ -45,7 +45,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="12dp"
         android:background="@color/line_for_products_banner"
-        app:layout_constraintBottom_toTopOf="@id/btnCheckout"
+        app:layout_constraintBottom_toTopOf="@id/btnAddAllToCart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

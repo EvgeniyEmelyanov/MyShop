@@ -1,8 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MyShop" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.MyShop" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <!-- 1) Акцентные цвета приложения -->
+        <item name="colorPrimary">@color/brand_green</item>
+        <item name="colorPrimaryVariant">@color/brand_green</item>
+        <item name="colorSecondary">@color/brand_green</item>
+
+        <!-- 2) Фон всего приложения -->
+        <item name="android:windowBackground">@color/app_background</item>
+
+        <!-- 3) Цвет статус-бара -->
+        <item name="android:statusBarColor">@color/surface_white</item>
+
+        <!-- 4) Тёмные иконки в статус-баре (чтобы на белом было видно) -->
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- 5) Цвет нижнего системного бара (где кнопки/жесты) -->
+        <item name="android:navigationBarColor">@color/surface_white</item>
+
+
     </style>
 
     <style name="Theme.MyShop" parent="Base.Theme.MyShop" />

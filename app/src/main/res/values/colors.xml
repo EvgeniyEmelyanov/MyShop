@@ -11,6 +11,11 @@
     <color name="bg_grocery_rice">#3853B175</color>
     <color name="bg_grocery_meat">#FFECEC</color>
     <color name="bg_cardNutritionValue">#EBEBEB</color>
+    
+    <color name="red_favorite">#CE1E1E</color>"
+    <color name="gray_favorite">#7C7C7C</color>
+
+
 
     <!-- Fresh Fruits & Vegetable -->
     <color name="bg_fruits">#EAF7F0</color>
@@ -44,6 +49,10 @@
 
     <color name="txt_color_for_confirm_button">#FFF9FF</color>
 
+    <color name="app_background">#F6F6F6</color>   <!-- очень светлый серый, как фон на макете -->
+    <color name="surface_white">#FFFFFF</color>     <!-- белый для карточек и панелей -->
+    <color name="brand_green">#53B175</color>       <!-- твой акцент (пример) -->
+    <color name="divider_light">#E9E9E9</color>     <!-- тонкий разделитель -->
 
 
 </resources>

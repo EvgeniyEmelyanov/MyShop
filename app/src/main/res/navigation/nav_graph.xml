@@ -21,7 +21,11 @@
         android:id="@+id/exploreFragment"
         android:name="com.example.myshop.ExploreFragment"
         android:label="Explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_productsByCategoryFragment"
+            app:destination="@id/productsByCategoryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/cartFragment"
@@ -54,6 +58,18 @@
             android:name="productId"
             app:argType="string" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/productsByCategoryFragment"
+        android:name="com.example.myshop.ProductsByCategoryFragment"
+        android:label="ProductsByCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_productsByCategoryFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
 
 </navigation>

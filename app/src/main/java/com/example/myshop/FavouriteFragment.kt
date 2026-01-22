@@ -18,6 +18,8 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
     private val vm: FavouriteViewModel by viewModels()
     private lateinit var favouriteAdapter: FavouriteAdapter
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,6 +51,10 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
                     )
                 )
             }
+        }
+
+        binding.btnAddAllToCart.setOnClickListener {
+            vm.addAllToCart()
         }
 
         vm.state.observe(viewLifecycleOwner) { state ->

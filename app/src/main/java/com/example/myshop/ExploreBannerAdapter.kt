@@ -6,12 +6,12 @@ import com.example.myshop.ExploreBanner
 import com.example.myshop.databinding.ItemExploreBannerBinding
 
 class ExploreBannerAdapter(
-    private val items: List<ExploreBanner>
-) : RecyclerView.Adapter<ExploreBannerAdapter.ExploreBannerViewHolder>() {
+    private val items: List<ExploreBanner>,
+    private val onClick: (ExploreBanner) -> Unit
+) : RecyclerView.Adapter<ExploreBannerAdapter.VH>() {
 
-    inner class ExploreBannerViewHolder(
-        private val binding: ItemExploreBannerBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(private val binding: ItemExploreBannerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ExploreBanner) = with(binding) {
             ivExploreBanner.setImageResource(item.image)
@@ -22,20 +22,21 @@ class ExploreBannerAdapter(
             )
             exploreCardRoot.strokeColor =
                 ContextCompat.getColor(itemView.context, item.strokeColorRes)
+
+            binding.root.setOnClickListener { onClick(item) }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExploreBannerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding = ItemExploreBannerBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ExploreBannerViewHolder(binding)
+        return VH(binding)
     }
 
-    override fun onBindViewHolder(holder: ExploreBannerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(items[position])
     }
 
     override fun getItemCount() = items.size
 }
-

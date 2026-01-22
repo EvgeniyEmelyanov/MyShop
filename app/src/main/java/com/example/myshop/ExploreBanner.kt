@@ -6,6 +6,7 @@ data class ExploreBanner(
     val image: Int,
     val title: String,
     @ColorRes val backgroundColorRes: Int,
-    @ColorRes val strokeColorRes: Int
+    @ColorRes val strokeColorRes: Int,
+    val category: Category
 
 )

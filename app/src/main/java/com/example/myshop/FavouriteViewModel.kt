@@ -12,6 +12,17 @@ class FavouriteViewModel : ViewModel() {
         _state.value = buildState()
     }
 
+    fun addAllToCart() {
+        val favouriteItems = AppState.favouriteManager.getAllIds()
+
+        for (id in favouriteItems) {
+            if (AppState.cartManager.getItem(id) == null) {
+                AppState.cartManager.addToCart(id)
+
+            }
+        }
+    }
+
     fun load() {
         updateState()
     }

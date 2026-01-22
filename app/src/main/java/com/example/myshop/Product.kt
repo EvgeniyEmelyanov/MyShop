@@ -8,5 +8,6 @@ data class Product(
     val imageRes: Int,
     val productDescription: String,
     val unit: ProductUnit,
-    val tags: Set<ProductTag> = emptySet()
+    val tags: Set<ProductTag> = emptySet(),
+    val category: Category
 )

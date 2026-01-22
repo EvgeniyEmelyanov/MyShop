@@ -8,7 +8,7 @@ import com.example.myshop.databinding.ItemFavouriteBannerBinding
 class FavouriteAdapter(
     private var items: List<FavouriteUiModel>,
     private val onClickBtnArrow: (String) -> Unit
-    ) : RecyclerView.Adapter<FavouriteAdapter.VH>() {
+) : RecyclerView.Adapter<FavouriteAdapter.VH>() {
     inner class VH(private val binding: ItemFavouriteBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
