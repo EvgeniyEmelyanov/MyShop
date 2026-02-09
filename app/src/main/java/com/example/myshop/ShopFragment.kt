@@ -4,15 +4,16 @@ import Banner
 import BannerAdapter
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentShopBinding
 
-class ShopFragment : Fragment(R.layout.fragment_shop) {
+class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
@@ -20,6 +21,10 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentShopBinding.bind(view)
+
+        val ivCarrot = binding.ivCarrot as ImageView
+        setInsetsForView(ivCarrot, additionalTopMarginDp = 10)
+
 
         val vp = view.findViewById<ViewPager2>(R.id.vpBanners)
 
@@ -30,6 +35,8 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
         )
 
         vp.adapter = BannerAdapter(banners)
+
+
 
         binding.rvExclusiveOffer.apply {
             adapter = ProductHorizontalAdapter(
@@ -52,6 +59,15 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    HorizontalSpaceItemDecoration(
+                        spaceWidth = requireContext().dpToPx(15),
+                    )
+                )
+            }
         }
 
         binding.rvBestSellingProducts.apply {
@@ -75,6 +91,14 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    HorizontalSpaceItemDecoration(
+                        spaceWidth = requireContext().dpToPx(15),
+                    )
+                )
+            }
         }
 
         binding.rvGroceriesProductCard.apply {
@@ -96,6 +120,14 @@ class ShopFragment : Fragment(R.layout.fragment_shop) {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    HorizontalSpaceItemDecoration(
+                        spaceWidth = requireContext().dpToPx(15),
+                    )
+                )
+            }
         }
 
 

@@ -10,7 +10,7 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentCartBinding
 
 
-class CartFragment : Fragment(R.layout.fragment_cart) {
+class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
@@ -23,6 +23,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCartBinding.bind(view)
+
+        setInsetsForFragment(binding.tvHeaderCart, additionalTopMarginDp = 10)
+
 
         cartAdapter = CartAdapter(
             items = emptyList(),

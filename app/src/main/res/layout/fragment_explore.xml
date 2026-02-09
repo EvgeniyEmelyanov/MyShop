@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="25dp"
-    android:background="@color/white"
-    >
-
+    android:layout_marginHorizontal="15dp"
+    android:background="@color/white">
 
     <TextView
 
-        android:id="@+id/textView"
+        android:id="@+id/tvHeaderExplore"
         style="@style/TextAppearance.AppCompat.TitleForPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Find Products"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,18 +25,18 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="36dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/shape_rounded_edit_text"
         android:drawableStart="@drawable/ic_vector"
         android:drawablePadding="10dp"
         android:fontFamily="@font/gilroy_semibold"
         android:hint="Search Store"
         android:paddingStart="15dp"
-        android:layout_marginBottom="20dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeaderExplore"
         tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +45,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:clipToPadding="false"
-        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

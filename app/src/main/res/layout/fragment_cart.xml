@@ -8,11 +8,10 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvHeaderCart"
         style="@style/TextAppearance.AppCompat.TitleForPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="My Cart"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,10 +23,9 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="@color/line_for_products_banner"
-        app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@id/tvHeaderCart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductsCart"
@@ -53,25 +51,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/checkoutBar"/>
 
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/btnCheckout"-->
-<!--        style="@style/btn_confirm_button"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="67dp"-->
-<!--        android:text="Go to Checkout"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/checkoutBar"
         android:layout_width="0dp"
         android:layout_height="67dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         app:cardBackgroundColor="@color/bg_btn_confirm_button"
         android:clickable="true"
         android:focusable="true"
@@ -81,8 +67,7 @@
         app:strokeWidth="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,30 +75,30 @@
 
             <TextView
                 android:id="@+id/tvCheckoutTitle"
+                style="@style/TextAppearance.Cart.CheckoutButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Go to Checkout"
-                style="@style/TextAppearance.Cart.CheckoutButtonText"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvCheckoutTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_checkout_total_badge"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
-                tools:text="$12.96"
-                android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:background="@drawable/bg_checkout_total_badge"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:text="$12.96" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -121,6 +106,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--    android:background="@drawable/bg_checkout_total_badge"-->

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentExploreBinding
 
-class ExploreFragment : Fragment(R.layout.fragment_explore) {
+class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
@@ -63,6 +63,8 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentExploreBinding.bind(view)
+
+        setInsetsForView(binding.tvHeaderExplore, additionalTopMarginDp = 10)
 
         val adapter = ExploreBannerAdapter(
             items = exploreCategories,

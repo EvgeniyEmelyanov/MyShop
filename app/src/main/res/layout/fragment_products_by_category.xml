@@ -4,32 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="25dp">
+>
+
 
     <ImageButton
         android:id="@+id/btnShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_share"
+        style="@style/Widget.App.IconButton.Filter"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle" />
+        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle"
+        app:layout_constraintVertical_bias="0.478" />
 
     <ImageButton
         android:id="@+id/btnBackToFirstFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_back_to_first_fragment"
+        style="@style/Widget.App.IconButton.Back"
+        android:layout_marginStart="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle" />
+        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle"/>
+
+
 
     <TextView
+        tools:layout_marginTop="20dp"
         android:id="@+id/tvProductGroupTitle"
-        style="@style/TextAppearance.GroceriesTitle.Fragment.Product.Detail"
+        style="@style/TextAppearance.AppCompat.TitleForPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/btnShare"
         app:layout_constraintStart_toEndOf="@+id/btnBackToFirstFragment"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,13 +42,16 @@
         android:id="@+id/rvProducts"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        android:paddingBottom="15dp"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        android:clipToPadding="false"
+        android:paddingVertical="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProductGroupTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_product_cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

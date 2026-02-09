@@ -14,7 +14,8 @@
     
     <color name="red_favorite">#CE1E1E</color>"
     <color name="gray_favorite">#7C7C7C</color>
-
+    <color name="txt_product_header">#181725</color>
+    <color name="ic_button">#181725</color>
 
 
     <!-- Fresh Fruits & Vegetable -->

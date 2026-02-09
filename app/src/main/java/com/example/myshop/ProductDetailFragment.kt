@@ -2,13 +2,11 @@ package com.example.myshop
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myshop.databinding.FragmentProductDetailBinding
 
-class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
+class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
@@ -25,6 +23,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             findNavController().popBackStack()
             return
         }
+
+        setInsetsForView(binding.clHeaderImage, additionalTopMarginDp = 0, additionalBottomMarginDp = 0)
 
         // 2) Инициализируем VM один раз
         vm.setProductId(productId)
@@ -59,12 +59,17 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         bntAddToCart.isEnabled = state.isAddEnabled
 
         // Favourite (tint)
-        val colorRes = if (state.isFavorite) R.color.red_favorite else R.color.gray_favorite
-        btnAddToFavorite.imageTintList =
-            ContextCompat.getColorStateList(requireContext(), colorRes)
+        val iconRes = if (state.isFavorite) {
+            R.drawable.ic_btn_favourite_red // Твоя закрашенная иконка
+        } else {
+            R.drawable.ic_btn_favourite // Твоя контурная иконка
+        }
+        btnAddToFavorite.setImageResource(iconRes)
 
         // Description expanded
-        tvProductDescription.visibility = if (state.isDescriptionExpanded) View.VISIBLE else View.GONE
+        tvProductDescription.visibility =
+            if (state.isDescriptionExpanded) View.VISIBLE else View.GONE
+
         btnToggleDescription.rotation = if (state.isDescriptionExpanded) 90f else 0f
     }
 

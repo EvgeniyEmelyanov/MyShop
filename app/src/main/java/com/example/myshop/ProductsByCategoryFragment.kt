@@ -2,13 +2,12 @@ package com.example.myshop
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.databinding.FragmentProductsByCategoryBinding
 import com.evgeniyemelyanov.core.ui.dpToPx
 
-class ProductsByCategoryFragment : Fragment(R.layout.fragment_products_by_category) {
+class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
     private var _binding: FragmentProductsByCategoryBinding? = null
     private val binding get() = _binding!!
@@ -26,6 +25,7 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_products_by_catego
                 return
             }
 
+        setInsetsForFragment(view, additionalTopMarginDp = 10)
 
         productsByCategoryAdapter = ProductsByCategoryAdapter(
             onRootClick = { productId ->
@@ -42,6 +42,9 @@ class ProductsByCategoryFragment : Fragment(R.layout.fragment_products_by_catego
             }
         )
 
+        binding.btnBackToFirstFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
 
         binding.rvProducts.apply {

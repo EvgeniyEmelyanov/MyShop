@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentFavouriteBinding
 
-class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
+class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
@@ -24,6 +24,9 @@ class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentFavouriteBinding.bind(view)
+
+        setInsetsForFragment(binding.tvHeaderFragment, additionalTopMarginDp = 10)
+
 
         favouriteAdapter = FavouriteAdapter(
             items = emptyList(),
