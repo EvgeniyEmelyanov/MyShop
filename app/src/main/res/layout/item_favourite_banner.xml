@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/tvProductWeight"
-        style="@style/TextAppearance.App.Card.ProductWeight"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -46,7 +46,7 @@
 
     <TextView
         android:id="@+id/tvProductPrice"
-        style="@style/TextAppearance.AppCompat.ProductPrice"
+        style="@style/TextAppearance.App.ProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Widget.App" parent="Theme.MaterialComponents" />
+
     <!--Buttons styles!-->
 
     <!-- Add button for product items in the cart -->
@@ -92,7 +94,7 @@
     </style>
 
 
-    <!-- Текстовые кастомы -->
+    <!-- Text style -->
 
     <!-- Text style for product title in card items -->
     <style name="TextAppearance.App.Card.ProductTitle" parent="Widget.AppCompat.TextView">
@@ -105,13 +107,21 @@
     </style>
 
     <!-- Text style for product weight in card items -->
-    <style name="TextAppearance.App.Card.ProductWeight" parent="Widget.AppCompat.TextView">
+    <style name="TextAppearance.App.Card.ProductWeight.Small" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/txt_price_tag_text_description</item>
         <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:letterSpacing">0</item>
         <item name="lineHeight">18sp</item>
         <item name="android:gravity">start|center_horizontal</item>
+    </style>
+
+    <style name="TextAppearance.App.ProductWeight.Large" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/txt_price_tag_text_description</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="android:gravity">start|center_horizontal</item>
+        <item name="lineHeight">21sp</item>
     </style>
 
     <!-- Text style for product price in card items and fragments -->
@@ -143,6 +153,15 @@
         <item name="android:textColor">@color/txt_product_header</item>
     </style>
 
+    <!-- Header of fragments -->
+    <style name="TextAppearance.AppCompat.ProductHeaderGroup" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="lineHeight">22sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">@color/txt_product_header</item>
+    </style>
+
 
     <!-- Text style for the shop fragment -->
     <!-- Section title text style for FragmentShop -->
@@ -170,13 +189,7 @@
         <item name="lineHeight">18sp</item>
     </style>
 
-    <style name="TextAppearance.App.ProductWeight" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/txt_price_tag_text_description</item>
-        <item name="android:fontFamily">@font/gilroy_medium</item>
-        <item name="android:gravity">start|center_horizontal</item>
-        <item name="lineHeight">21sp</item>
-    </style>
+
 
     <style name="TextAppearance.App.ProductTextDescription" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">13sp</item>

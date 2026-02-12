@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/tvProductWeight"
-        style="@style/TextAppearance.App.Card.ProductWeight"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/tvProductTitle"
@@ -69,7 +69,7 @@
 
     <TextView
         android:id="@+id/tvProductCount"
-        style="@style/TextAppearance.AppCompat.NumberPicker"
+        style="@style/TextAppearance.App.NumberPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/btnProductDecreaseItemCartBanner"
@@ -93,7 +93,7 @@
 
     <TextView
         android:id="@+id/tvProductPrice"
-        style="@style/TextAppearance.AppCompat.ProductPrice"
+        style="@style/TextAppearance.App.ProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

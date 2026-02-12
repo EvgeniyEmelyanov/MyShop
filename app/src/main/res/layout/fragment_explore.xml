@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="52dp"

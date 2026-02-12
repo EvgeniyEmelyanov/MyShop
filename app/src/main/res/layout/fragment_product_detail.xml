@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProductDetailFragment">
 
-    <!-- SCROLLABLE CONTENT -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContent"
         android:layout_width="0dp"
@@ -26,9 +25,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <!-- HEADER -->
-
-            <!-- Название -->
             <TextView
                 android:id="@+id/tvReview"
                 style="@style/TextAppearance.App.SectionHeader"
@@ -111,10 +107,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvProductTitle" />
 
-            <!-- Вес/описание -->
             <TextView
                 android:id="@+id/tvProductWeight"
-                style="@style/TextAppearance.App.ProductWeight"
+                style="@style/TextAppearance.App.ProductWeight.Large"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -124,7 +119,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tvProductTitle"
                 tools:text="Weight product" />
 
-            <!-- Минус -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnProductDecrease"
                 android:layout_width="46dp"
@@ -139,10 +133,9 @@
                 app:layout_constraintStart_toStartOf="@id/tvProductWeight"
                 app:layout_constraintTop_toBottomOf="@id/tvProductWeight" />
 
-            <!-- Кол-во -->
             <TextView
                 android:id="@+id/tvProductCount"
-                style="@style/TextAppearance.AppCompat.NumberPicker"
+                style="@style/TextAppearance.App.NumberPicker"
                 android:layout_width="100dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="12dp"
@@ -154,7 +147,6 @@
                 app:layout_constraintStart_toEndOf="@id/btnProductDecrease"
                 app:layout_constraintTop_toTopOf="@id/btnProductDecrease" />
 
-            <!-- Плюс -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnProductIncrease"
                 android:layout_width="46dp"
@@ -170,10 +162,9 @@
                 app:layout_constraintStart_toEndOf="@id/tvProductCount"
                 app:layout_constraintTop_toTopOf="@id/btnProductDecrease" />
 
-            <!-- Цена -->
             <TextView
                 android:id="@+id/tvProductPrice"
-                style="@style/TextAppearance.AppCompat.ProductPrice"
+                style="@style/TextAppearance.App.ProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -182,7 +173,6 @@
                 app:layout_constraintTop_toTopOf="@id/btnProductIncrease"
                 tools:text="$4.99" />
 
-            <!-- Разделитель -->
             <View
                 android:id="@+id/firstLine"
                 android:layout_width="0dp"
@@ -194,7 +184,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnProductDecrease" />
 
-            <!-- Заголовок секции -->
             <TextView
                 android:id="@+id/tvProductDetailHeader"
                 style="@style/TextAppearance.App.SectionHeader"
@@ -206,10 +195,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnToggleDescription" />
 
-
-            <!-- ВАЖНО: чтобы ScrollView знал, где конец контента -->
-            <!-- Добавь сюда твои дальнейшие блоки и привяжи самый нижний -->
-
             <ImageButton
                 android:id="@+id/btnToggleDescription"
                 style="@style/Widget.App.IconButton.Arrow"
@@ -219,7 +204,7 @@
 
             <TextView
                 android:id="@+id/tvProductDescription"
-                style="@style/TextAppearance.AppCompat.ProductWeight.FragmentProductDetail"
+                style="@style/TextAppearance.App.ProductWeight.Large"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -246,7 +231,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvProductDescription" />
-
 
             <TextView
                 android:id="@+id/tvNutrition"
@@ -297,7 +281,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnBackArrow" />
-
 
             <LinearLayout
                 android:id="@+id/layoutStars"
@@ -362,7 +345,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bnt_AddToCart"
