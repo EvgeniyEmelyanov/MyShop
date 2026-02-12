@@ -49,7 +49,7 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
                         context = requireContext(),
                         colorRes = R.color.line_for_products_banner,
                         heightPx = requireContext().dpToPx(1),
-                        insetPx = requireContext().dpToPx(25),
+                        insetPx = requireContext().dpToPx(15),
                         skipLast = true
                     )
                 )

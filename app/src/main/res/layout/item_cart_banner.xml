@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/tvProductTitle"
-        style="@style/TextAppearance.AppCompat.ProductTitleForCartBanner"
+        style="@style/TextAppearance.App.Card.ProductTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/tvProductWeight"
-        style="@style/bannerProductWeight"
+        style="@style/TextAppearance.App.Card.ProductWeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/tvProductTitle"
@@ -42,11 +42,13 @@
 
     <ImageButton
         android:id="@+id/btnProductDecreaseItemCartBanner"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
         android:scaleType="centerInside"
+        android:focusable="true"
+        android:clickable="true"
         android:src="@drawable/ic_decrease_for_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvProductTitle"
@@ -56,9 +58,10 @@
 
     <ImageButton
         android:id="@+id/btn_delete_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_delete_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_delete_btn"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductTitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +80,8 @@
 
     <ImageButton
         android:id="@+id/btnProductIncreaseItemCartBanner"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
         android:scaleType="centerInside"

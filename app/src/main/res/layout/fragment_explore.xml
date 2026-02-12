@@ -8,9 +8,8 @@
     android:background="@color/white">
 
     <TextView
-
         android:id="@+id/tvHeaderExplore"
-        style="@style/TextAppearance.AppCompat.TitleForPage"
+        style="@style/TextAppearance.AppCompat.PageHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tvHeaderCart"
-        style="@style/TextAppearance.AppCompat.TitleForPage"
+        style="@style/TextAppearance.AppCompat.PageHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Cart"
@@ -75,7 +75,7 @@
 
             <TextView
                 android:id="@+id/tvCheckoutTitle"
-                style="@style/TextAppearance.Cart.CheckoutButtonText"
+                style="@style/TextAppearance.ConfirmBotton.CheckoutButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

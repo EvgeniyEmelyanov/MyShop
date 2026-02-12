@@ -19,6 +19,8 @@
         <!-- 5) Цвет нижнего системного бара (где кнопки/жесты) -->
         <item name="android:navigationBarColor">@color/surface_white</item>
 
+        <item name="android:colorControlHighlight">#0CDBD8D8</item>
+
 
     </style>
 
