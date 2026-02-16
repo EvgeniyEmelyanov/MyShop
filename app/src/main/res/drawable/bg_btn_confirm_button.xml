@@ -4,6 +4,6 @@
 
     <corners android:radius="19dp" />
 
-    <solid android:color="@color/bg_btn_confirm_button" />
+    <solid android:color="@color/button_primary_bg" />
 
 </shape>

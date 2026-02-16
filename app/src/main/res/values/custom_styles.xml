@@ -34,17 +34,17 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/txt_color_for_confirm_button</item>
+        <item name="android:textColor">@color/button_primary_text</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="cornerRadius">19dp</item>
-        <item name="backgroundTint">@color/bg_btn_confirm_button</item>
+        <item name="backgroundTint">@color/button_primary_bg</item>
     </style>
 
     <!-- Text style for the confirm button -->
     <style name="TextAppearance.ConfirmBotton.CheckoutButtonText" parent="Widget.AppCompat.TextView">
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/txt_color_for_confirm_button</item>
+        <item name="android:textColor">@color/button_primary_text</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
     </style>
@@ -99,7 +99,7 @@
     <!-- Text style for product title in card items -->
     <style name="TextAppearance.App.Card.ProductTitle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_bold</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="lineHeight">18sp</item>
@@ -109,7 +109,7 @@
     <!-- Text style for product weight in card items -->
     <style name="TextAppearance.App.Card.ProductWeight.Small" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/txt_price_tag_text_description</item>
+        <item name="android:textColor">@color/text_secondary</item>
         <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:letterSpacing">0</item>
         <item name="lineHeight">18sp</item>
@@ -118,7 +118,7 @@
 
     <style name="TextAppearance.App.ProductWeight.Large" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/txt_price_tag_text_description</item>
+        <item name="android:textColor">@color/text_secondary</item>
         <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:gravity">start|center_horizontal</item>
         <item name="lineHeight">21sp</item>
@@ -127,7 +127,7 @@
     <!-- Text style for product price in card items and fragments -->
     <style name="TextAppearance.App.ProductPrice" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="android:gravity">start|center_horizontal</item>
@@ -138,7 +138,7 @@
     <!-- Count of products in card items and the FragmentProductDetail -->
     <style name="TextAppearance.App.NumberPicker" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="lineHeight">18sp</item>
@@ -150,7 +150,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="lineHeight">18sp</item>
-        <item name="android:textColor">@color/txt_product_header</item>
+        <item name="android:textColor">@color/text_primary</item>
     </style>
 
     <!-- Header of fragments -->
@@ -159,7 +159,30 @@
         <item name="android:fontFamily">@font/gilroy_bold</item>
         <item name="lineHeight">22sp</item>
         <item name="android:letterSpacing">0.01</item>
-        <item name="android:textColor">@color/txt_product_header</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- User name in FragmentAccount -->
+    <style name="TextAppearance.UserName" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- User email in FragmentAccount -->
+    <style name="TextAppearance.UserEmail" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Section title text style for FragmentExplore -->
+    <style name="TextAppearance.Settings.SectionTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
     </style>
 
 
@@ -167,7 +190,7 @@
     <!-- Section title text style for FragmentShop -->
     <style name="TextAppearance.SectionTitle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:gravity">center|start</item>
     </style>
@@ -176,7 +199,7 @@
     <style name="TextAppearance.Card.HeaderOfGroceries" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
-        <item name="android:textColor">@color/title_for_item_groceries</item>
+        <item name="android:textColor">@color/text_groceries_cart_title</item>
     </style>
 
 
@@ -184,16 +207,14 @@
     <style name="TextAppearance.ProductName" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/gilroy_bold</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="lineHeight">18sp</item>
     </style>
 
-
-
     <style name="TextAppearance.App.ProductTextDescription" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="android:gravity">start|center_horizontal</item>
@@ -203,10 +224,19 @@
 
     <style name="TextAppearance.App.SectionHeader" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/txt_product_name_price_description</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:gravity">start|center_horizontal</item>
         <item name="lineHeight">18sp</item>
+    </style>
+
+    <!-- Radius style for rounded corners -->
+    <style name="RoundedStyle">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.OvalImage" parent="">
+        <item name="cornerSize">27dp</item>
     </style>
 
 

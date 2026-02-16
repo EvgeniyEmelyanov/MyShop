@@ -1,7 +1,6 @@
 package com.example.myshop
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -42,7 +41,7 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
                 addItemDecoration(
                     CartDividerDecoration(
                         context = requireContext(),
-                        colorRes = R.color.line_for_products_banner,
+                        colorRes = R.color.divider,
                         heightPx = requireContext().dpToPx(1),
                         insetPx = requireContext().dpToPx(25),
                         skipLast = true

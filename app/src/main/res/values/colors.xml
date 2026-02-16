@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="txt_price_tag_text_description">#7C7C7C</color>
-    <color name="txt_product_name_price_description">#181725</color>
-    <color name="txt_botton_add_goods">#53B175</color>
-    <color name="line_for_products_banner">#E2E2E2</color>
-    <color name="title_for_item_groceries">#3E423F</color>
-    <color name="bg_grocery_pulses">#33F8A44C</color>
-    <color name="bg_grocery_rice">#3853B175</color>
-    <color name="bg_grocery_meat">#FFECEC</color>
-    <color name="bg_cardNutritionValue">#EBEBEB</color>
-    
-    <color name="red_favorite">#CE1E1E</color>"
-    <color name="gray_favorite">#7C7C7C</color>
-    <color name="txt_product_header">#181725</color>
-    <color name="ic_button">#181725</color>
+
+    <!-- Text Colors (цвета для текста) -->
+    <color name="text_primary">#181725</color>
+    <color name="text_secondary">#7C7C7C</color>
+    <color name="text_tertiary">#53B175</color>
+    <color name="text_banner_title">#030303</color>
+    <color name="text_groceries_cart_title">#3E423F</color>
 
 
+    <!-- Button Colors (цвета для кнопок) -->
+    <color name="button_primary_text">#FFF9FF</color> <!-- Зеленая кнопка добавления товара -->
+    <color name="button_primary_bg">#53B175</color> <!-- Зеленый фон для кнопки подтверждения -->
+
+
+    <!-- Border Colors (цвета для границ) -->
+    <color name="divider">#E2E2E2</color>
+
+
+    <!-- Specific Elements (специфичные элементы) -->
+    <color name="background_cardNutritionValue">#EBEBEB</color>
+
+
+    <!-- Category Specific Colors (Цвета для категорий товаров) -->
     <!-- Fresh Fruits & Vegetable -->
     <color name="bg_fruits">#EAF7F0</color>
     <color name="stroke_fruits">#53B175</color>
@@ -43,18 +48,17 @@
     <color name="stroke_beverages">#4FC3F7</color>
     <color name="stroke_btn_cart_banner">#F0F0F0</color>
 
-    <color name="green_53B175">#53B175</color>
+    <!-- Background for Categories -->
+    <color name="bg_grocery_pulses">#33F8A44C</color>  <!-- Фон для категорий бобовых -->
+    <color name="bg_grocery_rice">#3853B175</color>  <!-- Фон для категорий риса -->
+    <color name="bg_grocery_meat">#FFECEC</color>  <!-- Фон для категорий мяса -->
 
 
-    <color name="bg_btn_confirm_button">#53B175</color>
-
-    <color name="txt_color_for_confirm_button">#FFF9FF</color>
-
+    <!-- Theme colors -->
+    <color name="white">#FFFFFFFF</color>
     <color name="app_background">#F6F6F6</color>   <!-- очень светлый серый, как фон на макете -->
     <color name="surface_white">#FFFFFF</color>     <!-- белый для карточек и панелей -->
     <color name="brand_green">#53B175</color>       <!-- твой акцент (пример) -->
-    <color name="divider_light">#E9E9E9</color>     <!-- тонкий разделитель -->
-
 
 </resources>
 

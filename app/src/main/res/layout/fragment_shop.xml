@@ -48,11 +48,9 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpBanners"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="15dp"
-            android:background="@drawable/shape_rounded_banner"
-            tools:layout_height="116dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            tools:layout_height="110dp"
             tools:listitem="@layout/item_banner">
 
         </androidx.viewpager2.widget.ViewPager2>
@@ -73,7 +71,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:gravity="center|end"
                 android:text="See all"
-                android:textColor="#53B175"
+                android:textColor="@color/text_tertiary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +121,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:gravity="center|end"
                 android:text="See all"
-                android:textColor="#53B175"
+                android:textColor="@color/text_tertiary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +170,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:gravity="center|end"
                 android:text="See all"
-                android:textColor="#53B175"
+                android:textColor="@color/text_tertiary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

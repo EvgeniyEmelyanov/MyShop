@@ -12,7 +12,7 @@
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="17dp" />
-            <solid android:color="@color/txt_botton_add_goods" />
+            <solid android:color="@color/button_primary_bg" />
             <size android:width="48dp" android:height="48dp" />
         </shape>
     </item>
