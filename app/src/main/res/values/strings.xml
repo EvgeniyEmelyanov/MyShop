@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyShop\n</string>
+    <string name="fresh_vegetables">Fresh Vegetables</string>
+
+
+    <!-- Account fragment -->
+    <string name="order">Order</string>
+    <string name="my_details">My Details</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="promo_code">Promo Code</string>
+    <string name="notifications">Notifications</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="log_out">Log Out</string>
+
+
+</resources>

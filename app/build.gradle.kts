@@ -61,5 +61,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.github.EvgeniyEmelyanov:MyAndroidCore:0.1.1")
+    implementation(libs.myandroidcore)
+    implementation(libs.ucrop)
 }

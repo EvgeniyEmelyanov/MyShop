@@ -5,9 +5,6 @@ object ProductStore {
 
     val allProducts = listOf(
 
-        // =========================
-        // FRUITS & VEGETABLES (18+)
-        // =========================
         Product(
             id = "001_red_apple",
             title = "Red Apple",
