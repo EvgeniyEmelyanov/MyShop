@@ -45,7 +45,6 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         setupAccountMenu()
 
     }
-    ///что-то пипа поменял.
 
     private fun setupAccountMenu() {
         accountMenuAdapter = AccountMenuAdapter { id ->
