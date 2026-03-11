@@ -1,4 +1,4 @@
-package com.example.myshop.features.productDetail
+package com.example.myshop.features.productdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +15,7 @@ import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
+import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 
 
 class ProductDetailViewModel(
@@ -29,7 +30,8 @@ class ProductDetailViewModel(
     private val moneyFormatter: MoneyFormatter,
     private val linePriceCalculator: LinePriceCalculator,
     private val imageKeyResolver: ImageKeyResolver,
-    private val isFavouriteUseCase: IsFavouriteUseCase
+    private val isFavouriteUseCase: IsFavouriteUseCase,
+    private val toggleFavouriteUseCase: ToggleFavouriteUseCase
 ) : ViewModel() {
 
     private var productId: String? = null
@@ -42,6 +44,12 @@ class ProductDetailViewModel(
     fun setProductId(id: String) {
         if (productId != null && productId != id) return
         productId = id
+        load()
+    }
+
+    fun onAddToFavorite() {
+        val id = productId ?: return
+        toggleFavouriteUseCase.toggle(id)
         load()
     }
 

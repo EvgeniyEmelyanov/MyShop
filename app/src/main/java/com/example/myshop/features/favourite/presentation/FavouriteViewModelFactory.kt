@@ -15,7 +15,6 @@ class FavouriteViewModelFactory : ViewModelProvider.Factory {
                 addToFavouriteUseCase = AppGraph.addToFavouriteUseCase,
                 removeFromFavouriteUseCase = AppGraph.removeFromFavouriteUseCase,
                 clearFavouriteUseCase = AppGraph.clearFavouriteUseCase,
-                isFavouriteUseCase = AppGraph.isFavouriteUseCase,
                 toggleFavouriteUseCase = AppGraph.toggleFavouriteUseCase,
                 imageKeyResolver = AppGraph.imageKeyResolver,
                 moneyFormatter = AppGraph.moneyFormatter

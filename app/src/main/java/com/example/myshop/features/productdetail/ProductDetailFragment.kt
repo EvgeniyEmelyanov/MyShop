@@ -1,4 +1,4 @@
-package com.example.myshop.features.productDetail
+package com.example.myshop.features.productdetail
 
 import android.os.Bundle
 import android.view.View
@@ -40,7 +40,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         // 4) Лисенеры вешаем ОДИН раз
         binding.btnToggleDescription.setOnClickListener { vm.onToggleDescription() }
         binding.bntAddToCart.setOnClickListener { vm.onAddToCart() }
-//        binding.btnAddToFavorite.setOnClickListener { vm.onAddToFavorite() }
+        binding.btnAddToFavorite.setOnClickListener { vm.onAddToFavorite() }
         binding.btnProductIncrease.setOnClickListener { vm.onPlus() }
         binding.btnProductDecrease.setOnClickListener { vm.onMinus() }
         binding.btnBackToFirstFragment.setOnClickListener { findNavController().popBackStack() }

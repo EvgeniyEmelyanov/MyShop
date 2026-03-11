@@ -20,10 +20,10 @@ class FavouriteViewModel(
     private val addToFavouriteUseCase: AddToFavouriteUseCase,
     private val removeFromFavouriteUseCase: RemoveFromFavouriteUseCase,
     private val clearFavouriteUseCase: ClearFavouriteUseCase,
-    private val isFavouriteUseCase: IsFavouriteUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
     private val imageKeyResolver: ImageKeyResolver,
-    private val moneyFormatter: MoneyFormatter
+    private val moneyFormatter: MoneyFormatter,
+
 ) : ViewModel() {
 
     private val _state = MutableLiveData(FavouriteUiState())
@@ -33,16 +33,13 @@ class FavouriteViewModel(
         _state.value = buildState()
     }
 
-//    fun addAllToCart() {
-//        val favouriteItems = AppState.getAllIds()
-//
-//        for (id in favouriteItems) {
-//            if (AppState.getItem(id) == null) {
-//                AppState.addToCart(id)
-//
-//            }
-//        }
-//    }
+
+    fun onAddToFavourite(productId: String) {
+        addToFavouriteUseCase.addToFavourite(productId)
+        load()
+    }
+
+
 
     fun onAdd(productId: String) {
         addToFavouriteUseCase.addToFavourite(productId)

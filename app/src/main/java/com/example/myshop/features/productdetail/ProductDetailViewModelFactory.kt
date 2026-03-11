@@ -1,4 +1,4 @@
-package com.example.myshop.features.productDetail
+package com.example.myshop.features.productdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +20,8 @@ class ProductDetailViewModelFactory : ViewModelProvider.Factory {
                 moneyFormatter = AppGraph.moneyFormatter,
                 linePriceCalculator = AppGraph.linePriceCalculator,
                 imageKeyResolver = AppGraph.imageKeyResolver,
-                isFavouriteUseCase = AppGraph.isFavouriteUseCase
+                isFavouriteUseCase = AppGraph.isFavouriteUseCase,
+                toggleFavouriteUseCase = AppGraph.toggleFavouriteUseCase
             ) as T
         }
         error("Unknown VM: ${modelClass.name}")
