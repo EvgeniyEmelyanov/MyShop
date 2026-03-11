@@ -2,11 +2,8 @@ package com.example.myshop.data.cart.repository
 
 import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.cart.model.Amount.*
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.model.CartItem
-import com.example.myshop.domain.cart.model.Currency
-import com.example.myshop.domain.cart.model.Money
 
 class CartRepositoryImpl : CartRepository {
 
@@ -17,10 +14,10 @@ class CartRepositoryImpl : CartRepository {
         val items = cartList.map { (productId, amount) ->
             CartItem(productId, amount)
         }
-        return Cart(items, Money(0, Currency.BYN))
+        return Cart(items)
     }
 
-    override fun addProduct(
+    override fun addToCart(
         productId: String,
         amount: Amount
     ) {

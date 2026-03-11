@@ -7,14 +7,13 @@ interface CartRepository {
 
     fun getCart(): Cart
 
-    fun addProduct(productId: String, amount: Amount)
+    fun addToCart(productId: String, amount: Amount)
 
     fun removeProduct(productId: String)
 
     fun clearProducts()
 
     fun setAmount(productId: String, amount: Amount)
-
 
 
 }
