@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.evgeniyemelyanov.core.ui.dpToPx
-import com.example.myshop.Category
+import com.example.myshop.data.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration

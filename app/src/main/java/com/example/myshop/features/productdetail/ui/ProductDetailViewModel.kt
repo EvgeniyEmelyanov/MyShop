@@ -1,4 +1,4 @@
-package com.example.myshop.features.productdetail
+package com.example.myshop.features.productdetail.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +21,7 @@ import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 class ProductDetailViewModel(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val getCartUseCase: GetCartUseCase,
-    private val addProductUseCase: AddProductUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase,
     private val setAmountUseCase: SetAmountUseCase,
     private val increaseAmountUseCase: IncreaseAmountUseCase,
     private val decreaseAmountUseCase: DecreaseAmountUseCase,
@@ -108,7 +108,7 @@ class ProductDetailViewModel(
         // если товара ещё не было - просто add
         val inCart = getCartUseCase.getCart().items.any { it.productId == id }
         if (!inCart) {
-            addProductUseCase.addProduct(id, preview)
+            addProductToCartUseCase.addProduct(id, preview)
         } else {
             setAmountUseCase.setAmount(id, preview)
         }

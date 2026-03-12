@@ -1,4 +1,4 @@
-package com.example.myshop.features.productdetail
+package com.example.myshop.features.productdetail.ui
 
 data class ProductDetailUiState(
     val id: String,

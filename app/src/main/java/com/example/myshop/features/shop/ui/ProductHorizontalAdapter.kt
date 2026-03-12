@@ -3,7 +3,7 @@ package com.example.myshop.features.shop.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.Product
+import com.example.myshop.data.product.model.Product
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.databinding.ItemProductCartBinding
 

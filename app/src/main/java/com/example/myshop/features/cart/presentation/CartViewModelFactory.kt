@@ -12,7 +12,7 @@ class CartViewModelFactory : ViewModelProvider.Factory {
             return CartViewModel(
                 getProductByIdUseCase = AppGraph.getProductByIdUseCase,
                 getCartUseCase = AppGraph.getCartUseCase,
-                addProductUseCase = AppGraph.addProductUseCase,
+                addProductToCartUseCase = AppGraph.addProductToCartUseCase,
                 setAmountUseCase = AppGraph.setAmountUseCase,
                 removeProductUseCase = AppGraph.removeProductUseCase,
                 clearProductsUseCase = AppGraph.clearProductsUseCase,

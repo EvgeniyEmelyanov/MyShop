@@ -1,4 +1,4 @@
-package com.example.myshop.features.productdetail
+package com.example.myshop.features.productdetail.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +11,7 @@ class ProductDetailViewModelFactory : ViewModelProvider.Factory {
             return ProductDetailViewModel(
                 getProductByIdUseCase = AppGraph.getProductByIdUseCase,
                 getCartUseCase = AppGraph.getCartUseCase,
-                addProductUseCase = AppGraph.addProductUseCase,
+                addProductToCartUseCase = AppGraph.addProductToCartUseCase,
                 setAmountUseCase = AppGraph.setAmountUseCase,
                 increaseAmountUseCase = AppGraph.increaseAmountUseCase,
                 decreaseAmountUseCase = AppGraph.decreaseAmountUseCase,

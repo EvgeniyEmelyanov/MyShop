@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.Product
+import com.example.myshop.data.product.model.Product
 import com.example.myshop.databinding.ItemProductCartForProdByCategBinding
 import com.example.myshop.core.ui.image.ImageKeyResolver
 

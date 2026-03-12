@@ -1,4 +1,4 @@
-package com.example.myshop.features.productdetail
+package com.example.myshop.features.productdetail.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentProductDetailBinding
+import com.example.myshop.features.productdetail.ui.ProductDetailUiState
+import com.example.myshop.features.productdetail.ui.ProductDetailViewModel
+import com.example.myshop.features.productdetail.ui.ProductDetailViewModelFactory
 
 class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
@@ -29,7 +32,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
         setInsetsForView(binding.clHeaderImage, additionalTopMarginDp = 0, additionalBottomMarginDp = 0)
 
-        // 2) Инициализируем VM один раз
+        // 2) Инициализируем VM
         vm.setProductId(productId)
 
         // 3) Подписка на state
@@ -37,7 +40,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
             render(state)
         }
 
-        // 4) Лисенеры вешаем ОДИН раз
+        // 4) Лисенеры
         binding.btnToggleDescription.setOnClickListener { vm.onToggleDescription() }
         binding.bntAddToCart.setOnClickListener { vm.onAddToCart() }
         binding.btnAddToFavorite.setOnClickListener { vm.onAddToFavorite() }
@@ -57,18 +60,17 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         tvProductCount.text = state.countText
         tvProductPrice.text = state.price
 
-
-
         // Add button
         bntAddToCart.text = state.addButtonText
         bntAddToCart.isEnabled = state.isAddEnabled
 
         // Favourite (tint)
         val iconRes = if (state.isFavorite) {
-            R.drawable.ic_btn_favourite_red // Твоя закрашенная иконка
+            R.drawable.ic_btn_favourite_red // Закрашенная иконка
         } else {
-            R.drawable.ic_btn_favourite // Твоя контурная иконка
+            R.drawable.ic_btn_favourite // Контурная иконка
         }
+
         btnAddToFavorite.setImageResource(iconRes)
 
         // Description expanded

@@ -1,6 +1,6 @@
 package com.example.myshop.data.product.repository
 
-import com.example.myshop.ProductUnit
+import com.example.myshop.data.product.model.ProductUnit
 import com.example.myshop.data.product.mapper.ProductPricingMapper
 import com.example.myshop.data.product.datasource.ProductStore
 import com.example.myshop.domain.common.Money

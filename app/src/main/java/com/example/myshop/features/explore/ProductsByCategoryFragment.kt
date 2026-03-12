@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.databinding.FragmentProductsByCategoryBinding
 import com.evgeniyemelyanov.core.ui.dpToPx
-import com.example.myshop.Category
+import com.example.myshop.data.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
@@ -51,7 +51,7 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
                     AmountType.PIECE -> Amount.Piece(1)
                     AmountType.WEIGHT -> Amount.Grams(1000)
                 }
-                AppGraph.addProductUseCase.addProduct(productId, start)
+                AppGraph.addProductToCartUseCase.addProduct(productId, start)
             }
         )
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.service.LinePriceCalculator
-import com.example.myshop.domain.cart.usecase.AddProductUseCase
+import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
@@ -23,7 +23,7 @@ class CartViewModel(
     private val imageKeyResolver: ImageKeyResolver,
     private val getCartUseCase: GetCartUseCase,
     private val quantityFormatter: QuantityFormatter,
-    private val addProductUseCase: AddProductUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase,
     private val setAmountUseCase: SetAmountUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
     private val clearProductsUseCase: ClearProductsUseCase,
@@ -43,7 +43,7 @@ class CartViewModel(
     }
 
     fun addProduct(productId: String, amount: Amount) {
-        addProductUseCase.addProduct(productId, amount)
+        addProductToCartUseCase.addProduct(productId, amount)
         load()
     }
 

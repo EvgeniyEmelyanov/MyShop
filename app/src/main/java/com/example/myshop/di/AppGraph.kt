@@ -4,7 +4,7 @@ import com.example.myshop.data.cart.repository.CartRepositoryImpl
 import com.example.myshop.data.product.repository.ProductRepositoryImpl
 import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.service.LinePriceCalculator
-import com.example.myshop.domain.cart.usecase.AddProductUseCase
+import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
@@ -41,7 +41,7 @@ object AppGraph {
     //Cart
     val cartRepository: CartRepository = CartRepositoryImpl()
     val getCartUseCase = GetCartUseCase(cartRepository)
-    val addProductUseCase = AddProductUseCase(cartRepository)
+    val addProductToCartUseCase = AddProductToCartUseCase(cartRepository)
     val setAmountUseCase = SetAmountUseCase(cartRepository)
     val removeProductUseCase = RemoveProductUseCase(cartRepository)
     val clearProductsUseCase = ClearProductsUseCase(cartRepository)

@@ -1,11 +1,11 @@
 package com.example.myshop.features.shop.ui
 
 import com.example.myshop.features.shop.model.Banner
-import com.example.myshop.features.shop.ui.BannerAdapter
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,17 +14,19 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.features.shop.model.GroceriesCategory
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
-import com.example.myshop.features.shop.ui.HorizontalSpaceItemDecoration
 import com.example.myshop.data.product.datasource.ProductStore
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.di.AppGraph
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.product.model.AmountType
-import com.example.myshop.features.shop.model.GroceriesAdapter
+import com.example.myshop.features.shop.model.ShopViewModel
+import com.example.myshop.features.shop.model.ShopViewModelFactory
 
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
+
+    private val vm: ShopViewModel by viewModels { ShopViewModelFactory() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +66,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
                         AmountType.PIECE -> Amount.Piece(1)
                         AmountType.WEIGHT -> Amount.Grams(1000)
                     }
-                    AppGraph.addProductUseCase.addProduct(productId, start)
+                    AppGraph.addProductToCartUseCase.addProduct(productId, start)
                 }
             )
 
@@ -101,7 +103,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
                         AmountType.PIECE -> Amount.Piece(1)
                         AmountType.WEIGHT -> Amount.Grams(1000)
                     }
-                    AppGraph.addProductUseCase.addProduct(productId, start)
+                    AppGraph.addProductToCartUseCase.addProduct(productId, start)
                 }
             )
 
@@ -137,7 +139,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
                         AmountType.PIECE -> Amount.Piece(1)
                         AmountType.WEIGHT -> Amount.Grams(1000)
                     }
-                    AppGraph.addProductUseCase.addProduct(productId, start) }
+                    AppGraph.addProductToCartUseCase.addProduct(productId, start) }
             )
 
             layoutManager = LinearLayoutManager(

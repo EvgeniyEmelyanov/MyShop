@@ -1,4 +1,4 @@
-package com.example.myshop
+package com.example.myshop.data.product.model
 
 
 data class Product(
