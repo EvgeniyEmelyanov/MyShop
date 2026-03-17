@@ -1,5 +1,8 @@
 package com.example.myshop.data.product.model
 
+import com.example.myshop.domain.product.model.Category
+import com.example.myshop.domain.product.model.ProductTag
+
 
 data class Product(
     val id: String,
@@ -11,4 +14,5 @@ data class Product(
     val unit: ProductUnit,
     val tags: Set<ProductTag> = emptySet(),
     val category: Category
+
 )

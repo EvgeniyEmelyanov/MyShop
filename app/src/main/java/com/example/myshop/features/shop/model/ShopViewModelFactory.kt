@@ -10,9 +10,11 @@ class ShopViewModelFactory: ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ShopViewModel::class.java)) {
             return ShopViewModel(
-                getProductByIdUseCase = AppGraph.getProductByIdUseCase,
-                getCartUseCase = AppGraph.getCartUseCase,
-                addProductToCartUseCase = AppGraph.addProductToCartUseCase
+                getAllProductsUseCase = AppGraph.getAllProductsUseCase,
+                addProductUseCase = AppGraph.addProductToCartUseCase,
+                moneyFormatter = AppGraph.moneyFormatter,
+                imageKeyResolver = AppGraph.imageKeyResolver,
+                getCartUseCase = AppGraph.getCartUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

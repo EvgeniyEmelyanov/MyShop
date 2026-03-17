@@ -10,5 +10,6 @@ data class Product(
     val imageKey: String,
     val price: Money,
     val amountType: AmountType,
-    val pricingUnit: PricingUnit
+    val pricingUnit: PricingUnit,
+    val tags: Set <ProductTag>
 )

@@ -25,12 +25,15 @@ import com.example.myshop.domain.favourite.usecase.GetFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.RemoveFromFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
+import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 
 object AppGraph {
 
     //Product
     val productRepository: ProductRepository = ProductRepositoryImpl()
     val getProductByIdUseCase = GetProductByIdUseCase(productRepository)
+    val getAllProductsUseCase = GetAllProductsUseCase(productRepository)
+
 
     //Formatters
     val imageKeyResolver = ImageKeyResolver

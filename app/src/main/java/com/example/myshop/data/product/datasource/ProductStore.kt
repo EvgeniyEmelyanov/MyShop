@@ -1,8 +1,8 @@
 package com.example.myshop.data.product.datasource
 
-import com.example.myshop.data.product.model.Category
+import com.example.myshop.domain.product.model.Category
 import com.example.myshop.data.product.model.Product
-import com.example.myshop.data.product.model.ProductTag
+import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.data.product.model.ProductUnit
 
 object ProductStore {

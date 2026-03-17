@@ -1,4 +1,4 @@
-package com.example.myshop.data.product.model
+package com.example.myshop.domain.product.model
 
 enum class Category(val displayName: String) {
 

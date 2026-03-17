@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.R
-import com.example.myshop.features.shop.model.Banner
+import com.example.myshop.features.shop.model.BannerUiModel
 
 class BannerAdapter(
-    private val items: List<Banner>
+    private var items: List<BannerUiModel>
 ) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -30,4 +30,11 @@ class BannerAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun submitList(newItems: List<BannerUiModel>) {
+        items = newItems
+        notifyDataSetChanged()
+
+    }
+
 }

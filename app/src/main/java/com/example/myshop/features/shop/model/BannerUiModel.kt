@@ -1,6 +1,6 @@
 package com.example.myshop.features.shop.model
 
-data class Banner(
+data class BannerUiModel(
     val title: String,
     val subtitle: String
 )

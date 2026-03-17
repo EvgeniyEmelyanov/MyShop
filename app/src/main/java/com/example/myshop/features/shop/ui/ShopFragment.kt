@@ -1,32 +1,34 @@
 package com.example.myshop.features.shop.ui
 
-import com.example.myshop.features.shop.model.Banner
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import androidx.navigation.fragment.findNavController
 import com.evgeniyemelyanov.core.ui.dpToPx
-import com.example.myshop.features.shop.model.GroceriesCategory
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
-import com.example.myshop.data.product.datasource.ProductStore
 import com.example.myshop.databinding.FragmentShopBinding
-import com.example.myshop.di.AppGraph
-import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.features.shop.model.ShopUiState
 import com.example.myshop.features.shop.model.ShopViewModel
 import com.example.myshop.features.shop.model.ShopViewModelFactory
 
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
+
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
     private val vm: ShopViewModel by viewModels { ShopViewModelFactory() }
+
+    private lateinit var bannerAdapter: BannerAdapter
+    private lateinit var exclusiveAdapter: ProductHorizontalAdapter
+    private lateinit var bestSellingAdapter: ProductHorizontalAdapter
+    private lateinit var groceriesProductsAdapter: ProductHorizontalAdapter
+    private lateinit var groceriesAdapter: GroceriesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,77 +38,40 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         val ivCarrot = binding.ivCarrot as ImageView
         setInsetsForView(ivCarrot, additionalTopMarginDp = 10)
 
+        setupAdapters()
+        setupLists()
+        observeState()
 
-        val vp = view.findViewById<ViewPager2>(R.id.vpBanners)
+        vm.load()
+    }
 
-        val banners = listOf(
-            Banner("Fresh Vegetables", "Get Up To 40% OFF"),
-            Banner("Hot Deals", "Only Today"),
-            Banner("Mega Sale", "Up to 70% OFF")
+    private fun setupAdapters() {
+        bannerAdapter = BannerAdapter(emptyList())
+
+        exclusiveAdapter = ProductHorizontalAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
         )
 
-        vp.adapter = BannerAdapter(banners)
+        bestSellingAdapter = ProductHorizontalAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+        )
 
+        groceriesProductsAdapter = ProductHorizontalAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+        )
 
+        groceriesAdapter = GroceriesAdapter(emptyList())
+    }
 
-        binding.rvExclusiveOffer.apply {
-            adapter = ProductHorizontalAdapter(
-                ProductStore.exclusiveOffers(),
+    private fun setupLists() = with(binding) {
+        val vp = root.findViewById<ViewPager2>(R.id.vpBanners)
+        vp.adapter = bannerAdapter
 
-                onRootClick = { productId ->
-                    findNavController().navigate(
-                        R.id.action_shopFragment_to_productDetailFragment,
-                        bundleOf("productId" to productId)
-                    )
-
-                },
-                onAddBtnClick = { productId ->
-                    val p = AppGraph.getProductByIdUseCase.getById(productId) ?: return@ProductHorizontalAdapter
-                    val start = when (p.amountType) {
-                        AmountType.PIECE -> Amount.Piece(1)
-                        AmountType.WEIGHT -> Amount.Grams(1000)
-                    }
-                    AppGraph.addProductToCartUseCase.addProduct(productId, start)
-                }
-            )
-
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-
-
-            if (itemDecorationCount == 0) {
-                addItemDecoration(
-                    HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15),
-                    )
-                )
-            }
-        }
-
-        binding.rvBestSellingProducts.apply {
-            adapter = ProductHorizontalAdapter(
-                ProductStore.bestSelling(),
-
-                onRootClick = { productId ->
-                    findNavController().navigate(
-                        R.id.action_shopFragment_to_productDetailFragment,
-                        bundleOf("productId" to productId)
-                    )
-
-                },
-                onAddBtnClick = { productId ->
-                    val p = AppGraph.getProductByIdUseCase.getById(productId) ?: return@ProductHorizontalAdapter
-                    val start = when (p.amountType) {
-                        AmountType.PIECE -> Amount.Piece(1)
-                        AmountType.WEIGHT -> Amount.Grams(1000)
-                    }
-                    AppGraph.addProductToCartUseCase.addProduct(productId, start)
-                }
-            )
-
+        rvExclusiveOffer.apply {
+            adapter = exclusiveAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
@@ -116,32 +81,14 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
             if (itemDecorationCount == 0) {
                 addItemDecoration(
                     HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15),
+                        spaceWidth = requireContext().dpToPx(15)
                     )
                 )
             }
         }
 
-        binding.rvGroceriesProductCard.apply {
-            adapter = ProductHorizontalAdapter(
-                ProductStore.groceriesProduct(),
-
-                onRootClick = { productId ->
-                    findNavController().navigate(
-                        R.id.action_shopFragment_to_productDetailFragment,
-                        bundleOf("productId" to productId)
-                    )
-
-                },
-                onAddBtnClick = {
-                    productId -> val p = AppGraph.getProductByIdUseCase.getById(productId) ?: return@ProductHorizontalAdapter
-                    val start = when (p.amountType) {
-                        AmountType.PIECE -> Amount.Piece(1)
-                        AmountType.WEIGHT -> Amount.Grams(1000)
-                    }
-                    AppGraph.addProductToCartUseCase.addProduct(productId, start) }
-            )
-
+        rvBestSellingProducts.apply {
+            adapter = bestSellingAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
@@ -151,41 +98,69 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
             if (itemDecorationCount == 0) {
                 addItemDecoration(
                     HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15),
+                        spaceWidth = requireContext().dpToPx(15)
                     )
                 )
             }
         }
 
-
-        val groceries = listOf(
-            GroceriesCategory(
-                title = "Pulses",
-                imageRes = R.drawable.pulses_picture,
-                backgroundColorRes = R.color.bg_grocery_pulses
-            ),
-            GroceriesCategory(
-                title = "Rice",
-                imageRes = R.drawable.rice_pictute,
-                backgroundColorRes = R.color.bg_grocery_rice
-            ),
-            GroceriesCategory(
-                title = "Meat",
-                imageRes = R.drawable.rice_pictute,
-                backgroundColorRes = R.color.bg_grocery_meat
+        rvGroceriesProductCard.apply {
+            adapter = groceriesProductsAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
             )
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(
+                    HorizontalSpaceItemDecoration(
+                        spaceWidth = requireContext().dpToPx(15)
+                    )
+                )
+            }
+        }
+
+        rvGroceries.apply {
+            adapter = groceriesAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        }
+    }
+
+    private fun observeState() {
+        vm.state.observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
+
+        vm.toastMessage.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                vm.toastShown()
+            }
+        }
+    }
+
+    private fun render(state: ShopUiState) {
+        bannerAdapter.submitList(state.banners)
+        exclusiveAdapter.submitList(state.exclusiveOffers)
+        bestSellingAdapter.submitList(state.bestSelling)
+        groceriesProductsAdapter.submitList(state.groceriesProducts)
+        groceriesAdapter.submitList(state.groceriesCategories)
+    }
+
+    private fun openProductDetail(productId: String) {
+        findNavController().navigate(
+            R.id.action_shopFragment_to_productDetailFragment,
+            bundleOf("productId" to productId)
         )
+    }
 
-        val rvGroceries: RecyclerView = view.findViewById(R.id.rvGroceries)
-
-        rvGroceries.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-
-        rvGroceries.adapter = GroceriesAdapter(groceries)
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -2,31 +2,31 @@ package com.example.myshop.features.shop.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.data.product.model.Product
-import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.databinding.ItemProductCartBinding
+import com.example.myshop.features.shop.model.ProductCardUiModel
 
 class ProductHorizontalAdapter(
-    private val item: List<Product>,
     private val onRootClick: (String) -> Unit,
     private val onAddBtnClick: (String) -> Unit
-) : RecyclerView.Adapter<ProductHorizontalAdapter.VH>() {
+) : ListAdapter<ProductCardUiModel, ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
 
     inner class VH(private var binding: ItemProductCartBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {
 
-        fun bind(item: Product) = with(binding) {
-            ivProductPicture.setImageResource(ImageKeyResolver.resolve(item.imageKey))
+        fun bind(item: ProductCardUiModel) = with(binding) {
+            ivProductPicture.setImageResource(item.imageRes)
             tvProductTitle.text = item.title
-            tvProductWeight.text = item.weight
-            tvProductPrice.text = item.price
+            tvProductWeight.text = item.subtitle
+            tvProductPrice.text = item.priceText
 
 
             binding.root.setOnClickListener {
-                onRootClick (item.id)
+                onRootClick(item.id)
             }
 
             binding.bntAddToCartFromItemCard.setOnClickListener {
@@ -43,11 +43,18 @@ class ProductHorizontalAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(item[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return item.size
+}
 
+class ProductDiffCallback : DiffUtil.ItemCallback<ProductCardUiModel>() {
+
+    override fun areItemsTheSame(oldItem: ProductCardUiModel, newItem: ProductCardUiModel): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: ProductCardUiModel, newItem: ProductCardUiModel): Boolean {
+        return oldItem == newItem
     }
 }

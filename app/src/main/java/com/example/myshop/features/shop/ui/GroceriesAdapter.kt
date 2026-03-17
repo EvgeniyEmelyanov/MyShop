@@ -10,27 +10,31 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.R
-import com.example.myshop.features.shop.model.GroceriesCategory
+import com.example.myshop.features.shop.model.GroceriesCategoryUiModel
 
 class GroceriesAdapter(
-    private val groceries: List<GroceriesCategory>
-): RecyclerView.Adapter<GroceriesAdapter.GroceriesViewHolder>() {
+    private var groceries: List<GroceriesCategoryUiModel>
+) : RecyclerView.Adapter<GroceriesAdapter.GroceriesViewHolder>() {
 
 
-    inner class GroceriesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class GroceriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val imageView: ImageView = itemView.findViewById(R.id.ivGroceriesPicture)
         private val title: TextView = itemView.findViewById(R.id.tvGroceriesTitle)
         private val root: View = itemView.findViewById(R.id.groceryCardRoot)
 
-        fun bind(groceriesCategory: GroceriesCategory){
-            imageView.setImageResource(groceriesCategory.imageRes)
-            title.text = groceriesCategory.title
-            val color = ContextCompat.getColor(itemView.context, groceriesCategory.backgroundColorRes)
+        fun bind(groceriesCategoryUiModel: GroceriesCategoryUiModel) {
+            imageView.setImageResource(groceriesCategoryUiModel.imageRes)
+            title.text = groceriesCategoryUiModel.title
+            val color = ContextCompat.getColor(
+                itemView.context,
+                groceriesCategoryUiModel.backgroundColorRes
+            )
             ViewCompat.setBackgroundTintList(root, ColorStateList.valueOf(color))
 
         }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -38,6 +42,7 @@ class GroceriesAdapter(
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_groceries, parent, false)
         return GroceriesViewHolder(itemView)
+
     }
 
     override fun onBindViewHolder(
@@ -50,7 +55,13 @@ class GroceriesAdapter(
 
     override fun getItemCount(): Int {
         return groceries.size
+
     }
 
+    fun submitList(newGroceries: List<GroceriesCategoryUiModel>) {
+        groceries = newGroceries
+        notifyDataSetChanged()
+
+    }
 
 }

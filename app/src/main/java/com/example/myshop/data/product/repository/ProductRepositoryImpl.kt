@@ -13,18 +13,29 @@ import java.math.RoundingMode
 
 class ProductRepositoryImpl : ProductRepository {
 
-    override fun getById(id: String): Product? {
-        val p = ProductStore.findById(id) ?: return null
 
+    override fun getAllProducts(): List<Product> {
+        return ProductStore.allProducts.map { rawProduct ->
+            rawProduct.toDomain()
+        }
+    }
+
+    override fun getById(id: String): Product? {
+        val rawProduct = ProductStore.findById(id) ?: return null
+        return rawProduct.toDomain()
+    }
+
+    private fun com.example.myshop.data.product.model.Product.toDomain(): Product {
         return Product(
-            id = p.id,
-            title = p.title,
-            subtitle = p.weight,
-            imageKey = p.imageKey,
-            price = parseMoney(p.price),
-            amountType = p.unit.toAmountType(),
-            pricingUnit = ProductPricingMapper.fromWeight(p.weight),
-            description = p.productDescription
+            id = id,
+            title = title,
+            subtitle = weight,
+            description = productDescription,
+            imageKey = imageKey,
+            price = parseMoney(price),
+            amountType = unit.toAmountType(),
+            pricingUnit = ProductPricingMapper.fromWeight(weight),
+            tags = tags
         )
     }
 
