@@ -11,5 +11,6 @@ data class Product(
     val price: Money,
     val amountType: AmountType,
     val pricingUnit: PricingUnit,
-    val tags: Set <ProductTag>
+    val tags: Set <ProductTag>,
+    val category: Category
 )

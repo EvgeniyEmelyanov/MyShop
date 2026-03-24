@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="com.example.myshop.features.explore.ExploreFragment"
+        android:name="com.example.myshop.features.explore.ui.ExploreFragment"
         android:label="Explore"
         tools:layout="@layout/fragment_explore" >
         <action
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/productsByCategoryFragment"
-        android:name="com.example.myshop.features.explore.ProductsByCategoryFragment"
+        android:name="com.example.myshop.features.productsByCategory.ui.ProductsByCategoryFragment"
         android:label="ProductsByCategoryFragment" >
         <argument
             android:name="category"

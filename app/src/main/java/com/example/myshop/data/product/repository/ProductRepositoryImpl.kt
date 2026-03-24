@@ -5,6 +5,7 @@ import com.example.myshop.data.product.mapper.ProductPricingMapper
 import com.example.myshop.data.product.datasource.ProductStore
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.repository.ProductRepository
@@ -13,6 +14,14 @@ import java.math.RoundingMode
 
 class ProductRepositoryImpl : ProductRepository {
 
+
+    override fun getProductsByCategory(category: Category): List<Product> {
+        return ProductStore.allProducts
+            .filter { it.category == category }
+            .map { rawProduct ->
+                rawProduct.toDomain()
+            }
+    }
 
     override fun getAllProducts(): List<Product> {
         return ProductStore.allProducts.map { rawProduct ->
@@ -35,7 +44,8 @@ class ProductRepositoryImpl : ProductRepository {
             price = parseMoney(price),
             amountType = unit.toAmountType(),
             pricingUnit = ProductPricingMapper.fromWeight(weight),
-            tags = tags
+            tags = tags,
+            category = category
         )
     }
 

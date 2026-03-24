@@ -1,9 +1,9 @@
-package com.example.myshop.features.shop.model
+package com.example.myshop.features.explore.presentation
 
 import androidx.annotation.ColorRes
 import com.example.myshop.domain.product.model.Category
 
-data class ExploreBanner(
+data class ExploreCategoryUiModel(
     val image: Int,
     val title: String,
     @ColorRes val backgroundColorRes: Int,

@@ -6,19 +6,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemProductCartBinding
-import com.example.myshop.features.shop.model.ProductCardUiModel
+import com.example.myshop.core.ui.CommonProductUiModel
 
 class ProductHorizontalAdapter(
     private val onRootClick: (String) -> Unit,
     private val onAddBtnClick: (String) -> Unit
-) : ListAdapter<ProductCardUiModel, ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
+) : ListAdapter<CommonProductUiModel, ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
 
     inner class VH(private var binding: ItemProductCartBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {
 
-        fun bind(item: ProductCardUiModel) = with(binding) {
+        fun bind(item: CommonProductUiModel) = with(binding) {
             ivProductPicture.setImageResource(item.imageRes)
             tvProductTitle.text = item.title
             tvProductWeight.text = item.subtitle
@@ -48,13 +48,13 @@ class ProductHorizontalAdapter(
 
 }
 
-class ProductDiffCallback : DiffUtil.ItemCallback<ProductCardUiModel>() {
+class ProductDiffCallback : DiffUtil.ItemCallback<CommonProductUiModel>() {
 
-    override fun areItemsTheSame(oldItem: ProductCardUiModel, newItem: ProductCardUiModel): Boolean {
+    override fun areItemsTheSame(oldItem: CommonProductUiModel, newItem: CommonProductUiModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductCardUiModel, newItem: ProductCardUiModel): Boolean {
+    override fun areContentsTheSame(oldItem: CommonProductUiModel, newItem: CommonProductUiModel): Boolean {
         return oldItem == newItem
     }
 }

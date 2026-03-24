@@ -1,7 +1,10 @@
-package com.example.myshop.features.explore
+package com.example.myshop.features.productsByCategory.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.databinding.FragmentProductsByCategoryBinding
@@ -10,15 +13,15 @@ import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
-import com.example.myshop.data.product.datasource.ProductStore
-import com.example.myshop.di.AppGraph
-import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.features.productsByCategory.model.ProductsByCategoryUiState
+import com.example.myshop.features.productsByCategory.model.ProductsByCategoryViewModel
+import com.example.myshop.features.productsByCategory.model.ProductsByCategoryViewModelFactory
 
 class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
     private var _binding: FragmentProductsByCategoryBinding? = null
     private val binding get() = _binding!!
+    private val vm: ProductsByCategoryViewModel by viewModels { ProductsByCategoryViewModelFactory() }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,31 +38,30 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
 
         setInsetsForFragment(view, additionalTopMarginDp = 10)
 
-        productsByCategoryAdapter = ProductsByCategoryAdapter(
-            onRootClick = { productId ->
-                val args = Bundle().apply {
-                    putString("productId", productId)
-                }
-                findNavController().navigate(
-                    R.id.action_productsByCategoryFragment_to_productDetailFragment,
-                    args
-                )
-            },
-            onAddBtnClick = { productId ->
-                val p = AppGraph.getProductByIdUseCase.getById(productId) ?: return@ProductsByCategoryAdapter
-                val start = when (p.amountType) {
-                    AmountType.PIECE -> Amount.Piece(1)
-                    AmountType.WEIGHT -> Amount.Grams(1000)
-                }
-                AppGraph.addProductToCartUseCase.addProduct(productId, start)
-            }
-        )
+        setupAdapter()
+
+        setupList()
+
+        observeState()
+
+        vm.setCategory(category)
 
         binding.btnBackToFirstFragment.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        binding.tvProductGroupTitle.text = category.displayName
 
+    }
+
+    private fun setupAdapter() {
+        productsByCategoryAdapter = ProductsByCategoryAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+        )
+    }
+
+    private fun setupList () {
         binding.rvProducts.apply {
             adapter = productsByCategoryAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -74,11 +76,30 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
                 )
             }
         }
+    }
 
-        binding.tvProductGroupTitle.text = category.displayName
+    private fun observeState () {
+        vm.state.observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
 
-        val products = ProductStore.byCategory(category)
-        productsByCategoryAdapter.submitList(products)
+        vm.toastMessage.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                vm.toastShown()
+            }
+        }
+    }
+
+    private fun render(state: ProductsByCategoryUiState) {
+        productsByCategoryAdapter.submitList(state.products)
+    }
+
+    private fun openProductDetail(productId: String) {
+        findNavController().navigate(
+            R.id.action_productsByCategoryFragment_to_productDetailFragment,
+            bundleOf("productId" to productId)
+        )
     }
 
     override fun onDestroyView() {

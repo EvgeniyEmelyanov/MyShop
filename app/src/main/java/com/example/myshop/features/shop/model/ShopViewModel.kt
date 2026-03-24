@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myshop.R
+import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.domain.cart.model.Amount
@@ -35,17 +36,20 @@ class ShopViewModel(
         val cart = getCartUseCase.getCart()
         val cartItem = cart.items.find { it.productId == productId }
 
+        val product = getAllProductsUseCase.getAllProducts()
+            .find { it.id == productId }
+            ?: return
+
         if (cartItem == null) {
-            val product = getAllProductsUseCase.getAllProducts()
-                .find { it.id == productId }
-                ?: return
+
 
             val amount = startAmount(product.amountType)
             addProductUseCase.addProduct(productId, amount)
+            load()
         } else {
-            _toastMessage.value = "Product already in cart"
+            _toastMessage.value = "${product.title} already in cart"
         }
-        load()
+
     }
 
     fun toastShown() {
@@ -100,8 +104,8 @@ class ShopViewModel(
         )
     }
 
-    private fun toProductCardUiModel(product: com.example.myshop.domain.product.model.Product): ProductCardUiModel {
-        return ProductCardUiModel(
+    private fun toProductCardUiModel(product: com.example.myshop.domain.product.model.Product): CommonProductUiModel {
+        return CommonProductUiModel(
             id = product.id,
             title = product.title,
             subtitle = product.subtitle,

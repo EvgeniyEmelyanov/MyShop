@@ -1,19 +1,23 @@
+package com.example.myshop.features.explore.ui
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemExploreBannerBinding
-import com.example.myshop.features.shop.model.ExploreBanner
+import com.example.myshop.features.explore.presentation.ExploreCategoryUiModel
 
 class ExploreBannerAdapter(
-    private val items: List<ExploreBanner>,
-    private val onClick: (ExploreBanner) -> Unit
-) : RecyclerView.Adapter<ExploreBannerAdapter.VH>() {
+    private val onClick: (ExploreCategoryUiModel) -> Unit
+) : ListAdapter<ExploreCategoryUiModel, ExploreBannerAdapter.VH>(ExploreBannerDiffUtil()) {
+
 
     inner class VH(private val binding: ItemExploreBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ExploreBanner) = with(binding) {
+        fun bind(item: ExploreCategoryUiModel) = with(binding) {
             ivExploreBanner.setImageResource(item.image)
             tvExploreBanner.text = item.title
 
@@ -35,8 +39,24 @@ class ExploreBannerAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount() = items.size
+}
+
+class ExploreBannerDiffUtil : DiffUtil.ItemCallback<ExploreCategoryUiModel>() {
+
+    override fun areItemsTheSame(
+        oldItem: ExploreCategoryUiModel,
+        newItem: ExploreCategoryUiModel
+    ): Boolean {
+        return oldItem.category == newItem.category
+    }
+
+    override fun areContentsTheSame(
+        oldItem: ExploreCategoryUiModel,
+        newItem: ExploreCategoryUiModel
+    ): Boolean {
+        return oldItem == newItem
+    }
 }

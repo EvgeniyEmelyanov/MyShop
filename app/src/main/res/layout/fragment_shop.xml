@@ -29,7 +29,7 @@
             android:drawableStart="@drawable/ic_exclude"
             android:drawablePadding="5dp"
             android:fontFamily="@font/gilroy_black"
-            android:text="Dhaka, Banassre" />
+            android:text="Minsk, Belarus" />
 
         <EditText
             android:layout_width="match_parent"

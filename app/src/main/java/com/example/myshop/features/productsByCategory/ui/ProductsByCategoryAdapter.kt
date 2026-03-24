@@ -1,27 +1,26 @@
-package com.example.myshop.features.explore
+package com.example.myshop.features.productsByCategory.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.data.product.model.Product
+import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.databinding.ItemProductCartForProdByCategBinding
-import com.example.myshop.core.ui.image.ImageKeyResolver
 
 class ProductsByCategoryAdapter(
     private val onRootClick: (String) -> Unit,
     private val onAddBtnClick: (String) -> Unit
-) : ListAdapter<Product, ProductsByCategoryAdapter.VH>(ProductDiffUtil()) {
+) : ListAdapter<CommonProductUiModel, ProductsByCategoryAdapter.VH>(ProductDiffUtil()) {
 
     inner class VH(private val binding: ItemProductCartForProdByCategBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Product) = with(binding) {
-            ivProductPicture.setImageResource(ImageKeyResolver.resolve(item.imageKey))
+        fun bind(item: CommonProductUiModel) = with(binding) {
+            ivProductPicture.setImageResource(item.imageRes)
             tvProductTitle.text = item.title
-            tvProductWeight.text = item.weight
-            tvProductPrice.text = item.price
+            tvProductWeight.text = item.subtitle
+            tvProductPrice.text = item.priceText
 
             binding.root.setOnClickListener {
                 onRootClick(item.id)
@@ -44,13 +43,19 @@ class ProductsByCategoryAdapter(
         holder.bind(getItem(position))
     }
 
-    class ProductDiffUtil : DiffUtil.ItemCallback<Product>() {
+    class ProductDiffUtil : DiffUtil.ItemCallback<CommonProductUiModel>() {
 
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areItemsTheSame(
+            oldItem: CommonProductUiModel,
+            newItem: CommonProductUiModel
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areContentsTheSame(
+            newItem: CommonProductUiModel,
+            oldItem: CommonProductUiModel
+        ): Boolean {
             return oldItem == newItem
         }
     }
