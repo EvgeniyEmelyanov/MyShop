@@ -14,7 +14,8 @@ class ShopViewModelFactory: ViewModelProvider.Factory {
                 addProductUseCase = AppGraph.addProductToCartUseCase,
                 moneyFormatter = AppGraph.moneyFormatter,
                 imageKeyResolver = AppGraph.imageKeyResolver,
-                getCartUseCase = AppGraph.getCartUseCase
+                getCartUseCase = AppGraph.getCartUseCase,
+                getProductByIdUseCase = AppGraph.getProductByIdUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

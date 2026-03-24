@@ -22,7 +22,7 @@ class FavouriteViewModel(
     private val clearFavouriteUseCase: ClearFavouriteUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
     private val imageKeyResolver: ImageKeyResolver,
-    private val moneyFormatter: MoneyFormatter,
+    private val moneyFormatter: MoneyFormatter
 
 ) : ViewModel() {
 

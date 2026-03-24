@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import androidx.navigation.fragment.findNavController
 import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
@@ -46,7 +45,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     }
 
     private fun setupAdapters() {
-        bannerAdapter = BannerAdapter(emptyList())
+        bannerAdapter = BannerAdapter()
 
         exclusiveAdapter = ProductHorizontalAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
@@ -63,12 +62,12 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
             onAddBtnClick = { productId -> vm.onAddProduct(productId) }
         )
 
-        groceriesAdapter = GroceriesAdapter(emptyList())
+        groceriesAdapter = GroceriesAdapter()
     }
 
     private fun setupLists() = with(binding) {
-        val vp = root.findViewById<ViewPager2>(R.id.vpBanners)
-        vp.adapter = bannerAdapter
+        vpBanners.adapter = bannerAdapter
+
 
         rvExclusiveOffer.apply {
             adapter = exclusiveAdapter
