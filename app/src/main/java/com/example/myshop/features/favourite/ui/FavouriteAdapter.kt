@@ -1,26 +1,27 @@
-package com.example.myshop
+package com.example.myshop.features.favourite.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemFavouriteBannerBinding
 import com.example.myshop.features.favourite.presentation.FavouriteUiModel
 
 class FavouriteAdapter(
-    private var items: List<FavouriteUiModel>,
-    private val onClickBtnArrow: (String) -> Unit
-) : RecyclerView.Adapter<FavouriteAdapter.VH>() {
+    private val onClickItem: (String) -> Unit
+) : ListAdapter<FavouriteUiModel, FavouriteAdapter.VH>(FavouriteDiffUtil()) {
     inner class VH(private val binding: ItemFavouriteBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: FavouriteUiModel) = with(binding) {
             imageView.setImageResource(item.imageRes)
-            tvProductTitle.text = item.titleText
-            tvProductWeight.text = item.subTitle
+            tvProductTitle.text = item.title
+            tvProductWeight.text = item.subtitle
             tvProductPrice.text = item.priceText
 
             root.setOnClickListener {
-                onClickBtnArrow(item.productId)
+                onClickItem(item.productId)
             }
         }
     }
@@ -33,15 +34,25 @@ class FavouriteAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+}
+
+class FavouriteDiffUtil : DiffUtil.ItemCallback<FavouriteUiModel>() {
+    override fun areItemsTheSame(
+        oldItem: FavouriteUiModel,
+        newItem: FavouriteUiModel
+    ): Boolean {
+        return oldItem.productId == newItem.productId
     }
 
-    fun submitList(newItems: List<FavouriteUiModel>) {
-        items = newItems
-        notifyDataSetChanged() // потом сделаем DiffUtil, пока ок
+    override fun areContentsTheSame(
+        oldItem: FavouriteUiModel,
+        newItem: FavouriteUiModel
+    ): Boolean {
+        return oldItem == newItem
+
     }
+
 }

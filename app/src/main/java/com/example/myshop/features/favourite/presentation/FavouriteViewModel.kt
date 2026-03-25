@@ -3,13 +3,11 @@ package com.example.myshop.features.favourite.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myshop.FavouriteUiState
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.domain.favourite.usecase.AddToFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ClearFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.GetFavouriteUseCase
-import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.RemoveFromFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
@@ -32,14 +30,6 @@ class FavouriteViewModel(
      fun load() {
         _state.value = buildState()
     }
-
-
-    fun onAddToFavourite(productId: String) {
-        addToFavouriteUseCase.addToFavourite(productId)
-        load()
-    }
-
-
 
     fun onAdd(productId: String) {
         addToFavouriteUseCase.addToFavourite(productId)
@@ -78,8 +68,8 @@ class FavouriteViewModel(
 
             FavouriteUiModel(
                 productId = product.id,
-                titleText = product.title,
-                subTitle = product.subtitle,
+                title = product.title,
+                subtitle = product.subtitle,
                 imageRes = imageRes,
                 priceText = price
             )

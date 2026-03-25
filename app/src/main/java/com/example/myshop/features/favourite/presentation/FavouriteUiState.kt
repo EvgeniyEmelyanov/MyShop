@@ -1,6 +1,4 @@
-package com.example.myshop
-
-import com.example.myshop.features.favourite.presentation.FavouriteUiModel
+package com.example.myshop.features.favourite.presentation
 
 data class FavouriteUiState(
     val items: List<FavouriteUiModel> = emptyList()
