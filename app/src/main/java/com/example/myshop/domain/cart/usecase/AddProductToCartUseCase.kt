@@ -5,7 +5,7 @@ import com.example.myshop.domain.cart.model.Amount
 
 class AddProductToCartUseCase(private val cartRepository: CartRepository) {
 
-    fun addProduct(productId: String, amount: Amount) {
+    suspend fun addProduct(productId: String, amount: Amount) {
         cartRepository.addToCart(productId, amount)
 
     }

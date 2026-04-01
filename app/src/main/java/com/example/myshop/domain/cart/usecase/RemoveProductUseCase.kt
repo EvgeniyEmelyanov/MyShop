@@ -2,9 +2,9 @@ package com.example.myshop.domain.cart.usecase
 
 import com.example.myshop.domain.cart.CartRepository
 
-class RemoveProductUseCase (private val cartRepository: CartRepository) {
+class RemoveProductUseCase(private val cartRepository: CartRepository) {
 
-    fun removeProduct(productId: String) {
+    suspend fun removeProduct(productId: String) {
         cartRepository.removeProduct(productId)
 
     }

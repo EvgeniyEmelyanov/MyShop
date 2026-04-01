@@ -1,5 +1,7 @@
 package com.example.myshop.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.myshop.data.cart.repository.CartRepositoryImpl
 import com.example.myshop.data.product.repository.ProductRepositoryImpl
 import com.example.myshop.domain.cart.CartRepository
@@ -18,6 +20,7 @@ import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.data.favourite.FavouriteRepositoryImpl
+import com.example.myshop.data.local.AppDatabase
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.usecase.AddToFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ClearFavouriteUseCase
@@ -30,39 +33,57 @@ import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
 
 object AppGraph {
 
-    //Product
-    val productRepository: ProductRepository = ProductRepositoryImpl()
-    val getProductByIdUseCase = GetProductByIdUseCase(productRepository)
-    val getAllProductsUseCase = GetAllProductsUseCase(productRepository)
-    val getProductsByCategoryUseCase = GetProductsByCategoryUseCase(productRepository)
+    private var _db: AppDatabase? = null
+    val db: AppDatabase
+        get() = _db ?: throw IllegalStateException("Database not initialized")
 
+    fun init(context: Context) {
+        if (_db == null) {
+            _db = Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "myshop_db"
+            )
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+    }
 
-    //Formatters
+    val cartDao by lazy { db.cartDao() }
+
+    // Product
+    val productRepository: ProductRepository by lazy { ProductRepositoryImpl() }
+    val getProductByIdUseCase by lazy { GetProductByIdUseCase(productRepository) }
+    val getAllProductsUseCase by lazy { GetAllProductsUseCase(productRepository) }
+    val getProductsByCategoryUseCase by lazy { GetProductsByCategoryUseCase(productRepository) }
+
+    // Formatters
     val imageKeyResolver = ImageKeyResolver
-    val moneyFormatter = MoneyFormatter()
-    val quantityFormatter = QuantityFormatter()
-    val linePriceCalculator = LinePriceCalculator()
+    val moneyFormatter by lazy { MoneyFormatter() }
+    val quantityFormatter by lazy { QuantityFormatter() }
+    val linePriceCalculator by lazy { LinePriceCalculator() }
 
-    //Cart
-    val cartRepository: CartRepository = CartRepositoryImpl()
-    val getCartUseCase = GetCartUseCase(cartRepository)
-    val addProductToCartUseCase = AddProductToCartUseCase(cartRepository)
-    val setAmountUseCase = SetAmountUseCase(cartRepository)
-    val removeProductUseCase = RemoveProductUseCase(cartRepository)
-    val clearProductsUseCase = ClearProductsUseCase(cartRepository)
-    val increaseAmountUseCase = IncreaseAmountUseCase(cartRepository)
-    val decreaseAmountUseCase = DecreaseAmountUseCase(cartRepository)
-    val calculateCartTotalsUseCase =
+    // Cart
+    val cartRepository: CartRepository by lazy { CartRepositoryImpl(cartDao) }
+    val getCartUseCase by lazy { GetCartUseCase(cartRepository) }
+    val addProductToCartUseCase by lazy { AddProductToCartUseCase(cartRepository) }
+    val setAmountUseCase by lazy { SetAmountUseCase(cartRepository) }
+    val removeProductUseCase by lazy { RemoveProductUseCase(cartRepository) }
+    val clearProductsUseCase by lazy { ClearProductsUseCase(cartRepository) }
+    val increaseAmountUseCase by lazy { IncreaseAmountUseCase(cartRepository) }
+    val decreaseAmountUseCase by lazy { DecreaseAmountUseCase(cartRepository) }
+    val calculateCartTotalsUseCase by lazy {
         CalculateCartTotalsUseCase(cartRepository, productRepository, linePriceCalculator)
+    }
 
-    //Favourite
-    val favouriteRepository: FavouriteRepository = FavouriteRepositoryImpl()
-    val getFavouriteUseCase = GetFavouriteUseCase(favouriteRepository)
-    val addToFavouriteUseCase = AddToFavouriteUseCase(favouriteRepository)
-    val removeFromFavouriteUseCase = RemoveFromFavouriteUseCase(favouriteRepository)
-    val clearFavouriteUseCase = ClearFavouriteUseCase(favouriteRepository)
-    val isFavouriteUseCase = IsFavouriteUseCase(favouriteRepository)
-    val toggleFavouriteUseCase = ToggleFavouriteUseCase(favouriteRepository)
-
-
+    // Favourite
+    val favouriteRepository: FavouriteRepository by lazy { FavouriteRepositoryImpl() }
+    val getFavouriteUseCase by lazy { GetFavouriteUseCase(favouriteRepository) }
+    val addToFavouriteUseCase by lazy { AddToFavouriteUseCase(favouriteRepository) }
+    val removeFromFavouriteUseCase by lazy { RemoveFromFavouriteUseCase(favouriteRepository) }
+    val clearFavouriteUseCase by lazy { ClearFavouriteUseCase(favouriteRepository) }
+    val isFavouriteUseCase by lazy { IsFavouriteUseCase(favouriteRepository) }
+    val toggleFavouriteUseCase by lazy { ToggleFavouriteUseCase(favouriteRepository) }
 }
+
+

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemGroceriesBinding
-import com.example.myshop.features.shop.model.GroceriesCategoryUiModel
+import com.example.myshop.features.shop.presentation.GroceriesCategoryUiModel
 
 class GroceriesAdapter : ListAdapter<GroceriesCategoryUiModel, GroceriesAdapter.VH>(GroceriesDiffUtil()) {
 

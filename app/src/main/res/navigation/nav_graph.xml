@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.myshop.features.productdetail.presentation.ProductDetailFragment"
+        android:name="com.example.myshop.features.productdetail.ui.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail">
 

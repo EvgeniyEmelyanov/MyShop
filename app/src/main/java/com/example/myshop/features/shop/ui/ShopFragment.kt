@@ -2,7 +2,6 @@ package com.example.myshop.features.shop.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -12,9 +11,9 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentShopBinding
-import com.example.myshop.features.shop.model.ShopUiState
-import com.example.myshop.features.shop.model.ShopViewModel
-import com.example.myshop.features.shop.model.ShopViewModelFactory
+import com.example.myshop.features.shop.presentation.ShopUiState
+import com.example.myshop.features.shop.presentation.ShopViewModel
+import com.example.myshop.features.shop.presentation.ShopViewModelFactory
 
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
@@ -34,8 +33,8 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
         _binding = FragmentShopBinding.bind(view)
 
-        val ivCarrot = binding.ivCarrot as ImageView
-        setInsetsForView(ivCarrot, additionalTopMarginDp = 10)
+
+        setInsetsForView(binding.ivCarrot, additionalTopMarginDp = 10)
 
         setupAdapters()
         setupLists()
@@ -149,6 +148,8 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         bestSellingAdapter.submitList(state.bestSelling)
         groceriesProductsAdapter.submitList(state.groceriesProducts)
         groceriesAdapter.submitList(state.groceriesCategories)
+        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+        binding.contentContainer.visibility = if (state.isLoading) View.GONE else View.VISIBLE
     }
 
     private fun openProductDetail(productId: String) {

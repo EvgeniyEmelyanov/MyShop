@@ -4,7 +4,7 @@ import com.example.myshop.domain.cart.CartRepository
 
 class ClearProductsUseCase(private val cartRepository: CartRepository) {
 
-    fun clearProducts() {
+    suspend fun clearProducts() {
         cartRepository.clearProducts()
     }
 }

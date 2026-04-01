@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemBannerBinding
-import com.example.myshop.features.shop.model.BannerUiModel
+import com.example.myshop.features.shop.presentation.BannerUiModel
 
 class BannerAdapter : ListAdapter<BannerUiModel, BannerAdapter.VH>(BannerDiffUtil()) {
     class VH(private val binding: ItemBannerBinding) :

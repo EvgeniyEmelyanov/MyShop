@@ -1,8 +1,9 @@
-package com.example.myshop.features.productsByCategory.model
+package com.example.myshop.features.productsByCategory.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
@@ -13,6 +14,7 @@ import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
+import kotlinx.coroutines.launch
 
 class ProductsByCategoryViewModel(
     private val getCartUseCase: GetCartUseCase,
@@ -28,40 +30,51 @@ class ProductsByCategoryViewModel(
 
     private val _state = MutableLiveData(ProductsByCategoryUiState())
     val state: LiveData<ProductsByCategoryUiState> = _state
-
     private val _toastMessage = MutableLiveData<String?>()
     val toastMessage: LiveData<String?> = _toastMessage
 
     fun setCategory(category: Category) {
         currentCategory = category
-        refresh()
+        load()
     }
 
-    private fun refresh() {
-        _state.value = buildState()
+    fun load() {
+        viewModelScope.launch {
+            reloadState()
+        }
     }
+
 
     fun onAddProduct(productId: String) {
-        val cart = getCartUseCase.getCart()
-        val cartItem = cart.items.find { it.productId == productId }
+        viewModelScope.launch {
+            val cart = getCartUseCase.getCart()
 
-        val product = getProductByIdUseCase.getById(productId) ?: return
+            val cartItem = cart.items.find { it.productId == productId }
 
-        if (cartItem == null) {
-            val amount = startAmount(product.amountType)
-            addProductToCartUseCase.addProduct(productId, amount)
-            refresh()
-        } else {
-            _toastMessage.value = "${product.title} already in cart"
+            val product = getProductByIdUseCase.getById(productId) ?: return@launch
+
+            if (cartItem == null) {
+                val amount = startAmount(product.amountType)
+                addProductToCartUseCase.addProduct(productId, amount)
+                reloadState()
+            } else {
+                _toastMessage.value = "${product.title} already in cart"
+            }
         }
-
     }
 
     fun toastShown() {
         _toastMessage.value = null
     }
 
-    private fun buildState(): ProductsByCategoryUiState {
+    private suspend fun reloadState() {
+        val currentState = _state.value ?: ProductsByCategoryUiState()
+        _state.value = currentState.copy(isLoading = true)
+        val newState = buildState()
+        _state.value = newState.copy(isLoading = false)
+    }
+
+    private suspend fun buildState(): ProductsByCategoryUiState {
         val category = currentCategory ?: return ProductsByCategoryUiState()
 
         val products = getProductsByCategoryUseCase.getByCategory(category)

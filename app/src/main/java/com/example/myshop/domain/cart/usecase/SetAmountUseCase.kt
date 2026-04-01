@@ -5,7 +5,7 @@ import com.example.myshop.domain.cart.model.Amount
 
 class SetAmountUseCase(private val cartRepository: CartRepository) {
 
-    fun setAmount(productId: String, amount: Amount) {
+    suspend fun setAmount(productId: String, amount: Amount) {
         cartRepository.setAmount(productId, amount)
     }
 }

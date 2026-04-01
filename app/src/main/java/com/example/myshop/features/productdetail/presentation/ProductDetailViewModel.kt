@@ -1,8 +1,9 @@
-package com.example.myshop.features.productdetail.ui
+package com.example.myshop.features.productdetail.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Amount.*
 import com.example.myshop.domain.cart.service.LinePriceCalculator
@@ -16,6 +17,7 @@ import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
+import kotlinx.coroutines.launch
 
 
 class ProductDetailViewModel(
@@ -38,8 +40,15 @@ class ProductDetailViewModel(
     private var selectedAmountPreview: Amount? = null
     private var isDescriptionExpanded: Boolean = false
 
-    private val _state = MutableLiveData<ProductDetailUiState>()
+    private val _state = MutableLiveData(ProductDetailUiState())
     val state: LiveData<ProductDetailUiState> = _state
+
+
+    fun load() {
+        viewModelScope.launch {
+            reloadState()
+        }
+    }
 
     fun setProductId(id: String) {
         if (productId != null && productId != id) return
@@ -53,11 +62,6 @@ class ProductDetailViewModel(
         load()
     }
 
-    fun load() {
-        val id = productId ?: return
-        _state.value = buildState(id)
-    }
-
     fun onToggleDescription() {
         isDescriptionExpanded = !isDescriptionExpanded
         load()
@@ -65,59 +69,79 @@ class ProductDetailViewModel(
 
     fun onPlus() {
         val id = productId ?: return
-        val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
+        viewModelScope.launch {
+            val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
 
-        if (cartItem != null) {
-            increaseAmountUseCase.increaseAmount(id)
-        } else {
-            val product = getProductByIdUseCase.getById(id) ?: return
-            val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+            if (cartItem != null) {
+                increaseAmountUseCase.increaseAmount(id)
+            } else {
+                val product = getProductByIdUseCase.getById(id) ?: return@launch
+                val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
 
-            selectedAmountPreview = when (cur) {
-                is Piece -> Piece(cur.count + 1)
-                is Grams -> Grams(cur.grams + 20)
+                selectedAmountPreview = when (cur) {
+                    is Piece -> Piece(cur.count + 1)
+                    is Grams -> Grams(cur.grams + 20)
+                }
             }
+            reloadState()
         }
-        load()
+
     }
 
     fun onMinus() {
         val id = productId ?: return
-        val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
 
-        if (cartItem != null) {
-            decreaseAmountUseCase.decreaseAmount(id)
-        } else {
-            val product = getProductByIdUseCase.getById(id) ?: return
-            val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+        viewModelScope.launch {
+            val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
 
-            selectedAmountPreview = when (cur) {
-                is Piece -> Piece(maxOf(1, cur.count - 1))
-                is Grams -> Grams(maxOf(20, cur.grams - 20))
+            if (cartItem != null) {
+                decreaseAmountUseCase.decreaseAmount(id)
+            } else {
+                val product = getProductByIdUseCase.getById(id) ?: return@launch
+                val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+
+                selectedAmountPreview = when (cur) {
+                    is Piece -> Piece(maxOf(1, cur.count - 1))
+                    is Grams -> Grams(maxOf(20, cur.grams - 20))
+                }
             }
+            reloadState()
         }
-        load()
+
     }
 
     fun onAddToCart() {
         val id = productId ?: return
-        val product = getProductByIdUseCase.getById(id) ?: return
+        viewModelScope.launch {
+            val product = getProductByIdUseCase.getById(id) ?: return@launch
 
-        val preview = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+            val preview = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
 
-        // если товара ещё не было - просто add
-        val inCart = getCartUseCase.getCart().items.any { it.productId == id }
-        if (!inCart) {
-            addProductToCartUseCase.addProduct(id, preview)
-        } else {
-            setAmountUseCase.setAmount(id, preview)
+            // если товара ещё не было - просто add
+            val inCart = getCartUseCase.getCart().items.any { it.productId == id }
+            if (!inCart) {
+                addProductToCartUseCase.addProduct(id, preview)
+            } else {
+                setAmountUseCase.setAmount(id, preview)
+            }
+
+            selectedAmountPreview = null
+
+            reloadState()
         }
 
-        selectedAmountPreview = null
-        load()
     }
 
-    private fun buildState(id: String): ProductDetailUiState {
+    private suspend fun reloadState() {
+        val id = productId ?: return
+        val currentState = _state.value ?: ProductDetailUiState()
+        _state.value = currentState.copy(isLoading = true)
+        val newState = buildState(id)
+        _state.value = newState.copy(isLoading = false)
+
+    }
+
+    private suspend fun buildState(id: String): ProductDetailUiState {
         val product = getProductByIdUseCase.getById(id) ?: error("Product not found")
 
         val cart = getCartUseCase.getCart()
@@ -126,12 +150,9 @@ class ProductDetailViewModel(
         val addButtonText = if (inCart) "Added" else "Add to cart"
         val isAddEnabled = !inCart
 
-
         val isFavourite = isFavouriteUseCase.isFavourite(id)
 
-
         val imageRes = imageKeyResolver.resolve(product.imageKey)
-
 
         val amountToShow = realItem?.amount
             ?: selectedAmountPreview
@@ -151,7 +172,6 @@ class ProductDetailViewModel(
                 amount = amountToShow
             )
             moneyFormatter.format(Money(lineCents, Currency.USD))
-
 
         }
         return ProductDetailUiState(

@@ -1,4 +1,4 @@
-package com.example.myshop.features.productsByCategory.model
+package com.example.myshop.features.productsByCategory.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

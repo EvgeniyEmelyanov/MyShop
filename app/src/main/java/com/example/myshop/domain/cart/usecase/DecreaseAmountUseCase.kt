@@ -5,7 +5,7 @@ import com.example.myshop.domain.cart.model.Amount
 
 class DecreaseAmountUseCase(private val cartRepository: CartRepository) {
 
-    fun decreaseAmount(productId: String) {
+    suspend fun decreaseAmount(productId: String) {
         val cart = cartRepository.getCart()
         val item = cart.items.find { it.productId == productId } ?: return
 

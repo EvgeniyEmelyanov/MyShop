@@ -13,9 +13,9 @@ import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
-import com.example.myshop.features.productsByCategory.model.ProductsByCategoryUiState
-import com.example.myshop.features.productsByCategory.model.ProductsByCategoryViewModel
-import com.example.myshop.features.productsByCategory.model.ProductsByCategoryViewModelFactory
+import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
+import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
+import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModelFactory
 
 class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
@@ -93,6 +93,8 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
 
     private fun render(state: ProductsByCategoryUiState) {
         productsByCategoryAdapter.submitList(state.products)
+        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+        binding.rvProducts.visibility = if (state.isLoading) View.GONE else View.VISIBLE
     }
 
     private fun openProductDetail(productId: String) {

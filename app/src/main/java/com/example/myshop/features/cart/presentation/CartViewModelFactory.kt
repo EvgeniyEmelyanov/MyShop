@@ -21,8 +21,7 @@ class CartViewModelFactory : ViewModelProvider.Factory {
                 imageKeyResolver = AppGraph.imageKeyResolver,
                 quantityFormatter = AppGraph.quantityFormatter,
                 calculateCartTotalsUseCase = AppGraph.calculateCartTotalsUseCase,
-                moneyFormatter = AppGraph.moneyFormatter,
-                linePriceCalculator = AppGraph.linePriceCalculator
+                moneyFormatter = AppGraph.moneyFormatter
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

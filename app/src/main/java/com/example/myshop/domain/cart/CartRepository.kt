@@ -5,15 +5,15 @@ import com.example.myshop.domain.cart.model.Cart
 
 interface CartRepository {
 
-    fun getCart(): Cart
+    suspend fun getCart(): Cart
 
-    fun addToCart(productId: String, amount: Amount)
+    suspend fun addToCart(productId: String, amount: Amount)
 
-    fun removeProduct(productId: String)
+    suspend fun removeProduct(productId: String)
 
-    fun clearProducts()
+    suspend fun clearProducts()
 
-    fun setAmount(productId: String, amount: Amount)
+    suspend fun setAmount(productId: String, amount: Amount)
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.myshop.features.productdetail.presentation
+package com.example.myshop.features.productdetail.ui
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentProductDetailBinding
-import com.example.myshop.features.productdetail.ui.ProductDetailUiState
-import com.example.myshop.features.productdetail.ui.ProductDetailViewModel
-import com.example.myshop.features.productdetail.ui.ProductDetailViewModelFactory
+import com.example.myshop.features.productdetail.presentation.ProductDetailUiState
+import com.example.myshop.features.productdetail.presentation.ProductDetailViewModel
+import com.example.myshop.features.productdetail.presentation.ProductDetailViewModelFactory
 
 class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
@@ -23,7 +23,6 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailBinding.bind(view)
 
-        // 1) Получаем productId из аргументов (без поиска продукта во Fragment)
         val productId = arguments?.getString("productId")
         if (productId.isNullOrBlank()) {
             findNavController().popBackStack()
@@ -32,13 +31,14 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
         setInsetsForView(binding.clHeaderImage, additionalTopMarginDp = 0, additionalBottomMarginDp = 0)
 
-        // 2) Инициализируем VM
-        vm.setProductId(productId)
-
-        // 3) Подписка на state
         vm.state.observe(viewLifecycleOwner) { state ->
             render(state)
         }
+
+
+        vm.setProductId(productId)
+
+
 
         // 4) Лисенеры
         binding.btnToggleDescription.setOnClickListener { vm.onToggleDescription() }
@@ -78,6 +78,10 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
             if (state.isDescriptionExpanded) View.VISIBLE else View.GONE
 
         btnToggleDescription.rotation = if (state.isDescriptionExpanded) 90f else 0f
+
+        progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+        scrollContent.visibility = if (state.isLoading) View.GONE else View.VISIBLE
+        bntAddToCart.visibility = if (state.isLoading) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {

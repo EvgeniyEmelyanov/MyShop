@@ -1,4 +1,4 @@
-package com.example.myshop.features.shop.model
+package com.example.myshop.features.shop.presentation
 
 data class BannerUiModel(
     val title: String,

@@ -13,7 +13,7 @@ class CalculateCartTotalsUseCase(
     private val linePriceCalculator: LinePriceCalculator
 ) {
 
-    fun execute(): CartTotals {
+    suspend fun execute(): CartTotals {
         val cart = cartRepository.getCart()
 
         val lineTotalsCents = mutableMapOf<String, Long>()
@@ -32,7 +32,6 @@ class CalculateCartTotalsUseCase(
             totalCents += lineCents
         }
 
-        // сейчас в проекте валюта фактически одна (BYN) — оставляем так
         val currency = Currency.USD
 
         return CartTotals(

@@ -1,42 +1,43 @@
 package com.example.myshop.data.cart.repository
 
+import com.example.myshop.data.cart.local.CartDao
 import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
-import com.example.myshop.domain.cart.model.CartItem
-
-class CartRepositoryImpl : CartRepository {
-
-    private val cartList = mutableMapOf<String, Amount>()
+import com.example.myshop.data.cart.local.toDomain
+import com.example.myshop.data.cart.local.toEntity
 
 
-    override fun getCart(): Cart {
-        val items = cartList.map { (productId, amount) ->
-            CartItem(productId, amount)
+class CartRepositoryImpl(private val cartDao: CartDao) : CartRepository {
+
+
+    override suspend fun getCart(): Cart {
+        val items = cartDao.getAll().map { entity ->
+            entity.toDomain()
         }
         return Cart(items)
     }
 
-    override fun addToCart(
+
+    override suspend fun addToCart(
         productId: String,
         amount: Amount
     ) {
-        cartList[productId] = amount
+        cartDao.insert(amount.toEntity(productId))
     }
 
-    override fun removeProduct(productId: String) {
-        cartList.remove(productId)
+    override suspend fun removeProduct(productId: String) {
+        cartDao.remove(productId)
     }
 
-    override fun clearProducts() {
-        cartList.clear()
+    override suspend fun clearProducts() {
+        cartDao.clear()
     }
 
-    override fun setAmount(
+    override suspend fun setAmount(
         productId: String,
         amount: Amount
     ) {
-        cartList[productId] = amount
+        cartDao.insert(amount.toEntity(productId))
     }
-
 }
