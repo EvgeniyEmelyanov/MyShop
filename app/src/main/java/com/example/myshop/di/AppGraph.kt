@@ -32,6 +32,7 @@ import com.example.myshop.domain.favourite.usecase.RemoveFromFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
+import com.example.myshop.features.productdetail.presentation.ProductDetailViewModelFactory
 
 object AppGraph {
 
@@ -92,6 +93,26 @@ object AppGraph {
     val clearFavouriteUseCase by lazy { ClearFavouriteUseCase(favouriteRepository) }
     val isFavouriteUseCase by lazy { IsFavouriteUseCase(favouriteRepository) }
     val toggleFavouriteUseCase by lazy { ToggleFavouriteUseCase(favouriteRepository) }
+
+    fun createProductDetailViewModelFactory(): ProductDetailViewModelFactory {
+        return ProductDetailViewModelFactory (
+            getProductByIdUseCase,
+            getCartUseCase,
+            addProductToCartUseCase,
+            setAmountUseCase,
+            increaseAmountUseCase,
+            decreaseAmountUseCase,
+            calculateCartTotalsUseCase,
+            quantityFormatter,
+            moneyFormatter,
+            linePriceCalculator,
+            imageKeyResolver,
+            isFavouriteUseCase,
+            toggleFavouriteUseCase
+        )
+    }
+
+
 }
 
 

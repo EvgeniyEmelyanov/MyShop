@@ -3,7 +3,7 @@ package com.example.myshop.core.ui.image
 import androidx.annotation.DrawableRes
 import com.example.myshop.R
 
-object ImageKeyResolver { // временно делаем обджектом пока не перевели все на рхитектуру.
+object ImageKeyResolver { // временно делаем обджектом пока не перевели все на архитектуру.
 
     @DrawableRes
     fun resolve(imageKey: String): Int =

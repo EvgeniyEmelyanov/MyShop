@@ -7,20 +7,24 @@ import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentProductDetailBinding
+import com.example.myshop.di.AppGraph
 import com.example.myshop.features.productdetail.presentation.ProductDetailUiState
 import com.example.myshop.features.productdetail.presentation.ProductDetailViewModel
-import com.example.myshop.features.productdetail.presentation.ProductDetailViewModelFactory
 
 class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val vm: ProductDetailViewModel by viewModels { ProductDetailViewModelFactory() }
+
+    private val vm: ProductDetailViewModel by viewModels {
+        AppGraph.createProductDetailViewModelFactory()
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         _binding = FragmentProductDetailBinding.bind(view)
 
         val productId = arguments?.getString("productId")
@@ -29,7 +33,9 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
             return
         }
 
-        setInsetsForView(binding.clHeaderImage, additionalTopMarginDp = 0, additionalBottomMarginDp = 0)
+        setInsetsForView(
+            binding.clHeaderImage, additionalTopMarginDp = 0, additionalBottomMarginDp = 0
+        )
 
         vm.state.observe(viewLifecycleOwner) { state ->
             render(state)
@@ -37,8 +43,6 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
 
         vm.setProductId(productId)
-
-
 
         // 4) Лисенеры
         binding.btnToggleDescription.setOnClickListener { vm.onToggleDescription() }
