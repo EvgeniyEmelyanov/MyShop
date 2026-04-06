@@ -2,9 +2,9 @@ package com.example.myshop.domain.favourite.usecase
 
 import com.example.myshop.domain.favourite.FavouriteRepository
 
-class RemoveFromFavouriteUseCase (private val favouriteRepository: FavouriteRepository) {
+class RemoveFromFavouriteUseCase(private val favouriteRepository: FavouriteRepository) {
 
-    fun removeFromFavourite(id: String) {
+    suspend fun removeFromFavourite(id: String) {
         favouriteRepository.removeFavouriteItem(id)
     }
 }

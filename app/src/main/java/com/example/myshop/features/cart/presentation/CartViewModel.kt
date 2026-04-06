@@ -88,9 +88,7 @@ class CartViewModel(
     private suspend fun reloadState() {
         val currentState = _state.value ?: CartUiState()
         _state.value = currentState.copy(isLoading = true)
-
         val newState = buildState()
-
         _state.value = newState.copy(isLoading = false)
     }
 

@@ -9,8 +9,7 @@ import com.example.myshop.databinding.ItemBannerBinding
 import com.example.myshop.features.shop.presentation.BannerUiModel
 
 class BannerAdapter : ListAdapter<BannerUiModel, BannerAdapter.VH>(BannerDiffUtil()) {
-    class VH(private val binding: ItemBannerBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class VH(private val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BannerUiModel) = with(binding) {
             firstTextTv.text = item.title

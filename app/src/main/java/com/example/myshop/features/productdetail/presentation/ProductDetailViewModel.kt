@@ -57,9 +57,11 @@ class ProductDetailViewModel(
     }
 
     fun onAddToFavorite() {
-        val id = productId ?: return
-        toggleFavouriteUseCase.toggle(id)
-        load()
+        viewModelScope.launch {
+            val id = productId ?: return@launch
+            toggleFavouriteUseCase.toggle(id)
+            load()
+        }
     }
 
     fun onToggleDescription() {

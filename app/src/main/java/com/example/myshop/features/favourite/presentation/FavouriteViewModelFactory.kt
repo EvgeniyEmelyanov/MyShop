@@ -17,7 +17,8 @@ class FavouriteViewModelFactory : ViewModelProvider.Factory {
                 clearFavouriteUseCase = AppGraph.clearFavouriteUseCase,
                 toggleFavouriteUseCase = AppGraph.toggleFavouriteUseCase,
                 imageKeyResolver = AppGraph.imageKeyResolver,
-                moneyFormatter = AppGraph.moneyFormatter
+                moneyFormatter = AppGraph.moneyFormatter,
+                addAllFavouriteToCartUseCase = AppGraph.addAllFavouriteToCartUseCase
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

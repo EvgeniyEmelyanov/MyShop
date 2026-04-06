@@ -19,8 +19,10 @@ import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
-import com.example.myshop.data.favourite.FavouriteRepositoryImpl
+import com.example.myshop.data.favourite.repository.FavouriteRepositoryImpl
 import com.example.myshop.data.local.AppDatabase
+import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
+import com.example.myshop.domain.cart.usecase.AddAllFavouriteToCartUseCase
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.usecase.AddToFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ClearFavouriteUseCase
@@ -40,16 +42,14 @@ object AppGraph {
     fun init(context: Context) {
         if (_db == null) {
             _db = Room.databaseBuilder(
-                context.applicationContext,
-                AppDatabase::class.java,
-                "myshop_db"
-            )
-                .fallbackToDestructiveMigration()
-                .build()
+                context.applicationContext, AppDatabase::class.java, "myshop_db"
+            ).fallbackToDestructiveMigration().build()
         }
     }
 
     val cartDao by lazy { db.cartDao() }
+    val favouriteDao by lazy { db.favouriteDao() }
+
 
     // Product
     val productRepository: ProductRepository by lazy { ProductRepositoryImpl() }
@@ -62,6 +62,8 @@ object AppGraph {
     val moneyFormatter by lazy { MoneyFormatter() }
     val quantityFormatter by lazy { QuantityFormatter() }
     val linePriceCalculator by lazy { LinePriceCalculator() }
+    val defaultCartAmountFactory by lazy { DefaultCartAmountFactory() }
+
 
     // Cart
     val cartRepository: CartRepository by lazy { CartRepositoryImpl(cartDao) }
@@ -76,8 +78,14 @@ object AppGraph {
         CalculateCartTotalsUseCase(cartRepository, productRepository, linePriceCalculator)
     }
 
+    val addAllFavouriteToCartUseCase by lazy {
+        AddAllFavouriteToCartUseCase(
+            cartRepository, favouriteRepository, productRepository, defaultCartAmountFactory
+        )
+    }
+
     // Favourite
-    val favouriteRepository: FavouriteRepository by lazy { FavouriteRepositoryImpl() }
+    val favouriteRepository: FavouriteRepository by lazy { FavouriteRepositoryImpl(favouriteDao) }
     val getFavouriteUseCase by lazy { GetFavouriteUseCase(favouriteRepository) }
     val addToFavouriteUseCase by lazy { AddToFavouriteUseCase(favouriteRepository) }
     val removeFromFavouriteUseCase by lazy { RemoveFromFavouriteUseCase(favouriteRepository) }

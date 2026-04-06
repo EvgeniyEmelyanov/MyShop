@@ -8,11 +8,8 @@ import kotlinx.coroutines.withContext
 
 class GetProductByIdUseCase(private val productRepository: ProductRepository) {
 
-   suspend fun getById(id: String): Product? {
-        return withContext(Dispatchers.IO) {
-            delay(500)
-            productRepository.getById(id)
-        }
+    suspend fun getById(id: String): Product? {
+        return productRepository.getById(id)
     }
-
 }
+

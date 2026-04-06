@@ -4,16 +4,16 @@ import com.example.myshop.domain.favourite.model.Favourite
 
 interface FavouriteRepository {
 
-    fun getFavourite(): Favourite
+    suspend fun getFavourite(): Favourite
 
-    fun addToFavourite(id: String)
+    suspend fun addToFavourite(id: String)
 
-    fun removeFavouriteItem(id: String)
+    suspend fun removeFavouriteItem(id: String)
 
-    fun clearFavourite()
+    suspend fun clearFavourite()
 
-    fun isFavourite(id: String): Boolean
+    suspend fun isFavourite(id: String): Boolean
 
-    fun toggle(productId: String): Boolean
+    suspend fun toggle(productId: String): Boolean
 
 }

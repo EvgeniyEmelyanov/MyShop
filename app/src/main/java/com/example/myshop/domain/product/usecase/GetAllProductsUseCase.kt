@@ -9,10 +9,8 @@ import kotlinx.coroutines.withContext
 class GetAllProductsUseCase(private val productRepository: ProductRepository) {
 
     suspend fun getAllProducts(): List<Product> {
-        return withContext(Dispatchers.IO) {
-            delay(500)
-            productRepository.getAllProducts()
-        }
+        return productRepository.getAllProducts()
+
     }
 
 }

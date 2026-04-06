@@ -4,7 +4,7 @@ import com.example.myshop.domain.favourite.FavouriteRepository
 
 class ToggleFavouriteUseCase(private val favouriteRepository: FavouriteRepository) {
 
-    fun toggle(id: String): Boolean {
+    suspend fun toggle(id: String): Boolean {
         return favouriteRepository.toggle(id)
 
     }

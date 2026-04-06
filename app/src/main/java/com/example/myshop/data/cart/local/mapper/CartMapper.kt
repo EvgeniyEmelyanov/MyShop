@@ -1,5 +1,6 @@
-package com.example.myshop.data.cart.local
+package com.example.myshop.data.cart.local.mapper
 
+import com.example.myshop.data.cart.local.entity.CartItemEntity
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.CartItem
 

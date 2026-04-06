@@ -2,6 +2,7 @@ package com.example.myshop.features.favourite.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -36,10 +37,10 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
         observeState()
 
+        binding.btnAddAllToCart.setOnClickListener {
+            vm.onAddAllToCart()
 
-//        binding.btnAddAllToCart.setOnClickListener {
-//            vm.addAllToCart()
-//        } добавлю потом
+        }
 
     }
 
@@ -47,6 +48,7 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
         favouriteAdapter = FavouriteAdapter(
             onClickItem = { id -> openProductDetail(id) }
         )
+
     }
 
 
@@ -75,10 +77,18 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
             render(state)
         }
 
+        vm.toastMessage.observe(viewLifecycleOwner) {message ->
+            message?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                vm.toastShown()
+            }
+        }
+
     }
 
     private fun render(state: FavouriteUiState) {
         favouriteAdapter.submitList(state.items)
+
     }
 
     private fun openProductDetail(productId: String) {

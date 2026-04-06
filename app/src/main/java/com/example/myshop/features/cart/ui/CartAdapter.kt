@@ -2,17 +2,17 @@ package com.example.myshop.features.cart.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemCartBannerBinding
 import com.example.myshop.features.cart.presentation.CartUiModel
 
 class CartAdapter(
-    private var items: List<CartUiModel>,
     private val onClickIncrease: (String) -> Unit,
     private val onClickDecrease: (String) -> Unit,
     private val onClickDelete: (String) -> Unit
-) : RecyclerView.Adapter<CartAdapter.VH>() {
-
+) : ListAdapter<CartUiModel, CartAdapter.VH>(CartDiffUtil()) {
 
     inner class VH(private val binding: ItemCartBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -34,7 +34,7 @@ class CartAdapter(
             }
 
             btnDeleteItem.setOnClickListener {
-                onClickDelete (item.productId)
+                onClickDelete(item.productId)
             }
         }
     }
@@ -47,15 +47,23 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+}
+
+class CartDiffUtil : DiffUtil.ItemCallback<CartUiModel>() {
+
+    override fun areItemsTheSame(
+        p0: CartUiModel, p1: CartUiModel
+    ): Boolean {
+        return p0.productId == p1.productId
     }
 
-    fun submitList(newItems: List<CartUiModel>) {
-        items = newItems
-        notifyDataSetChanged() // потом сделаем DiffUtil, пока ок
+    override fun areContentsTheSame(
+        p0: CartUiModel, p1: CartUiModel
+    ): Boolean {
+        return p0 == p1
+
     }
 }

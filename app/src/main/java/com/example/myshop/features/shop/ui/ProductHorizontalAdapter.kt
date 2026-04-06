@@ -9,14 +9,12 @@ import com.example.myshop.databinding.ItemProductCartBinding
 import com.example.myshop.core.ui.CommonProductUiModel
 
 class ProductHorizontalAdapter(
-    private val onRootClick: (String) -> Unit,
-    private val onAddBtnClick: (String) -> Unit
+    private val onRootClick: (String) -> Unit, private val onAddBtnClick: (String) -> Unit
 ) : ListAdapter<CommonProductUiModel, ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
 
-    inner class VH(private var binding: ItemProductCartBinding) :
-        RecyclerView.ViewHolder(
-            binding.root
-        ) {
+    inner class VH(private var binding: ItemProductCartBinding) : RecyclerView.ViewHolder(
+        binding.root
+    ) {
 
         fun bind(item: CommonProductUiModel) = with(binding) {
             ivProductPicture.setImageResource(item.imageRes)
@@ -50,11 +48,15 @@ class ProductHorizontalAdapter(
 
 class ProductDiffCallback : DiffUtil.ItemCallback<CommonProductUiModel>() {
 
-    override fun areItemsTheSame(oldItem: CommonProductUiModel, newItem: CommonProductUiModel): Boolean {
+    override fun areItemsTheSame(
+        oldItem: CommonProductUiModel, newItem: CommonProductUiModel
+    ): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: CommonProductUiModel, newItem: CommonProductUiModel): Boolean {
+    override fun areContentsTheSame(
+        oldItem: CommonProductUiModel, newItem: CommonProductUiModel
+    ): Boolean {
         return oldItem == newItem
     }
 }

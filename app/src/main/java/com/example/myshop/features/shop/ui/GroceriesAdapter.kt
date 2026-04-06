@@ -11,18 +11,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.databinding.ItemGroceriesBinding
 import com.example.myshop.features.shop.presentation.GroceriesCategoryUiModel
 
-class GroceriesAdapter : ListAdapter<GroceriesCategoryUiModel, GroceriesAdapter.VH>(GroceriesDiffUtil()) {
+class GroceriesAdapter :
+    ListAdapter<GroceriesCategoryUiModel, GroceriesAdapter.VH>(GroceriesDiffUtil()) {
 
     class VH(private val binding: ItemGroceriesBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: GroceriesCategoryUiModel) = with(binding) {
             ivGroceriesPicture.setImageResource(item.imageRes)
             tvGroceriesTitle.text = item.title
-            
+
             val color = ContextCompat.getColor(
-                root.context,
-                item.backgroundColorRes
-                )
-            ViewCompat.setBackgroundTintList(groceryCardRoot, ColorStateList.valueOf(color))
+                root.context, item.backgroundColorRes
+            )
+            ViewCompat.setBackgroundTintList(
+                groceryCardRoot, ColorStateList.valueOf(color)
+            )
         }
     }
 
@@ -39,11 +42,15 @@ class GroceriesAdapter : ListAdapter<GroceriesCategoryUiModel, GroceriesAdapter.
 }
 
 class GroceriesDiffUtil : DiffUtil.ItemCallback<GroceriesCategoryUiModel>() {
-    override fun areItemsTheSame(oldItem: GroceriesCategoryUiModel, newItem: GroceriesCategoryUiModel): Boolean {
+    override fun areItemsTheSame(
+        oldItem: GroceriesCategoryUiModel, newItem: GroceriesCategoryUiModel
+    ): Boolean {
         return oldItem.title == newItem.title
     }
 
-    override fun areContentsTheSame(oldItem: GroceriesCategoryUiModel, newItem: GroceriesCategoryUiModel): Boolean {
+    override fun areContentsTheSame(
+        oldItem: GroceriesCategoryUiModel, newItem: GroceriesCategoryUiModel
+    ): Boolean {
         return oldItem == newItem
     }
 }

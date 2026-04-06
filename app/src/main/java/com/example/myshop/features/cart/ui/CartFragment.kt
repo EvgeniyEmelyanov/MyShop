@@ -27,13 +27,10 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
         setInsetsForFragment(binding.tvHeaderCart, additionalTopMarginDp = 10)
 
-
         cartAdapter = CartAdapter(
-            items = emptyList(),
             onClickIncrease = { id -> vm.increaseAmount(id) },
-            onClickDecrease = { id -> vm.decreaseAmount(id) },
-            onClickDelete = { id -> vm.removeProduct(id) }
-        )
+            onClickDecrease = { id -> vm.decreaseAmount(id) }
+        ) { id -> vm.removeProduct(id) }
 
         binding.rvProductsCart.apply {
             adapter = cartAdapter

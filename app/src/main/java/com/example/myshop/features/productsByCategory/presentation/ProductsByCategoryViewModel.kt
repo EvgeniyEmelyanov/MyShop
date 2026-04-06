@@ -44,7 +44,6 @@ class ProductsByCategoryViewModel(
         }
     }
 
-
     fun onAddProduct(productId: String) {
         viewModelScope.launch {
             val cart = getCartUseCase.getCart()

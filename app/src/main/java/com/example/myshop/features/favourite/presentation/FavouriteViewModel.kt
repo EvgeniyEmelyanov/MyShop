@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.domain.cart.usecase.AddAllFavouriteToCartUseCase
 import com.example.myshop.domain.favourite.usecase.AddToFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ClearFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.GetFavouriteUseCase
@@ -21,6 +22,7 @@ class FavouriteViewModel(
     private val removeFromFavouriteUseCase: RemoveFromFavouriteUseCase,
     private val clearFavouriteUseCase: ClearFavouriteUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
+    private val addAllFavouriteToCartUseCase: AddAllFavouriteToCartUseCase,
     private val imageKeyResolver: ImageKeyResolver,
     private val moneyFormatter: MoneyFormatter
 
@@ -29,42 +31,68 @@ class FavouriteViewModel(
     private val _state = MutableLiveData(FavouriteUiState())
     val state: LiveData<FavouriteUiState> = _state
 
-     fun load() {
-         viewModelScope.launch {
-             val currentState= _state.value ?: FavouriteUiState()
-             _state.value = currentState.copy(isLoading = true)
-             val newState = buildState()
-             _state.value = newState.copy(isLoading = false)
-         }
-
+    private val _toastMessage = MutableLiveData<String?>()
+    val toastMessage: LiveData<String?> = _toastMessage
+    fun load() {
+        viewModelScope.launch {
+            reloadState()
+        }
     }
 
     fun onAdd(productId: String) {
-        addToFavouriteUseCase.addToFavourite(productId)
-        load()
+        viewModelScope.launch {
+            addToFavouriteUseCase.addToFavourite(productId)
+            reloadState()
+        }
+    }
 
+    fun onAddAllToCart() {
+        viewModelScope.launch {
+            val addedCount = addAllFavouriteToCartUseCase.addAll()
+
+            reloadState()
+
+            _toastMessage.value = when (addedCount) {
+                0 -> "All favourite items are already in cart"
+                1 -> "1 item added to cart"
+                else -> "$addedCount items added to cart"
+            }
+        }
     }
 
     fun onClear() {
-        clearFavouriteUseCase.clearFavourite()
-        load()
-
+        viewModelScope.launch {
+            clearFavouriteUseCase.clearFavourite()
+            reloadState()
+        }
     }
 
     fun onRemove(productId: String) {
-        removeFromFavouriteUseCase.removeFromFavourite(productId)
-        load()
-
+        viewModelScope.launch {
+            removeFromFavouriteUseCase.removeFromFavourite(productId)
+            reloadState()
+        }
     }
 
     fun onToggle(productId: String) {
-        toggleFavouriteUseCase.toggle(productId)
-        load()
+        viewModelScope.launch {
+            toggleFavouriteUseCase.toggle(productId)
+            reloadState()
+        }
+    }
 
+    fun toastShown() {
+        _toastMessage.value = null
+    }
+    private suspend fun reloadState() {
+        val currentState = _state.value ?: FavouriteUiState()
+        _state.value = currentState.copy(isLoading = true)
+        val newState = buildState()
+        _state.value = newState.copy(isLoading = false)
     }
 
     private suspend fun buildState(): FavouriteUiState {
-        val favourite = getFavouriteUseCase.getFavouriteItems()
+        val favourite = getFavouriteUseCase.getFavourite()
 
         val uiItems = favourite.items.mapNotNull { item ->
             val product = getProductByIdUseCase.getById(item.productId) ?: return@mapNotNull null

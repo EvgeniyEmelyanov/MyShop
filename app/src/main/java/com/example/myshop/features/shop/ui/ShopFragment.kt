@@ -142,6 +142,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         }
     }
 
+
     private fun render(state: ShopUiState) {
         bannerAdapter.submitList(state.banners)
         exclusiveAdapter.submitList(state.exclusiveOffers)
