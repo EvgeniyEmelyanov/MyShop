@@ -14,16 +14,18 @@ import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-class ProductsByCategoryViewModel(
+@HiltViewModel
+class ProductsByCategoryViewModel @Inject constructor(
     private val getCartUseCase: GetCartUseCase,
     private val addProductToCartUseCase: AddProductToCartUseCase,
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
     private val moneyFormatter: MoneyFormatter,
-    private val imageKeyResolver: ImageKeyResolver,
-
+    private val imageKeyResolver: ImageKeyResolver
     ) : ViewModel() {
 
     private var currentCategory: Category? = null

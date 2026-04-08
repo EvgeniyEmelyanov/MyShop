@@ -6,9 +6,10 @@ import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.data.cart.local.mapper.toDomain
 import com.example.myshop.data.cart.local.mapper.toEntity
+import javax.inject.Inject
 
 
-class CartRepositoryImpl(private val cartDao: CartDao) : CartRepository {
+class CartRepositoryImpl @Inject constructor(private val cartDao: CartDao) : CartRepository {
 
 
     override suspend fun getCart(): Cart {

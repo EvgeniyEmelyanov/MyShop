@@ -2,8 +2,8 @@ package com.example.myshop.core.ui.image
 
 import androidx.annotation.DrawableRes
 import com.example.myshop.R
-
-object ImageKeyResolver { // временно делаем обджектом пока не перевели все на архитектуру.
+import javax.inject.Inject
+class ImageKeyResolver @Inject constructor() {
 
     @DrawableRes
     fun resolve(imageKey: String): Int =

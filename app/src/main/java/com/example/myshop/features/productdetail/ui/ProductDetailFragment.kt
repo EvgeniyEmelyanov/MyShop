@@ -7,20 +7,18 @@ import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentProductDetailBinding
-import com.example.myshop.di.AppGraph
 import com.example.myshop.features.productdetail.presentation.ProductDetailUiState
 import com.example.myshop.features.productdetail.presentation.ProductDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
 
-    private val vm: ProductDetailViewModel by viewModels {
-        AppGraph.createProductDetailViewModelFactory()
-    }
-
+    private val vm: ProductDetailViewModel by viewModels ()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

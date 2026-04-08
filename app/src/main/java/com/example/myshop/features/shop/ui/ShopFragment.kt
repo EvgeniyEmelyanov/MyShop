@@ -13,14 +13,15 @@ import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.features.shop.presentation.ShopUiState
 import com.example.myshop.features.shop.presentation.ShopViewModel
-import com.example.myshop.features.shop.presentation.ShopViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
-    private val vm: ShopViewModel by viewModels { ShopViewModelFactory() }
+    private val vm: ShopViewModel by viewModels ()
 
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var exclusiveAdapter: ProductHorizontalAdapter

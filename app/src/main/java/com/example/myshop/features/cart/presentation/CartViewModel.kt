@@ -17,19 +17,22 @@ import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-class CartViewModel(
+@HiltViewModel
+class CartViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
-    private val imageKeyResolver: ImageKeyResolver,
     private val getCartUseCase: GetCartUseCase,
-    private val quantityFormatter: QuantityFormatter,
     private val addProductToCartUseCase: AddProductToCartUseCase,
     private val setAmountUseCase: SetAmountUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
     private val clearProductsUseCase: ClearProductsUseCase,
     private val increaseAmountUseCase: IncreaseAmountUseCase,
     private val decreaseAmountUseCase: DecreaseAmountUseCase,
+    private val imageKeyResolver: ImageKeyResolver,
+    private val quantityFormatter: QuantityFormatter,
     private val calculateCartTotalsUseCase: CalculateCartTotalsUseCase,
     private val moneyFormatter: MoneyFormatter
 ) : ViewModel() {

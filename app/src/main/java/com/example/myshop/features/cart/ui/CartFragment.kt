@@ -8,16 +8,17 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.R
 import com.example.myshop.databinding.FragmentCartBinding
-import com.example.myshop.features.cart.presentation.CartViewModelFactory
 import com.example.myshop.features.cart.presentation.CartViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
 
-    private val vm: CartViewModel by viewModels { CartViewModelFactory() }
+    private val vm: CartViewModel by viewModels ()
     private lateinit var cartAdapter: CartAdapter
 
 

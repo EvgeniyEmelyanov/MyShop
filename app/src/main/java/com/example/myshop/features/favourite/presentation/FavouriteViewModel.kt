@@ -13,9 +13,11 @@ import com.example.myshop.domain.favourite.usecase.GetFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.RemoveFromFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-
-class FavouriteViewModel(
+@HiltViewModel
+class FavouriteViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val getFavouriteUseCase: GetFavouriteUseCase,
     private val addToFavouriteUseCase: AddToFavouriteUseCase,

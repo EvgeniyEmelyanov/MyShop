@@ -11,8 +11,9 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.repository.ProductRepository
 import java.math.BigDecimal
 import java.math.RoundingMode
+import javax.inject.Inject
 
-class ProductRepositoryImpl : ProductRepository {
+class ProductRepositoryImpl @Inject constructor() : ProductRepository {
 
 
     override fun getProductsByCategory(category: Category): List<Product> {

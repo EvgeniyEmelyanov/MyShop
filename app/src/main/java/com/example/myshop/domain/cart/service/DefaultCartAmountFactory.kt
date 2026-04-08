@@ -4,8 +4,9 @@ import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Amount.Grams
 import com.example.myshop.domain.cart.model.Amount.Piece
 import com.example.myshop.domain.product.model.AmountType
+import javax.inject.Inject
 
-class DefaultCartAmountFactory {
+class DefaultCartAmountFactory @Inject constructor() {
 
     fun defaultAmount(type: AmountType): Amount =
         when (type) {

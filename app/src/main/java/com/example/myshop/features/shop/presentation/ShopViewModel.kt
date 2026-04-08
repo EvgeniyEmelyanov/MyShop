@@ -15,11 +15,13 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-
-class ShopViewModel(
+@HiltViewModel
+class ShopViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
-    private val addProductUseCase: AddProductToCartUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase,
     private val moneyFormatter: MoneyFormatter,
     private val imageKeyResolver: ImageKeyResolver,
     private val getCartUseCase: GetCartUseCase,
@@ -49,7 +51,7 @@ class ShopViewModel(
 
             if (cartItem == null) {
                 val amount = startAmount(product.amountType)
-                addProductUseCase.addProduct(productId, amount)
+                addProductToCartUseCase.addProduct(productId, amount)
                 reloadState()
             } else {
                 _toastMessage.value = "${product.title} already in cart"
@@ -108,3 +110,4 @@ class ShopViewModel(
             AmountType.WEIGHT -> Amount.Grams(1000)
         }
 }
+

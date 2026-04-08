@@ -15,13 +15,14 @@ import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
-import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
     private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
     private var _binding: FragmentProductsByCategoryBinding? = null
     private val binding get() = _binding!!
-    private val vm: ProductsByCategoryViewModel by viewModels { ProductsByCategoryViewModelFactory() }
+    private val vm: ProductsByCategoryViewModel by viewModels ()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,11 +31,10 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
         _binding = FragmentProductsByCategoryBinding.bind(view)
 
         val categoryStr = arguments?.getString("category") ?: return
-        val category = runCatching { Category.valueOf(categoryStr) }.getOrNull()
-            ?: run {
-                findNavController().popBackStack()
-                return
-            }
+        val category = runCatching { Category.valueOf(categoryStr) }.getOrNull() ?: run {
+            findNavController().popBackStack()
+            return
+        }
 
         setInsetsForFragment(view, additionalTopMarginDp = 10)
 
@@ -57,11 +57,10 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
     private fun setupAdapter() {
         productsByCategoryAdapter = ProductsByCategoryAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
-            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
-        )
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) })
     }
 
-    private fun setupList () {
+    private fun setupList() {
         binding.rvProducts.apply {
             adapter = productsByCategoryAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -69,16 +68,14 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
             if (itemDecorationCount == 0) {
                 addItemDecoration(
                     GridSpacingItemDecoration(
-                        spanCount = 2,
-                        spacing = requireContext().dpToPx(15),
-                        includeEdge = false
+                        spanCount = 2, spacing = requireContext().dpToPx(15), includeEdge = false
                     )
                 )
             }
         }
     }
 
-    private fun observeState () {
+    private fun observeState() {
         vm.state.observe(viewLifecycleOwner) { state ->
             render(state)
         }

@@ -4,8 +4,8 @@ import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.Currency
 import java.math.BigDecimal
 import java.math.RoundingMode
-
-class MoneyFormatter {
+import javax.inject.Inject
+class MoneyFormatter @Inject constructor() {
 
     fun format(money: Money): String {
         val amount = BigDecimal(money.cents)

@@ -2,8 +2,8 @@ package com.example.myshop.domain.cart.service
 
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.product.model.PricingUnit
-
-class LinePriceCalculator {
+import javax.inject.Inject
+class LinePriceCalculator @Inject constructor() {
 
     fun calculateLineCents(
         priceCents: Long,

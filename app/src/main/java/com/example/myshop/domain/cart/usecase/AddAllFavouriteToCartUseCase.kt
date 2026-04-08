@@ -4,8 +4,8 @@ import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.product.repository.ProductRepository
-
-class AddAllFavouriteToCartUseCase(
+import javax.inject.Inject
+class AddAllFavouriteToCartUseCase @Inject constructor(
     private val cartRepository: CartRepository,
     private val favouriteRepository: FavouriteRepository,
     private val productRepository: ProductRepository,

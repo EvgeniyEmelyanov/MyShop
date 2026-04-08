@@ -6,8 +6,8 @@ import com.example.myshop.domain.cart.service.LinePriceCalculator
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.repository.ProductRepository
-
-class CalculateCartTotalsUseCase(
+import javax.inject.Inject
+class CalculateCartTotalsUseCase @Inject constructor(
     private val cartRepository: CartRepository,
     private val productRepository: ProductRepository,
     private val linePriceCalculator: LinePriceCalculator

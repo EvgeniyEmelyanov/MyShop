@@ -2,8 +2,8 @@ package com.example.myshop.domain.cart.usecase
 
 import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.model.Amount
-
-class DecreaseAmountUseCase(private val cartRepository: CartRepository) {
+import javax.inject.Inject
+class DecreaseAmountUseCase @Inject constructor(private val cartRepository: CartRepository) {
 
     suspend fun decreaseAmount(productId: String) {
         val cart = cartRepository.getCart()

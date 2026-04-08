@@ -13,14 +13,15 @@ import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.databinding.FragmentFavouriteBinding
 import com.example.myshop.features.favourite.presentation.FavouriteUiState
-import com.example.myshop.features.favourite.presentation.FavouriteViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
 
-    private val vm: FavouriteViewModel by viewModels { FavouriteViewModelFactory() }
+    private val vm: FavouriteViewModel by viewModels ()
     private lateinit var favouriteAdapter: FavouriteAdapter
 
 

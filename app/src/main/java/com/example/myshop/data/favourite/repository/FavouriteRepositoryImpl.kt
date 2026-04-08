@@ -5,8 +5,10 @@ import com.example.myshop.data.favourite.local.mapper.toDomain
 import com.example.myshop.data.favourite.local.mapper.toEntity
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
+import javax.inject.Inject
 
-class FavouriteRepositoryImpl(private val favouriteDao: FavouriteDao) : FavouriteRepository {
+class FavouriteRepositoryImpl @Inject constructor(private val favouriteDao: FavouriteDao) :
+    FavouriteRepository {
 
 
     override suspend fun getFavourite(): Favourite {
@@ -37,7 +39,7 @@ class FavouriteRepositoryImpl(private val favouriteDao: FavouriteDao) : Favourit
             favouriteDao.remove(productId)
             false
         } else {
-           favouriteDao.insert(toEntity(productId))
+            favouriteDao.insert(toEntity(productId))
             true
         }
     }
