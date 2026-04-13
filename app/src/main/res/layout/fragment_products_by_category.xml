@@ -20,10 +20,9 @@
         android:layout_marginStart="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle"/>
+        app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle" />
 
     <TextView
-        tools:layout_marginTop="20dp"
         android:id="@+id/tvProductGroupTitle"
         style="@style/TextAppearance.AppCompat.PageHeader"
         android:layout_width="wrap_content"
@@ -32,15 +31,27 @@
         app:layout_constraintEnd_toStartOf="@+id/btnShare"
         app:layout_constraintStart_toEndOf="@+id/btnBackToFirstFragment"
         app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginTop="20dp"
         tools:text="Name product" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="20dp"
         android:layout_marginTop="5dp"
         android:clipToPadding="false"
+        android:paddingHorizontal="20dp"
         android:paddingVertical="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,5 +60,4 @@
         app:layout_constraintTop_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_product_cart" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

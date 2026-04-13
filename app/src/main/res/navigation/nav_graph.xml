@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.example.myshop.ShopFragment"
+        android:name="com.example.myshop.features.shop.ui.ShopFragment"
         android:label="Shop"
         tools:layout="@layout/fragment_shop">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="com.example.myshop.ExploreFragment"
+        android:name="com.example.myshop.features.explore.ui.ExploreFragment"
         android:label="Explore"
         tools:layout="@layout/fragment_explore" >
         <action
@@ -29,13 +29,13 @@
 
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.myshop.CartFragment"
+        android:name="com.example.myshop.features.cart.ui.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.example.myshop.FavouriteFragment"
+        android:name="com.example.myshop.features.favourite.ui.FavouriteFragment"
         android:label="Favourite"
         tools:layout="@layout/fragment_favourite">
         <action
@@ -45,12 +45,12 @@
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.myshop.AccountFragment"
+        android:name="com.example.myshop.features.account.AccountFragment"
         android:label="Account" />
 
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.myshop.ProductDetailFragment"
+        android:name="com.example.myshop.features.productdetail.ui.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail">
 
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/productsByCategoryFragment"
-        android:name="com.example.myshop.ProductsByCategoryFragment"
+        android:name="com.example.myshop.features.productsByCategory.ui.ProductsByCategoryFragment"
         android:label="ProductsByCategoryFragment" >
         <argument
             android:name="category"
