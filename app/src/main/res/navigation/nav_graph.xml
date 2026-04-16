@@ -70,6 +70,14 @@
         <action
             android:id="@+id/action_productsByCategoryFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_productsByCategoryFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.myshop.FilterFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 
 </navigation>

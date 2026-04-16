@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/btnShare"
+        android:id="@+id/btnFilter"
         style="@style/Widget.App.IconButton.Filter"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"

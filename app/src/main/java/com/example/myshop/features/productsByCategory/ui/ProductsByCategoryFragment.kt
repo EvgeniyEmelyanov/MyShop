@@ -50,6 +50,11 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
             findNavController().popBackStack()
         }
 
+        binding.btnFilter.setOnClickListener {
+            openFilter()
+        }
+
+
         binding.tvProductGroupTitle.text = category.displayName
 
     }
@@ -57,7 +62,9 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
     private fun setupAdapter() {
         productsByCategoryAdapter = ProductsByCategoryAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
-            onAddBtnClick = { productId -> vm.onAddProduct(productId) })
+            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+
+        )
     }
 
     private fun setupList() {
@@ -99,6 +106,10 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
             R.id.action_productsByCategoryFragment_to_productDetailFragment,
             bundleOf("productId" to productId)
         )
+    }
+
+    private fun openFilter() {
+        findNavController().navigate(R.id.action_productsByCategoryFragment_to_blankFragment)
     }
 
     override fun onDestroyView() {
