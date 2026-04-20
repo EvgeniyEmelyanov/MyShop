@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_productsByCategoryFragment"
             app:destination="@id/productsByCategoryFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment

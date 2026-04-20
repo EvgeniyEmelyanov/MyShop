@@ -12,6 +12,7 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.ui.ProductGridAdapter
 import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
-    private lateinit var productsByCategoryAdapter: ProductsByCategoryAdapter
+    private lateinit var productsByCategoryAdapter: ProductGridAdapter
     private var _binding: FragmentProductsByCategoryBinding? = null
     private val binding get() = _binding!!
     private val vm: ProductsByCategoryViewModel by viewModels ()
@@ -54,13 +55,12 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
             openFilter()
         }
 
-
         binding.tvProductGroupTitle.text = category.displayName
 
     }
 
     private fun setupAdapter() {
-        productsByCategoryAdapter = ProductsByCategoryAdapter(
+        productsByCategoryAdapter = ProductGridAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
             onAddBtnClick = { productId -> vm.onAddProduct(productId) }
 
