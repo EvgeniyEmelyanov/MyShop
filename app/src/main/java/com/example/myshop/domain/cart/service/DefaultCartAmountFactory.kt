@@ -8,9 +8,8 @@ import javax.inject.Inject
 
 class DefaultCartAmountFactory @Inject constructor() {
 
-    fun defaultAmount(type: AmountType): Amount =
-        when (type) {
-            AmountType.PIECE -> Piece(1)
-            AmountType.WEIGHT -> Grams(1000)
-        }
+    operator fun invoke(type: AmountType): Amount = when (type) {
+        AmountType.PIECE -> Piece(1)
+        AmountType.WEIGHT -> Grams(1000)
+    }
 }

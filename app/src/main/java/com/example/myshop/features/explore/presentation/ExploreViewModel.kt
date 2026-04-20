@@ -7,12 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
-import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
-import com.example.myshop.domain.cart.usecase.GetCartUseCase
-import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.cart.AddToCartResult
+import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
-import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,9 +19,7 @@ class ExploreViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val imageKeyResolver: ImageKeyResolver,
     private val moneyFormatter: MoneyFormatter,
-    private val getCartUseCase: GetCartUseCase,
-    private val addProductToCartUseCase: AddProductToCartUseCase,
-    private val getProductByIdUseCase: GetProductByIdUseCase
+    private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
 ) : ViewModel() {
 
     private val provider = ExploreCategoriesProvider
@@ -43,20 +38,15 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    fun onAdd(productId: String) {
+    fun onAddToCart(productId: String) {
         viewModelScope.launch {
-            val cart = getCartUseCase.getCart()
+            when (val result = addProductToCartIfAbsentUseCase(productId)) {
+                is AddToCartResult.Added -> reloadState()
+                is AddToCartResult.AlreadyInCart -> {
+                    _toastMessage.value = "${result.productTitle} is already in cart"
+                }
 
-            val cartItem = cart.items.find { it.productId == productId }
-
-            val product = getProductByIdUseCase.getById(productId) ?: return@launch
-
-            if (cartItem == null) {
-                val amount = startAmount(product.amountType)
-                addProductToCartUseCase.addProduct(productId, amount)
-                reloadState()
-            } else {
-                _toastMessage.value = "${product.title} already in cart"
+                AddToCartResult.ProductNotFound -> Unit
             }
         }
     }
@@ -104,17 +94,9 @@ class ExploreViewModel @Inject constructor(
         }
 
         val currentState = _state.value ?: ExploreUiState()
-
         _state.value = currentState.copy(
             searchQuery = query, products = filteredProducts
         )
     }
-
-    private fun startAmount(amountType: AmountType): Amount = when (amountType) {
-        AmountType.PIECE -> Amount.Piece(1)
-        AmountType.WEIGHT -> Amount.Grams(1000)
-
-    }
-
 }
 

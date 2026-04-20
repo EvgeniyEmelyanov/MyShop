@@ -29,7 +29,7 @@ class AddAllFavouriteToCartUseCase @Inject constructor(
 
             val product = productRepository.getById(productId) ?: continue
 
-            val amount = defaultCartAmountFactory.defaultAmount(product.amountType)
+            val amount = defaultCartAmountFactory(product.amountType)
 
             cartRepository.addToCart(productId, amount)
             cartIds.add(productId)

@@ -49,17 +49,17 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
         exclusiveAdapter = ProductHorizontalAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
-            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
         )
 
         bestSellingAdapter = ProductHorizontalAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
-            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
         )
 
         groceriesProductsAdapter = ProductHorizontalAdapter(
             onRootClick = { productId -> openProductDetail(productId) },
-            onAddBtnClick = { productId -> vm.onAddProduct(productId) }
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
         )
 
         groceriesAdapter = GroceriesAdapter()

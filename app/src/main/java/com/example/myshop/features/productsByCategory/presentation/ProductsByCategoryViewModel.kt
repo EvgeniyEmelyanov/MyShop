@@ -48,15 +48,15 @@ class ProductsByCategoryViewModel @Inject constructor(
 
     fun onAddProduct(productId: String) {
         viewModelScope.launch {
-            val cart = getCartUseCase.getCart()
+            val cart = getCartUseCase()
 
             val cartItem = cart.items.find { it.productId == productId }
 
-            val product = getProductByIdUseCase.getById(productId) ?: return@launch
+            val product = getProductByIdUseCase(productId) ?: return@launch
 
             if (cartItem == null) {
                 val amount = startAmount(product.amountType)
-                addProductToCartUseCase.addProduct(productId, amount)
+                addProductToCartUseCase(productId, amount)
                 reloadState()
             } else {
                 _toastMessage.value = "${product.title} already in cart"

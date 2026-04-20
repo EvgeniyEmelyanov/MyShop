@@ -60,7 +60,7 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
         productsAdapter = ProductGridAdapter(onRootClick = { productId ->
             openProductDetail(productId)
         }, onAddBtnClick = { productId ->
-            vm.onAdd(productId)
+            vm.onAddToCart(productId)
         })
 
     }
