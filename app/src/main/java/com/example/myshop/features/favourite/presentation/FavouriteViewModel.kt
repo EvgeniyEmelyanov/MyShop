@@ -97,7 +97,7 @@ class FavouriteViewModel @Inject constructor(
         val favourite = getFavouriteUseCase.getFavourite()
 
         val uiItems = favourite.items.mapNotNull { item ->
-            val product = getProductByIdUseCase.getById(item.productId) ?: return@mapNotNull null
+            val product = getProductByIdUseCase(item.productId) ?: return@mapNotNull null
 
             val imageRes = imageKeyResolver.resolve(product.imageKey)
 

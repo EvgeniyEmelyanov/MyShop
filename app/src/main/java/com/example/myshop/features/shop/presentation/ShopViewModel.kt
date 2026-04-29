@@ -7,33 +7,30 @@ import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
-import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
-import com.example.myshop.domain.cart.usecase.GetCartUseCase
-import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.cart.AddToCartResult
+import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
-import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
-    private val addProductToCartUseCase: AddProductToCartUseCase,
     private val moneyFormatter: MoneyFormatter,
     private val imageKeyResolver: ImageKeyResolver,
-    private val getCartUseCase: GetCartUseCase,
-    private val getProductByIdUseCase: GetProductByIdUseCase
+    private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData(ShopUiState())
     val state: LiveData<ShopUiState> = _state
-    private val groceriesCategoriesProvider = GroceriesCategoriesProvider
-    private val bannersProvider = BannersProvider
+
     private val _toastMessage = MutableLiveData<String?>()
     val toastMessage: LiveData<String?> = _toastMessage
+    private val groceriesCategoriesProvider = GroceriesCategoriesProvider
+    private val bannersProvider = BannersProvider
 
     fun load() {
         viewModelScope.launch {
@@ -41,20 +38,15 @@ class ShopViewModel @Inject constructor(
         }
     }
 
-    fun onAddProduct(productId: String) {
+    fun onAddToCart(productId: String) {
         viewModelScope.launch {
-            val cart = getCartUseCase.getCart()
+            when (val result = addProductToCartIfAbsentUseCase(productId)) {
+                is AddToCartResult.Added -> reloadState()
+                is AddToCartResult.AlreadyInCart -> {
+                    _toastMessage.value = "${result.productTitle} is already in cart"
+                }
 
-            val cartItem = cart.items.find { it.productId == productId }
-
-            val product = getProductByIdUseCase.getById(productId) ?: return@launch
-
-            if (cartItem == null) {
-                val amount = startAmount(product.amountType)
-                addProductToCartUseCase.addProduct(productId, amount)
-                reloadState()
-            } else {
-                _toastMessage.value = "${product.title} already in cart"
+                AddToCartResult.ProductNotFound -> Unit
             }
         }
     }
@@ -73,16 +65,13 @@ class ShopViewModel @Inject constructor(
     private suspend fun buildState(): ShopUiState {
         val products = getAllProductsUseCase.getAllProducts()
 
-        val exclusiveOffers = products
-            .filter { it.tags.contains(ProductTag.EXCLUSIVE_OFFER) }
+        val exclusiveOffers = products.filter { it.tags.contains(ProductTag.EXCLUSIVE_OFFER) }
             .map(::toProductCardUiModel)
 
-        val bestSelling = products
-            .filter { it.tags.contains(ProductTag.BEST_SELLING) }
+        val bestSelling = products.filter { it.tags.contains(ProductTag.BEST_SELLING) }
             .map(::toProductCardUiModel)
 
-        val groceriesProducts = products
-            .filter { it.tags.contains(ProductTag.GROCERIES_PRODUCT) }
+        val groceriesProducts = products.filter { it.tags.contains(ProductTag.GROCERIES_PRODUCT) }
             .map(::toProductCardUiModel)
 
         return ShopUiState(
@@ -104,10 +93,5 @@ class ShopViewModel @Inject constructor(
         )
     }
 
-    private fun startAmount(type: AmountType): Amount =
-        when (type) {
-            AmountType.PIECE -> Amount.Piece(1)
-            AmountType.WEIGHT -> Amount.Grams(1000)
-        }
 }
 

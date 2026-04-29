@@ -40,6 +40,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         }
 
 
+
         vm.setProductId(productId)
 
         // 4) Лисенеры

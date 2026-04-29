@@ -48,7 +48,7 @@ class CartViewModel @Inject constructor(
 
     fun addProduct(productId: String, amount: Amount) {
         viewModelScope.launch {
-            addProductToCartUseCase.addProduct(productId, amount)
+            addProductToCartUseCase(productId, amount)
             reloadState()
         }
     }
@@ -96,12 +96,12 @@ class CartViewModel @Inject constructor(
     }
 
     private suspend fun buildState(): CartUiState {
-        val cart = getCartUseCase.getCart()
+        val cart = getCartUseCase()
         val totals = calculateCartTotalsUseCase.execute()
         val totalString = moneyFormatter.format(totals.total)
 
         val uiItems = cart.items.mapNotNull { item ->
-            val product = getProductByIdUseCase.getById(item.productId) ?: return@mapNotNull null
+            val product = getProductByIdUseCase(item.productId) ?: return@mapNotNull null
 
             val imageRes = imageKeyResolver.resolve(product.imageKey)
             val quantityText = quantityFormatter.quantityFormat(item.amount)

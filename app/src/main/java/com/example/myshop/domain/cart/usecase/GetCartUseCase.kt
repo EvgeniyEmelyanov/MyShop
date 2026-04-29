@@ -5,7 +5,7 @@ import com.example.myshop.domain.cart.model.Cart
 import javax.inject.Inject
 class GetCartUseCase @Inject constructor(private val cartRepository: CartRepository) {
 
-    suspend fun getCart(): Cart {
+    suspend operator fun invoke(): Cart {
         return cartRepository.getCart()
     }
 }

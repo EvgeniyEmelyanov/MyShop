@@ -9,12 +9,13 @@ import com.example.myshop.domain.cart.model.Amount.*
 import com.example.myshop.domain.cart.service.LinePriceCalculator
 import com.example.myshop.domain.cart.usecase.*
 import com.example.myshop.domain.common.Money
-import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.core.ui.formatter.MoneyFormatter
 import com.example.myshop.core.ui.formatter.QuantityFormatter
 import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.domain.cart.AddToCartResult
+import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,8 +26,6 @@ import kotlinx.coroutines.launch
 class ProductDetailViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val getCartUseCase: GetCartUseCase,
-    private val addProductToCartUseCase: AddProductToCartUseCase,
-    private val setAmountUseCase: SetAmountUseCase,
     private val increaseAmountUseCase: IncreaseAmountUseCase,
     private val decreaseAmountUseCase: DecreaseAmountUseCase,
     private val calculateCartTotalsUseCase: CalculateCartTotalsUseCase,
@@ -35,7 +34,9 @@ class ProductDetailViewModel @Inject constructor(
     private val linePriceCalculator: LinePriceCalculator,
     private val imageKeyResolver: ImageKeyResolver,
     private val isFavouriteUseCase: IsFavouriteUseCase,
-    private val toggleFavouriteUseCase: ToggleFavouriteUseCase
+    private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
+    private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
+    private val defaultCartAmountFactory: DefaultCartAmountFactory
 ) : ViewModel() {
 
     private var productId: String? = null
@@ -74,13 +75,13 @@ class ProductDetailViewModel @Inject constructor(
     fun onPlus() {
         val id = productId ?: return
         viewModelScope.launch {
-            val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
+            val cartItem = getCartUseCase().items.find { it.productId == id }
 
             if (cartItem != null) {
                 increaseAmountUseCase.increaseAmount(id)
             } else {
-                val product = getProductByIdUseCase.getById(id) ?: return@launch
-                val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+                val product = getProductByIdUseCase(id) ?: return@launch
+                val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
                 selectedAmountPreview = when (cur) {
                     is Piece -> Piece(cur.count + 1)
@@ -96,13 +97,13 @@ class ProductDetailViewModel @Inject constructor(
         val id = productId ?: return
 
         viewModelScope.launch {
-            val cartItem = getCartUseCase.getCart().items.find { it.productId == id }
+            val cartItem = getCartUseCase().items.find { it.productId == id }
 
             if (cartItem != null) {
                 decreaseAmountUseCase.decreaseAmount(id)
             } else {
-                val product = getProductByIdUseCase.getById(id) ?: return@launch
-                val cur = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
+                val product = getProductByIdUseCase(id) ?: return@launch
+                val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
                 selectedAmountPreview = when (cur) {
                     is Piece -> Piece(maxOf(1, cur.count - 1))
@@ -115,25 +116,13 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     fun onAddToCart() {
-        val id = productId ?: return
         viewModelScope.launch {
-            val product = getProductByIdUseCase.getById(id) ?: return@launch
-
-            val preview = selectedAmountPreview ?: defaultPreviewAmount(product.amountType)
-
-            // если товара ещё не было - просто add
-            val inCart = getCartUseCase.getCart().items.any { it.productId == id }
-            if (!inCart) {
-                addProductToCartUseCase.addProduct(id, preview)
-            } else {
-                setAmountUseCase.setAmount(id, preview)
+            when (val result = addProductToCartIfAbsentUseCase(productId!!)) {
+                is AddToCartResult.Added -> reloadState()
+                is AddToCartResult.AlreadyInCart -> Unit
+                AddToCartResult.ProductNotFound -> Unit
             }
-
-            selectedAmountPreview = null
-
-            reloadState()
         }
-
     }
 
     private suspend fun reloadState() {
@@ -146,9 +135,9 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     private suspend fun buildState(id: String): ProductDetailUiState {
-        val product = getProductByIdUseCase.getById(id) ?: error("Product not found")
+        val product = getProductByIdUseCase(id) ?: error("Product not found")
 
-        val cart = getCartUseCase.getCart()
+        val cart = getCartUseCase()
         val realItem = cart.items.find { it.productId == id }
         val inCart = realItem != null
         val addButtonText = if (inCart) "Added" else "Add to cart"
@@ -160,7 +149,7 @@ class ProductDetailViewModel @Inject constructor(
 
         val amountToShow = realItem?.amount
             ?: selectedAmountPreview
-            ?: defaultPreviewAmount(product.amountType)
+            ?: defaultCartAmountFactory(product.amountType)
 
         val countText = quantityFormatter.quantityFormat(amountToShow)
 
@@ -193,13 +182,6 @@ class ProductDetailViewModel @Inject constructor(
             isAddEnabled = isAddEnabled
         )
     }
-
-    private fun defaultPreviewAmount(type: AmountType): Amount =
-        when (type) {
-            AmountType.PIECE -> Piece(1)
-            AmountType.WEIGHT -> Grams(1000)
-        }
-
 
 }
 
