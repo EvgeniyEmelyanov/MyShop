@@ -26,10 +26,11 @@ class ShopViewModel @Inject constructor(
 
     private val _state = MutableLiveData(ShopUiState())
     val state: LiveData<ShopUiState> = _state
-    private val groceriesCategoriesProvider = GroceriesCategoriesProvider
-    private val bannersProvider = BannersProvider
+
     private val _toastMessage = MutableLiveData<String?>()
     val toastMessage: LiveData<String?> = _toastMessage
+    private val groceriesCategoriesProvider = GroceriesCategoriesProvider
+    private val bannersProvider = BannersProvider
 
     fun load() {
         viewModelScope.launch {

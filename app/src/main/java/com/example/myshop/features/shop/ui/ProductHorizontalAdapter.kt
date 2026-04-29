@@ -10,7 +10,8 @@ import com.example.myshop.core.ui.CommonProductUiModel
 
 class ProductHorizontalAdapter(
     private val onRootClick: (String) -> Unit, private val onAddBtnClick: (String) -> Unit
-) : ListAdapter<CommonProductUiModel, ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
+) : ListAdapter<CommonProductUiModel,
+        ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
 
     inner class VH(private var binding: ItemProductCartBinding) : RecyclerView.ViewHolder(
         binding.root

@@ -5,12 +5,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.ui.CommonProductUiModel
+import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
 import com.example.myshop.databinding.FragmentShopBinding
+import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapter
 import com.example.myshop.features.shop.presentation.ShopUiState
 import com.example.myshop.features.shop.presentation.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +32,13 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private lateinit var exclusiveAdapter: ProductHorizontalAdapter
     private lateinit var bestSellingAdapter: ProductHorizontalAdapter
     private lateinit var groceriesProductsAdapter: ProductHorizontalAdapter
+    private lateinit var exclusiveGridAdapter: ProductsByCategoryAdapter
+    private lateinit var bestSellingGridAdapter: ProductsByCategoryAdapter
+    private lateinit var groceriesProductsGridAdapter: ProductsByCategoryAdapter
     private lateinit var groceriesAdapter: GroceriesAdapter
+    private var exclusiveListMode = ProductListMode.HORIZONTAL
+    private var bestSellingListMode = ProductListMode.HORIZONTAL
+    private var groceriesProductsListMode = ProductListMode.HORIZONTAL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +50,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
         setupAdapters()
         setupLists()
+        setupSeeAllClicks()
         observeState()
 
         vm.load()
@@ -62,6 +74,21 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
             onAddBtnClick = { productId -> vm.onAddToCart(productId) }
         )
 
+        exclusiveGridAdapter = ProductsByCategoryAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
+        )
+
+        bestSellingGridAdapter = ProductsByCategoryAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
+        )
+
+        groceriesProductsGridAdapter = ProductsByCategoryAdapter(
+            onRootClick = { productId -> openProductDetail(productId) },
+            onAddBtnClick = { productId -> vm.onAddToCart(productId) }
+        )
+
         groceriesAdapter = GroceriesAdapter()
     }
 
@@ -69,56 +96,9 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         vpBanners.adapter = bannerAdapter
 
 
-        rvExclusiveOffer.apply {
-            adapter = exclusiveAdapter
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-
-            if (itemDecorationCount == 0) {
-                addItemDecoration(
-                    HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15)
-                    )
-                )
-            }
-        }
-
-        rvBestSellingProducts.apply {
-            adapter = bestSellingAdapter
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-
-            if (itemDecorationCount == 0) {
-                addItemDecoration(
-                    HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15)
-                    )
-                )
-            }
-        }
-
-        rvGroceriesProductCard.apply {
-            adapter = groceriesProductsAdapter
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-
-            if (itemDecorationCount == 0) {
-                addItemDecoration(
-                    HorizontalSpaceItemDecoration(
-                        spaceWidth = requireContext().dpToPx(15)
-                    )
-                )
-            }
-        }
+        setupHorizontalProductsList(rvExclusiveOffer, exclusiveAdapter)
+        setupHorizontalProductsList(rvBestSellingProducts, bestSellingAdapter)
+        setupHorizontalProductsList(rvGroceriesProductCard, groceriesProductsAdapter)
 
         rvGroceries.apply {
             adapter = groceriesAdapter
@@ -127,6 +107,23 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+        }
+    }
+
+    private fun setupSeeAllClicks() = with(binding) {
+        tvSeeAllFirst.setOnClickListener {
+            exclusiveListMode = exclusiveListMode.toggle()
+            render(vm.state.value ?: ShopUiState())
+        }
+
+        tvSeeAllSecond.setOnClickListener {
+            bestSellingListMode = bestSellingListMode.toggle()
+            render(vm.state.value ?: ShopUiState())
+        }
+
+        tvSeeAllThird.setOnClickListener {
+            groceriesProductsListMode = groceriesProductsListMode.toggle()
+            render(vm.state.value ?: ShopUiState())
         }
     }
 
@@ -146,12 +143,101 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
 
     private fun render(state: ShopUiState) {
         bannerAdapter.submitList(state.banners)
-        exclusiveAdapter.submitList(state.exclusiveOffers)
-        bestSellingAdapter.submitList(state.bestSelling)
-        groceriesProductsAdapter.submitList(state.groceriesProducts)
+        renderProductList(
+            recyclerView = binding.rvExclusiveOffer,
+            mode = exclusiveListMode,
+            horizontalAdapter = exclusiveAdapter,
+            gridAdapter = exclusiveGridAdapter,
+            items = state.exclusiveOffers
+        )
+        renderProductList(
+            recyclerView = binding.rvBestSellingProducts,
+            mode = bestSellingListMode,
+            horizontalAdapter = bestSellingAdapter,
+            gridAdapter = bestSellingGridAdapter,
+            items = state.bestSelling
+        )
+        renderProductList(
+            recyclerView = binding.rvGroceriesProductCard,
+            mode = groceriesProductsListMode,
+            horizontalAdapter = groceriesProductsAdapter,
+            gridAdapter = groceriesProductsGridAdapter,
+            items = state.groceriesProducts
+        )
         groceriesAdapter.submitList(state.groceriesCategories)
+        binding.tvSeeAllFirst.text = exclusiveListMode.actionText()
+        binding.tvSeeAllSecond.text = bestSellingListMode.actionText()
+        binding.tvSeeAllThird.text = groceriesProductsListMode.actionText()
         binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
         binding.contentContainer.visibility = if (state.isLoading) View.GONE else View.VISIBLE
+    }
+
+    private fun renderProductList(
+        recyclerView: RecyclerView,
+        mode: ProductListMode,
+        horizontalAdapter: ProductHorizontalAdapter,
+        gridAdapter: ProductsByCategoryAdapter,
+        items: List<CommonProductUiModel>
+    ) {
+        when (mode) {
+            ProductListMode.HORIZONTAL -> {
+                if (recyclerView.adapter !== horizontalAdapter) {
+                    setupHorizontalProductsList(recyclerView, horizontalAdapter)
+                }
+                horizontalAdapter.submitList(items)
+            }
+
+            ProductListMode.GRID -> {
+                if (recyclerView.adapter !== gridAdapter) {
+                    setupGridProductsList(recyclerView, gridAdapter)
+                }
+                gridAdapter.submitList(items)
+            }
+        }
+    }
+
+    private fun setupHorizontalProductsList(
+        recyclerView: RecyclerView,
+        listAdapter: ProductHorizontalAdapter
+    ) {
+        recyclerView.apply {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            clearItemDecorations()
+            addItemDecoration(
+                HorizontalSpaceItemDecoration(
+                    spaceWidth = requireContext().dpToPx(15)
+                )
+            )
+        }
+    }
+
+    private fun setupGridProductsList(
+        recyclerView: RecyclerView,
+        listAdapter: ProductsByCategoryAdapter
+    ) {
+        recyclerView.apply {
+            adapter = listAdapter
+            layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+            clearItemDecorations()
+            addItemDecoration(
+                GridSpacingItemDecoration(
+                    spanCount = GRID_SPAN_COUNT,
+                    spacing = requireContext().dpToPx(15),
+                    includeEdge = true
+                )
+            )
+        }
+    }
+
+    private fun RecyclerView.clearItemDecorations() {
+        while (itemDecorationCount > 0) {
+            removeItemDecorationAt(0)
+        }
     }
 
     private fun openProductDetail(productId: String) {
@@ -164,5 +250,20 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private enum class ProductListMode {
+        HORIZONTAL,
+        GRID
+    }
+
+    private fun ProductListMode.toggle(): ProductListMode =
+        if (this == ProductListMode.HORIZONTAL) ProductListMode.GRID else ProductListMode.HORIZONTAL
+
+    private fun ProductListMode.actionText(): String =
+        if (this == ProductListMode.HORIZONTAL) "See all" else "See less"
+
+    private companion object {
+        const val GRID_SPAN_COUNT = 2
     }
 }
