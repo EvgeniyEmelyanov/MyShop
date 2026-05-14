@@ -46,6 +46,10 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
         setupSearch()
 
+        binding.btnFilter.setOnClickListener {
+            openFilter()
+        }
+
         if (savedInstanceState == null) {
             vm.load()
         }
@@ -109,6 +113,8 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
             exploreCategoriesAdapter.submitList(state.categories)
         }
+
+        binding.btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
     }
 
 
@@ -122,6 +128,12 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
             R.id.action_exploreFragment_to_productDetailFragment, bundleOf("productId" to productId)
+        )
+    }
+
+    private fun openFilter () {
+        findNavController().navigate(
+            R.id.action_exploreFragment_to_filterFragment
         )
     }
 

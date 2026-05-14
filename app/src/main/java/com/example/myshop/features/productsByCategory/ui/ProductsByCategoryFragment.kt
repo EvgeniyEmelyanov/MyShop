@@ -52,7 +52,7 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
         }
 
         binding.btnFilter.setOnClickListener {
-            openFilter()
+//            openFilter()
         }
 
         binding.tvProductGroupTitle.text = category.displayName
@@ -108,9 +108,9 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
         )
     }
 
-    private fun openFilter() {
-        findNavController().navigate(R.id.action_productsByCategoryFragment_to_blankFragment)
-    }
+//    private fun openFilter() {
+//        findNavController().navigate(R.id.action_productsByCategoryFragment_to_filterFragment)
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

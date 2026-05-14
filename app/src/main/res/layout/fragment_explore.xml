@@ -20,10 +20,9 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/shape_rounded_edit_text"
         android:drawableStart="@drawable/ic_vector"
         android:drawablePadding="10dp"
@@ -31,11 +30,19 @@
         android:hint="Search Store"
         android:paddingStart="15dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnFilter"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeaderExplore"
         tools:ignore="RtlSymmetry" />
+
+    <ImageButton
+        android:id="@+id/btnFilter"
+        style="@style/Widget.App.IconButton.Filter"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExploreBanner"
@@ -48,6 +55,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_explore_banner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
