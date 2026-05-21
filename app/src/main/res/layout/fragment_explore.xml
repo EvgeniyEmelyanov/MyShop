@@ -31,6 +31,7 @@
         android:paddingStart="15dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/btnFilter"
+        app:layout_goneMarginEnd="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeaderExplore"
@@ -39,6 +40,9 @@
     <ImageButton
         android:id="@+id/btnFilter"
         style="@style/Widget.App.IconButton.Filter"
+        android:layout_width="44dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/editText2"
         app:layout_constraintEnd_toEndOf="parent"

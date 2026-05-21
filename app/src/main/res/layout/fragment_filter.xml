@@ -1,13 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FilterFragment">
+    android:background="@color/white"
+    tools:context=".core.filter.FilterFragment">
+
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/tvFilterTitle"
+        style="@style/TextAppearance.AppCompat.PageHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filters"
+        app:layout_constraintBottom_toTopOf="@id/filterPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginTop="20dp" />
 
-</FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filterPanel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/bg_filter_panel"
+        android:paddingHorizontal="22dp"
+        android:paddingTop="27dp"
+        android:paddingBottom="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFilterTitle">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:fillViewport="false"
+            app:layout_constraintBottom_toTopOf="@id/bntApply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/filterOptionsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    style="@style/TextAppearance.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textSize="22sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbFruitsVegetable"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:layout_marginTop="18dp"
+                    tools:text="Fresh Fruits &amp; Vegetables" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbCookingOilGhee"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    tools:text="Cooking Oil &amp; Ghee" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbMeatFish"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    tools:text="Meat &amp; Fish" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBakerySnacks"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    tools:text="Bakery &amp; Snacks" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbDairyEggs"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    tools:text="Dairy &amp; Eggs" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBeverages"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    tools:text="Beverages" />
+
+                <TextView
+                    style="@style/TextAppearance.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="Brand"
+                    android:textSize="22sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandIndividualCollection"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:layout_marginTop="18dp"
+                    android:text="Individual Collection" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandCocola"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="Cocola" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandIfad"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="Ifad" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandKaziFarmas"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="Kazi Farmas" />
+
+                <TextView
+                    style="@style/TextAppearance.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="Price"
+                    android:textSize="22sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbPriceLowToHigh"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:layout_marginTop="18dp"
+                    android:text="Low to High" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbPriceHighToLow"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="High to Low" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bntApply"
+            style="@style/Widget.App.Button.Confirm"
+            android:layout_width="0dp"
+            android:layout_height="61dp"
+            android:layout_marginHorizontal="1dp"
+            android:text="Apply Filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

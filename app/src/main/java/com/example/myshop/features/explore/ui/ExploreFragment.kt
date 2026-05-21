@@ -17,6 +17,8 @@ import com.example.myshop.databinding.FragmentExploreBinding
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.features.explore.presentation.ExploreUiState
 import com.example.myshop.features.explore.presentation.ExploreViewModel
+import com.example.myshop.core.filter.FilterParams
+import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -96,6 +98,12 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
                 vm.toastShown()
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterParams>(
+                FILTER_PARAMS_KEY
+            )?.observe(viewLifecycleOwner) { filterParams ->
+                vm.onFilterChanged(filterParams)
+            }
     }
 
     private fun render(state: ExploreUiState) {
@@ -127,13 +135,17 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productDetailFragment, bundleOf("productId" to productId)
+            R.id.action_exploreFragment_to_productDetailFragment,
+            bundleOf("productId" to productId)
         )
     }
 
-    private fun openFilter () {
+    private fun openFilter() {
+        val currentState = vm.state.value?.filterParams ?: FilterParams()
+
         findNavController().navigate(
-            R.id.action_exploreFragment_to_filterFragment
+            R.id.action_exploreFragment_to_filterFragment,
+            bundleOf(FILTER_PARAMS_KEY to currentState)
         )
     }
 
@@ -148,4 +160,5 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
         super.onDestroyView()
         _binding = null
     }
+
 }

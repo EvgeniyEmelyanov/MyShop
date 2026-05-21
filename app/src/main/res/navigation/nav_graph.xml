@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.myshop.FilterFragment"
+        android:name="com.example.myshop.core.filter.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter" />
 
