@@ -13,7 +13,7 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.CommonProductUiModel
-import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
+import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapter
 import com.example.myshop.features.shop.presentation.ShopUiState

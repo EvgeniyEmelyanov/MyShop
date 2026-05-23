@@ -13,7 +13,7 @@ import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.ProductGridAdapter
-import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
+import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint

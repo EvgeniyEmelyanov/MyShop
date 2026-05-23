@@ -1,4 +1,4 @@
-package com.example.myshop.core.ui.image
+package com.example.myshop.core.image
 
 import androidx.annotation.DrawableRes
 import com.example.myshop.R

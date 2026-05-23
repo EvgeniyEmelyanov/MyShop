@@ -14,9 +14,9 @@ import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
 import com.example.myshop.domain.cart.usecase.SetAmountUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
-import com.example.myshop.core.ui.formatter.MoneyFormatter
-import com.example.myshop.core.ui.formatter.QuantityFormatter
-import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.core.formatter.MoneyFormatter
+import com.example.myshop.core.formatter.QuantityFormatter
+import com.example.myshop.core.image.ImageKeyResolver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

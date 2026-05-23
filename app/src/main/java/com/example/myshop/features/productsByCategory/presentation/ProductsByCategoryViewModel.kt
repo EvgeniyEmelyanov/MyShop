@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.CommonProductUiModel
-import com.example.myshop.core.ui.formatter.MoneyFormatter
-import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.core.formatter.MoneyFormatter
+import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.GetCartUseCase

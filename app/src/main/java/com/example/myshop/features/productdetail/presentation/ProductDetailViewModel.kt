@@ -11,9 +11,9 @@ import com.example.myshop.domain.cart.usecase.*
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
-import com.example.myshop.core.ui.formatter.MoneyFormatter
-import com.example.myshop.core.ui.formatter.QuantityFormatter
-import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.core.formatter.MoneyFormatter
+import com.example.myshop.core.formatter.QuantityFormatter
+import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.AddToCartResult
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
