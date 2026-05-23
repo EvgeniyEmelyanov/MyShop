@@ -20,10 +20,12 @@ lifecycleLivedataKtx = "2.10.0"
 lifecycleViewmodelKtx = "2.10.0"
 fragmentKtx = "1.8.9"
 roomKtx = "2.8.4"
+retrofit = "3.0.0"
 preference = "1.2.1"
 hilt = "2.59.2"
 ksp = "2.3.6"
 kotlin = "2.3.20"
+
 
 
 [libraries]
@@ -51,6 +53,8 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 myandroidcore = { module = "com.github.EvgeniyEmelyanov:MyAndroidCore", version.ref = "myandroidcore" }
 ucrop = { module = "com.github.Yalantis:uCrop", version.ref = "ucrop" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

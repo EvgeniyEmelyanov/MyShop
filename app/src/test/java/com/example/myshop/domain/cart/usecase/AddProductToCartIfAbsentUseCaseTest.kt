@@ -141,11 +141,11 @@ class AddProductToCartIfAbsentUseCaseTest {
 
         private val productsById = products.associateBy { it.id }
 
-        override fun getAllProducts(): List<Product> = productsById.values.toList()
+        override suspend fun getAllProducts(): List<Product> = productsById.values.toList()
 
-        override fun getById(id: String): Product? = productsById[id]
+        override suspend fun getById(id: String): Product? = productsById[id]
 
-        override fun getProductsByCategory(category: Category): List<Product> {
+        override suspend fun getProductsByCategory(category: Category): List<Product> {
             return productsById.values.filter { it.category == category }
         }
     }
