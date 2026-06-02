@@ -1,7 +1,6 @@
 package com.example.myshop.core.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
@@ -13,7 +12,6 @@ import com.example.myshop.domain.product.model.Category
 import com.google.android.material.checkbox.MaterialCheckBox
 
 class FilterFragment : BaseFragment(R.layout.fragment_filter) {
-
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
 
@@ -25,16 +23,26 @@ class FilterFragment : BaseFragment(R.layout.fragment_filter) {
 
         setInsetsForFragment(binding.root, 10)
 
-        val initialFilterParams = findNavController().currentBackStackEntry?.savedStateHandle
-            ?.get<FilterParams>(INITIAL_FILTER_PARAMS_KEY) ?: FilterParams()
-
-        Log.d("params", "$initialFilterParams")
+        val initialFilterParams = getInitialFilterParams()
 
         setupCategoryCheckboxes(initialFilterParams)
         setupPriceCheckboxes(initialFilterParams)
         setupPriceSingleChoice()
-        binding.bntApply.setOnClickListener { applyFilter() }
+        setupActions()
 
+    }
+
+    private fun getInitialFilterParams(): FilterParams {
+        return findNavController().currentBackStackEntry?.savedStateHandle?.get<FilterParams>(
+            INITIAL_FILTER_PARAMS_KEY
+        ) ?: FilterParams()
+    }
+
+    private fun setupActions() {
+        with(binding) {
+            bntApply.setOnClickListener { applyFilter() }
+            closeFilter.setOnClickListener { findNavController().popBackStack() }
+        }
     }
 
     private fun setupCategoryCheckboxes(initialFilterParams: FilterParams) {

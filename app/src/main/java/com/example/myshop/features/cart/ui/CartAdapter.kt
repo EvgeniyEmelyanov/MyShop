@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.ItemCartBannerBinding
+import com.example.myshop.databinding.ItemCartProductBinding
 import com.example.myshop.features.cart.presentation.CartUiModel
 
 class CartAdapter(
@@ -14,7 +14,7 @@ class CartAdapter(
     private val onClickDelete: (String) -> Unit
 ) : ListAdapter<CartUiModel, CartAdapter.VH>(CartDiffUtil()) {
 
-    inner class VH(private val binding: ItemCartBannerBinding) :
+    inner class VH(private val binding: ItemCartProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CartUiModel) = with(binding) {
@@ -40,7 +40,7 @@ class CartAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemCartBannerBinding.inflate(
+        val binding = ItemCartProductBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

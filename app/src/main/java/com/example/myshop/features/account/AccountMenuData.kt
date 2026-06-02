@@ -19,7 +19,7 @@ object AccountMenuData {
             AccountMenuItem(MY_DETAILS, R.string.my_details, R.drawable.ic_my_details),
             AccountMenuItem(DELIVERY_ADDRESS, R.string.delivery_address, R.drawable.ic_delivery_address),
             AccountMenuItem(PAYMENT_METHODS, R.string.payment_methods, R.drawable.ic_payment),
-            AccountMenuItem(PROMO_CODE, R.string.promo_code, R.drawable.ic_promo_cord),
+            AccountMenuItem(PROMO_CODE, R.string.promo_code, R.drawable.ic_promo_code),
             AccountMenuItem(NOTIFICATIONS, R.string.notifications, R.drawable.ic_bell),
             AccountMenuItem(HELP, R.string.help, R.drawable.ic_help),
             AccountMenuItem(ABOUT, R.string.about, R.drawable.ic_about)

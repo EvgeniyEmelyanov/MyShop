@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.ItemProductCartBinding
+import com.example.myshop.databinding.ItemProductHorizontalBinding
 import com.example.myshop.core.ui.CommonProductUiModel
 
 class ProductHorizontalAdapter(
@@ -13,7 +13,7 @@ class ProductHorizontalAdapter(
 ) : ListAdapter<CommonProductUiModel,
         ProductHorizontalAdapter.VH>(ProductDiffCallback()) {
 
-    inner class VH(private var binding: ItemProductCartBinding) : RecyclerView.ViewHolder(
+    inner class VH(private var binding: ItemProductHorizontalBinding) : RecyclerView.ViewHolder(
         binding.root
     ) {
 
@@ -35,7 +35,7 @@ class ProductHorizontalAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemProductCartBinding.inflate(
+        val binding = ItemProductHorizontalBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

@@ -7,17 +7,17 @@ object GroceriesCategoriesProvider {
     private val groceriesCategories = listOf(
         GroceriesCategoryUiModel(
             title = "Pulses",
-            imageRes = R.drawable.pulses_picture,
+            imageRes = R.drawable.img_grocery_pulses,
             backgroundColorRes = R.color.bg_grocery_pulses
         ),
         GroceriesCategoryUiModel(
             title = "Rice",
-            imageRes = R.drawable.rice_pictute,
+            imageRes = R.drawable.img_grocery_rice,
             backgroundColorRes = R.color.bg_grocery_rice
         ),
         GroceriesCategoryUiModel(
             title = "Meat",
-            imageRes = R.drawable.rice_pictute,
+            imageRes = R.drawable.img_grocery_rice,
             backgroundColorRes = R.color.bg_grocery_meat
         )
     )

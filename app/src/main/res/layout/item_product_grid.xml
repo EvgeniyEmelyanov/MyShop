@@ -12,7 +12,7 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        tools:srcCompat="@drawable/apple_picture" />
+        tools:srcCompat="@drawable/img_product_apple" />
 
     <TextView
         android:id="@+id/tvProductTitle"
@@ -55,7 +55,7 @@
             android:layout_marginEnd="15dp"
             android:contentDescription="Button add goods"
             android:text=""
-            app:icon="@drawable/ic_for_button_add"
+            app:icon="@drawable/ic_add_to_cart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.966"

@@ -7,7 +7,16 @@
     android:background="@color/white"
     tools:context=".core.filter.FilterFragment">
 
-
+    <ImageButton
+        android:id="@+id/closeFilter"
+        style="@style/Widget.App.IconButton.CloseFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:contentDescription="@string/close"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFilterTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFilterTitle" />
     <TextView
         android:id="@+id/tvFilterTitle"
         style="@style/TextAppearance.AppCompat.PageHeader"

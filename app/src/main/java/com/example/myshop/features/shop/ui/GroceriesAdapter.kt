@@ -8,13 +8,13 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.ItemGroceriesBinding
+import com.example.myshop.databinding.ItemGroceryCategoryBinding
 import com.example.myshop.features.shop.presentation.GroceriesCategoryUiModel
 
 class GroceriesAdapter :
     ListAdapter<GroceriesCategoryUiModel, GroceriesAdapter.VH>(GroceriesDiffUtil()) {
 
-    class VH(private val binding: ItemGroceriesBinding) : RecyclerView.ViewHolder(binding.root) {
+    class VH(private val binding: ItemGroceryCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GroceriesCategoryUiModel) = with(binding) {
             ivGroceriesPicture.setImageResource(item.imageRes)
@@ -30,7 +30,7 @@ class GroceriesAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemGroceriesBinding.inflate(
+        val binding = ItemGroceryCategoryBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

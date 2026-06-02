@@ -1,6 +1,5 @@
 package com.example.myshop.features.explore.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -64,18 +63,14 @@ class ExploreViewModel @Inject constructor(
     }
 
     private suspend fun reloadState() {
-        // 1. Показываем лоадер, сохраняя текущие фильтры
         val stateBeforeLoad = _state.value ?: ExploreUiState()
         _state.value = stateBeforeLoad.copy(isLoading = true)
 
-        // 2. Скачиваем категории и товары в фоне
         val categories = provider.getCategories()
         allProducts = getAllProductsUseCase.getAllProducts()
 
-        // 3. Берем САМЫЙ СВЕЖИЙ стейт (в который могли прилететь фильтры, пока шла загрузка)
         val latestState = _state.value ?: ExploreUiState()
 
-        // 4. Публикуем финальное состояние, бережно удерживая фильтры
         _state.value = latestState.copy(
             isLoading = false,
             categories = categories,
@@ -92,7 +87,6 @@ class ExploreViewModel @Inject constructor(
         _state.value = currentState.copy(
             filterParams = filterParams, products = visibleProducts
         )
-        Log.d("ExploreViewModel", "onFilterChanged: $filterParams")
     }
 
     fun onSearchQueryChanged(query: String) {

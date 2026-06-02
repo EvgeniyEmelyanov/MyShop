@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.ItemBannerBinding
+import com.example.myshop.databinding.ItemShopBannerBinding
 import com.example.myshop.features.shop.presentation.BannerUiModel
 
 class BannerAdapter : ListAdapter<BannerUiModel, BannerAdapter.VH>(BannerDiffUtil()) {
-    class VH(private val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root) {
+    class VH(private val binding: ItemShopBannerBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BannerUiModel) = with(binding) {
             firstTextTv.text = item.title
@@ -18,7 +18,7 @@ class BannerAdapter : ListAdapter<BannerUiModel, BannerAdapter.VH>(BannerDiffUti
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemBannerBinding.inflate(
+        val binding = ItemShopBannerBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

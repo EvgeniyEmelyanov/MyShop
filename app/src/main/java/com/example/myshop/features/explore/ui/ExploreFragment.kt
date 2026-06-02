@@ -110,8 +110,9 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
     }
 
     private fun render(state: ExploreUiState) {
-        if (binding.editText2.text?.toString() != state.searchQuery && state.searchQuery.isEmpty()) {
+        if (binding.editText2.text?.toString() != state.searchQuery) {
             binding.editText2.setText(state.searchQuery)
+            binding.editText2.setSelection(state.searchQuery.length)
         }
 
         if (state.isSearchMode) {

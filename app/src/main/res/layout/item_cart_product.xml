@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/apple_picture" />
+        tools:src="@drawable/img_product_apple" />
 
     <TextView
         android:id="@+id/tvProductTitle"
@@ -45,11 +45,11 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
+        android:background="@drawable/bg_cart_quantity_button"
         android:scaleType="centerInside"
         android:focusable="true"
         android:clickable="true"
-        android:src="@drawable/ic_decrease_for_btn"
+        android:src="@drawable/ic_quantity_decrease"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvProductTitle"
         app:layout_constraintTop_toBottomOf="@id/tvProductWeight"
@@ -85,9 +85,9 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
-        android:background="@drawable/bg_for_btn_cart_banner_add_decrease"
+        android:background="@drawable/bg_cart_quantity_button"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_add_for_btn_green"
+        android:src="@drawable/ic_quantity_increase"
         app:layout_constraintBottom_toBottomOf="@id/btnProductDecreaseItemCartBanner"
         app:layout_constraintStart_toEndOf="@id/tvProductCount"
         app:layout_constraintTop_toTopOf="@id/btnProductDecreaseItemCartBanner"

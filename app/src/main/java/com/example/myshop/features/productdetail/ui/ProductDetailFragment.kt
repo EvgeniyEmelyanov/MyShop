@@ -69,9 +69,9 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
         // Favourite (tint)
         val iconRes = if (state.isFavorite) {
-            R.drawable.ic_btn_favourite_red // Закрашенная иконка
+            R.drawable.ic_favourite_filled
         } else {
-            R.drawable.ic_btn_favourite // Контурная иконка
+            R.drawable.ic_favourite_outline
         }
 
         btnAddToFavorite.setImageResource(iconRes)

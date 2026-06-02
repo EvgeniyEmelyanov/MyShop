@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.core.ui.CommonProductUiModel
-import com.example.myshop.databinding.ItemProductCartForProdByCategBinding
+import com.example.myshop.databinding.ItemProductGridBinding
 
 class ProductsByCategoryAdapter(
     private val onRootClick: (String) -> Unit,
     private val onAddBtnClick: (String) -> Unit
 ) : ListAdapter<CommonProductUiModel, ProductsByCategoryAdapter.VH>(ProductDiffUtil()) {
 
-    inner class VH(private val binding: ItemProductCartForProdByCategBinding) :
+    inner class VH(private val binding: ItemProductGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommonProductUiModel) = with(binding) {
@@ -33,7 +33,7 @@ class ProductsByCategoryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemProductCartForProdByCategBinding.inflate(
+        val binding = ItemProductGridBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

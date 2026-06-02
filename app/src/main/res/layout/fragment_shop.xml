@@ -48,8 +48,8 @@
                 android:layout_height="52dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/shape_rounded_edit_text"
-                android:drawableStart="@drawable/ic_vector"
+                android:background="@drawable/bg_search_field"
+                android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:hint="Search Store"
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 tools:layout_height="110dp"
-                tools:listitem="@layout/item_banner">
+                tools:listitem="@layout/item_shop_banner">
 
             </androidx.viewpager2.widget.ViewPager2>
 
@@ -115,7 +115,7 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,7 +164,7 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -213,7 +213,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_groceries" />
+                tools:listitem="@layout/item_grocery_category" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGroceriesProductCard"
@@ -224,7 +224,7 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
         </LinearLayout>
