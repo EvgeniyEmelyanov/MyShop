@@ -61,19 +61,19 @@ class ExploreViewModel @Inject constructor(
     private suspend fun reloadState() {
         val currentState = _state.value ?: ExploreUiState()
         _state.value = currentState.copy(isLoading = true)
-        val newState = buildState()
+        val newState = buildState(currentState)
         _state.value = newState.copy(isLoading = false)
     }
 
-    private suspend fun buildState(): ExploreUiState {
-
+    private suspend fun buildState(currentState: ExploreUiState): ExploreUiState {
         val categories = provider.getCategories()
 
         allProducts = getAllProductsUseCase.getAllProducts()
 
-
-        return ExploreUiState(
-            categories = categories, products = emptyList()
+        return currentState.copy(
+            categories = categories, products = getVisibleProducts(
+                query = currentState.searchQuery, filterParams = currentState.filterParams
+            )
         )
 
     }
@@ -90,8 +90,7 @@ class ExploreViewModel @Inject constructor(
     fun onSearchQueryChanged(query: String) {
         val currentState = _state.value ?: ExploreUiState()
         val visibleProducts = getVisibleProducts(
-            query,
-            currentState.filterParams
+            query, currentState.filterParams
         )
 
         _state.value = currentState.copy(

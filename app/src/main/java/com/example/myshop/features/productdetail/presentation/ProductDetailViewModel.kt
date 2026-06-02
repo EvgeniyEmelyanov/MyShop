@@ -117,7 +117,11 @@ class ProductDetailViewModel @Inject constructor(
 
     fun onAddToCart() {
         viewModelScope.launch {
-            when (val result = addProductToCartIfAbsentUseCase(productId!!)) {
+            val id = productId ?: return@launch
+            val product = getProductByIdUseCase(id) ?: return@launch
+            val amount = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
+
+            when (addProductToCartIfAbsentUseCase(id, amount)) {
                 is AddToCartResult.Added -> reloadState()
                 is AddToCartResult.AlreadyInCart -> Unit
                 AddToCartResult.ProductNotFound -> Unit

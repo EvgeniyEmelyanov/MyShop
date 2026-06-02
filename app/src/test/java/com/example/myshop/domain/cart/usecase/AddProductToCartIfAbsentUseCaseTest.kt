@@ -102,6 +102,26 @@ class AddProductToCartIfAbsentUseCaseTest {
         assertEquals(Amount.Grams(1000), fakeCartRepository.addedAmount)
     }
 
+    @Test
+    fun `invoke adds product with amount override when it is provided`() = runBlocking {
+        val product = product(
+            id = "apple",
+            title = "Apple",
+            amountType = AmountType.PIECE
+        )
+        val fakeCartRepository = FakeCartRepository(cart = Cart())
+        val useCase = useCase(
+            cartRepository = fakeCartRepository,
+            productRepository = FakeProductRepository(products = listOf(product))
+        )
+
+        val result = useCase("apple", Amount.Piece(3))
+
+        assertEquals(AddToCartResult.Added(productTitle = "Apple"), result)
+        assertEquals("apple", fakeCartRepository.addedProductId)
+        assertEquals(Amount.Piece(3), fakeCartRepository.addedAmount)
+    }
+
     private fun useCase(
         cartRepository: FakeCartRepository,
         productRepository: FakeProductRepository
