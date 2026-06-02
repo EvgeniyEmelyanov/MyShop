@@ -1,11 +1,13 @@
 package com.example.myshop.core.filter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
+import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import com.example.myshop.databinding.FragmentFilterBinding
 import com.example.myshop.domain.product.model.Category
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -23,8 +25,10 @@ class FilterFragment : BaseFragment(R.layout.fragment_filter) {
 
         setInsetsForFragment(binding.root, 10)
 
-        val initialFilterParams =
-            arguments?.getParcelable<FilterParams>(FILTER_PARAMS_KEY) ?: FilterParams()
+        val initialFilterParams = findNavController().currentBackStackEntry?.savedStateHandle
+            ?.get<FilterParams>(INITIAL_FILTER_PARAMS_KEY) ?: FilterParams()
+
+        Log.d("params", "$initialFilterParams")
 
         setupCategoryCheckboxes(initialFilterParams)
         setupPriceCheckboxes(initialFilterParams)
@@ -49,37 +53,30 @@ class FilterFragment : BaseFragment(R.layout.fragment_filter) {
 
     private fun applyFilter() {
         val filterParams = FilterParams(
-            categories = collectSelectedCategories(),
-            priceSort = collectSelectedPriceSort()
+            categories = collectSelectedCategories(), priceSort = collectSelectedPriceSort()
         )
 
         findNavController().previousBackStackEntry?.savedStateHandle?.set(
-            FILTER_PARAMS_KEY,
-            filterParams
+            FILTER_PARAMS_KEY, filterParams
         )
 
         findNavController().popBackStack()
     }
 
     private fun collectSelectedCategories(): Set<Category> {
-        return categoryCheckboxes()
-            .filter { (checkbox, _) -> checkbox.isChecked }
-            .map { (_, category) -> category }
-            .toSet()
+        return categoryCheckboxes().filter { (checkbox, _) -> checkbox.isChecked }
+            .map { (_, category) -> category }.toSet()
     }
 
     private fun collectSelectedPriceSort(): PriceSort? {
-        return priceCheckboxes()
-            .firstOrNull { (checkbox, _) -> checkbox.isChecked }
-            ?.second
+        return priceCheckboxes().firstOrNull { (checkbox, _) -> checkbox.isChecked }?.second
     }
 
     private fun setupPriceSingleChoice() {
         priceCheckboxes().forEach { (selectedCheckbox, _) ->
             selectedCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    priceCheckboxes()
-                        .map { (checkbox, _) -> checkbox }
+                    priceCheckboxes().map { (checkbox, _) -> checkbox }
                         .filter { checkbox -> checkbox != selectedCheckbox }
                         .forEach { checkbox -> checkbox.isChecked = false }
                 }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +19,7 @@ import com.example.myshop.features.explore.presentation.ExploreUiState
 import com.example.myshop.features.explore.presentation.ExploreViewModel
 import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
+import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -100,16 +101,17 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterParams>(
-                FILTER_PARAMS_KEY
-            )?.observe(viewLifecycleOwner) { filterParams ->
+            FILTER_PARAMS_KEY
+        )?.observe(viewLifecycleOwner) { filterParams ->
+            if (vm.state.value?.filterParams != filterParams) {
                 vm.onFilterChanged(filterParams)
             }
+        }
     }
 
     private fun render(state: ExploreUiState) {
-        if (binding.editText2.text?.toString() != state.searchQuery) {
+        if (binding.editText2.text?.toString() != state.searchQuery && state.searchQuery.isEmpty()) {
             binding.editText2.setText(state.searchQuery)
-            binding.editText2.setSelection(state.searchQuery.length)
         }
 
         if (state.isSearchMode) {
@@ -140,23 +142,28 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productDetailFragment,
-            bundleOf("productId" to productId)
+            R.id.action_exploreFragment_to_productDetailFragment, bundleOf("productId" to productId)
         )
     }
 
     private fun openFilter() {
         val currentState = vm.state.value?.filterParams ?: FilterParams()
 
-        findNavController().navigate(
-            R.id.action_exploreFragment_to_filterFragment,
-            bundleOf(FILTER_PARAMS_KEY to currentState)
+        findNavController().navigate(R.id.action_exploreFragment_to_filterFragment)
+
+        findNavController().getBackStackEntry(R.id.filterFragment).savedStateHandle.set(
+            INITIAL_FILTER_PARAMS_KEY, currentState
         )
     }
 
+
     private fun setupSearch() {
-        binding.editText2.doAfterTextChanged { text ->
-            vm.onSearchQueryChanged(text?.toString().orEmpty())
+        binding.editText2.doOnTextChanged { text, _, _, _ ->
+            val query = text?.toString().orEmpty()
+
+            if (vm.state.value?.searchQuery != query) {
+                vm.onSearchQueryChanged(query)
+            }
         }
     }
 

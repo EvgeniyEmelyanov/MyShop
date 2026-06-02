@@ -1,5 +1,6 @@
 package com.example.myshop.features.explore.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,8 @@ import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +37,8 @@ class ExploreViewModel @Inject constructor(
 
     private val _toastMessage = MutableLiveData<String?>()
     val toastMessage: LiveData<String?> = _toastMessage
+
+    private var searchJob: Job? = null
 
     fun load() {
         viewModelScope.launch {
@@ -59,43 +64,56 @@ class ExploreViewModel @Inject constructor(
     }
 
     private suspend fun reloadState() {
-        val currentState = _state.value ?: ExploreUiState()
-        _state.value = currentState.copy(isLoading = true)
-        val newState = buildState(currentState)
-        _state.value = newState.copy(isLoading = false)
-    }
+        // 1. Показываем лоадер, сохраняя текущие фильтры
+        val stateBeforeLoad = _state.value ?: ExploreUiState()
+        _state.value = stateBeforeLoad.copy(isLoading = true)
 
-    private suspend fun buildState(currentState: ExploreUiState): ExploreUiState {
+        // 2. Скачиваем категории и товары в фоне
         val categories = provider.getCategories()
-
         allProducts = getAllProductsUseCase.getAllProducts()
 
-        return currentState.copy(
-            categories = categories, products = getVisibleProducts(
-                query = currentState.searchQuery, filterParams = currentState.filterParams
-            )
-        )
+        // 3. Берем САМЫЙ СВЕЖИЙ стейт (в который могли прилететь фильтры, пока шла загрузка)
+        val latestState = _state.value ?: ExploreUiState()
 
+        // 4. Публикуем финальное состояние, бережно удерживая фильтры
+        _state.value = latestState.copy(
+            isLoading = false,
+            categories = categories,
+            products = getVisibleProducts(latestState.searchQuery, latestState.filterParams)
+        )
     }
+
 
     fun onFilterChanged(filterParams: FilterParams) {
         val currentState = _state.value ?: ExploreUiState()
+
         val visibleProducts = getVisibleProducts(currentState.searchQuery, filterParams)
 
         _state.value = currentState.copy(
             filterParams = filterParams, products = visibleProducts
         )
+        Log.d("ExploreViewModel", "onFilterChanged: $filterParams")
     }
 
     fun onSearchQueryChanged(query: String) {
         val currentState = _state.value ?: ExploreUiState()
-        val visibleProducts = getVisibleProducts(
-            query, currentState.filterParams
-        )
 
-        _state.value = currentState.copy(
-            searchQuery = query, products = visibleProducts
-        )
+        _state.value =
+            currentState.copy(searchQuery = query, filterParams = currentState.filterParams)
+
+        searchJob?.cancel()
+
+        searchJob = viewModelScope.launch {
+            delay(300)
+
+            val latestState = _state.value ?: ExploreUiState()
+            val visibleProducts = getVisibleProducts(query, latestState.filterParams)
+
+            _state.value = latestState.copy(
+                products = visibleProducts,
+                filterParams = latestState.filterParams
+            )
+        }
     }
 
     private fun getVisibleProducts(
@@ -125,10 +143,6 @@ class ExploreViewModel @Inject constructor(
             PriceSort.HIGH_TO_LOW -> filteredByCategories.sortedByDescending { it.price.cents }
             null -> filteredByCategories
         }
-
-
-
-
 
         return filterByPrice.map(::toProductUiModel)
     }
