@@ -13,6 +13,7 @@
         android:id="@+id/banner_bg_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:scaleType="centerInside"
         android:src="@drawable/img_shop_banner"
         app:shapeAppearanceOverlay="@style/RoundedStyle" />
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/airbnb_cereal_w_md"
             android:padding="0dp"
-            android:text="Get Up To 40% OFF"
+            android:text="@string/shop_banner_discount"
             android:textColor="@color/text_tertiary"
             android:textSize="14sp"
             android:textStyle="bold"

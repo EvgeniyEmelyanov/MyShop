@@ -3,6 +3,60 @@
     <string name="app_name">Carrot\n</string>
     <string name="close">Close</string>
     <string name="fresh_vegetables">Fresh Vegetables</string>
+    <string name="location_minsk_belarus">Minsk, Belarus</string>
+    <string name="search_store">Search Store</string>
+    <string name="see_all">See all</string>
+    <string name="exclusive_offer">Exclusive Offer</string>
+    <string name="best_selling">Best Selling</string>
+    <string name="groceries">Groceries</string>
+    <string name="shop_banner_discount">Get Up To 40% OFF</string>
+    <string name="find_products">Find Products</string>
+    <string name="nav_shop">Shop</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_favourite">Favourite</string>
+    <string name="nav_account">Account</string>
+    <string name="my_cart">My Cart</string>
+    <string name="go_to_checkout">Go to Checkout</string>
+    <string name="favourite">Favourite</string>
+    <string name="add_all_to_cart">Add All To Cart</string>
+    <string name="filters">Filters</string>
+    <string name="categories">Categories</string>
+    <string name="brand">Brand</string>
+    <string name="brand_individual_collection">Individual Collection</string>
+    <string name="brand_cocola">Cocola</string>
+    <string name="brand_ifad">Ifad</string>
+    <string name="brand_kazi_farms">Kazi Farms</string>
+    <string name="price">Price</string>
+    <string name="price_low_to_high">Low to High</string>
+    <string name="price_high_to_low">High to Low</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="review">Review</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="nutrition">Nutritions</string>
+    <string name="nutrition_value_100g">100g</string>
+    <string name="add_to_basket">Add to Basket</string>
+    <string name="default_product_count">1</string>
+    <string name="account_user_name">Test Test</string>
+    <string name="account_user_email">test@gmail.com</string>
+    <string name="grocery_pulses">Pulses</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">Carrot logo</string>
+    <string name="cd_filter">Open filters</string>
+    <string name="cd_close_filter">Close filters</string>
+    <string name="cd_back">Go back</string>
+    <string name="cd_share_product">Share product</string>
+    <string name="cd_add_to_favourite">Add to favourites</string>
+    <string name="cd_decrease_quantity">Decrease quantity</string>
+    <string name="cd_increase_quantity">Increase quantity</string>
+    <string name="cd_delete_cart_item">Remove item from cart</string>
+    <string name="cd_add_to_cart">Add to cart</string>
+    <string name="cd_open_product_details">Open product details</string>
+    <string name="cd_toggle_product_description">Toggle product description</string>
+    <string name="cd_toggle_nutrition">Toggle nutrition details</string>
+    <string name="cd_rating_star">Rating star</string>
+    <string name="cd_account_avatar">Account avatar</string>
 
 
     <!-- Account fragment -->

@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Find Products"
+        android:text="@string/find_products"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+     <EditText
         android:id="@+id/editText2"
         android:layout_width="0dp"
         android:layout_height="47dp"
@@ -26,8 +26,9 @@
         android:background="@drawable/bg_search_field"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="10dp"
+        android:importantForAutofill="no"
         android:fontFamily="@font/gilroy_semibold"
-        android:hint="Search Store"
+        android:hint="@string/search_store"
         android:paddingStart="15dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/btnFilter"
@@ -41,6 +42,7 @@
         android:id="@+id/btnFilter"
         style="@style/Widget.App.IconButton.Filter"
         android:layout_width="44dp"
+        android:contentDescription="@string/cd_filter"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
         android:visibility="gone"

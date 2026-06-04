@@ -11,6 +11,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:clickable="true"
+        android:contentDescription="@string/cd_account_avatar"
         app:strokeWidth="2dp"
         app:strokeColor="@color/text_primary"
         android:focusable="true"
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Evgeniy Emelyanov"
+        android:text="@string/account_user_name"
         app:layout_constraintStart_toEndOf="@+id/ivAvatar"
         app:layout_constraintTop_toTopOf="@+id/ivAvatar" />
 
@@ -36,7 +37,7 @@
         style="@style/TextAppearance.UserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Imshuvo97@gmail.com"
+        tools:text="@string/account_user_email"
         app:layout_constraintStart_toStartOf="@+id/tvUserName"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 

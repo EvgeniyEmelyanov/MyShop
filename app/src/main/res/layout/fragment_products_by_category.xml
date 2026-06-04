@@ -9,6 +9,7 @@
         android:id="@+id/btnFilter"
         style="@style/Widget.App.IconButton.Filter"
         android:layout_marginEnd="4dp"
+        android:contentDescription="@string/cd_filter"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle"
@@ -18,6 +19,7 @@
         android:id="@+id/btnBackToFirstFragment"
         style="@style/Widget.App.IconButton.Back"
         android:layout_marginStart="6dp"
+        android:contentDescription="@string/cd_back"
         app:layout_constraintBottom_toBottomOf="@+id/tvProductGroupTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvProductGroupTitle" />

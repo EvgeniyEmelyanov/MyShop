@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="Review"
+                android:text="@string/review"
                 app:layout_constraintBottom_toBottomOf="@+id/back_arrow2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/back_arrow2"
@@ -59,6 +59,7 @@
 
                 <ImageView
                     android:id="@+id/iv_picture"
+                    android:contentDescription="@null"
                     android:layout_width="215dp"
                     android:layout_height="189dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -70,6 +71,7 @@
                 <ImageButton
                     android:id="@+id/btnShare"
                     style="@style/Widget.App.IconButton.Share"
+                    android:contentDescription="@string/cd_share_product"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/btnBackToFirstFragment"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +82,7 @@
                 <ImageButton
                     android:id="@+id/btnBackToFirstFragment"
                     style="@style/Widget.App.IconButton.Back"
+                    android:contentDescription="@string/cd_back"
                     android:layout_marginStart="6dp"
                     app:layout_constraintEnd_toStartOf="@+id/btnShare"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -101,7 +104,6 @@
                 app:layout_constraintTop_toBottomOf="@id/clHeaderImage"
                 tools:text="Name product" />
 
-            <!-- Избранное -->
             <ImageButton
                 android:id="@+id/btnAddToFavorite"
                 android:layout_width="wrap_content"
@@ -109,6 +111,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:contentDescription="@string/cd_add_to_favourite"
                 android:focusable="true"
                 android:padding="15dp"
                 android:src="@drawable/ic_favourite_outline"
@@ -130,11 +133,12 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnProductDecrease"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="30dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:contentDescription="@string/cd_decrease_quantity"
                 android:focusable="true"
                 android:padding="0dp"
                 android:scaleType="centerInside"
@@ -151,18 +155,19 @@
                 android:background="@drawable/bg_cart_quantity_button"
                 android:gravity="center"
                 android:paddingHorizontal="12dp"
-                android:text="1"
+                android:text="@string/default_product_count"
                 app:layout_constraintBottom_toBottomOf="@id/btnProductDecrease"
                 app:layout_constraintStart_toEndOf="@id/btnProductDecrease"
                 app:layout_constraintTop_toTopOf="@id/btnProductDecrease" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnProductIncrease"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:contentDescription="@string/cd_increase_quantity"
                 android:focusable="true"
                 android:padding="0dp"
                 android:scaleType="center"
@@ -199,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:text="Product Detail"
+                android:text="@string/product_detail"
                 app:layout_constraintBottom_toBottomOf="@+id/btnToggleDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnToggleDescription" />
@@ -207,6 +212,7 @@
             <ImageButton
                 android:id="@+id/btnToggleDescription"
                 style="@style/Widget.App.IconButton.Arrow"
+                android:contentDescription="@string/cd_toggle_product_description"
                 android:layout_marginEnd="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/firstLine" />
@@ -247,7 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:text="Nutritions"
+                android:text="@string/nutrition"
                 app:layout_constraintBottom_toBottomOf="@+id/btnBackArrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnBackArrow" />
@@ -269,13 +275,14 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="5dp"
                     android:paddingVertical="4dp"
-                    android:text="100g" />
+                    android:text="@string/nutrition_value_100g" />
 
             </com.google.android.material.card.MaterialCardView>
 
             <ImageButton
                 android:id="@+id/btnBackArrow"
                 style="@style/Widget.App.IconButton.Arrow"
+                android:contentDescription="@string/cd_toggle_nutrition"
                 android:layout_marginEnd="4dp"
                 app:layout_constraintBottom_toTopOf="@id/thirdLine"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -306,37 +313,43 @@
                     android:id="@+id/btn_star1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_star" />
+                    android:background="@drawable/ic_star"
+                    android:contentDescription="@string/cd_rating_star" />
 
                 <ImageButton
                     android:id="@+id/btn_star2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_star" />
+                    android:background="@drawable/ic_star"
+                    android:contentDescription="@string/cd_rating_star" />
 
                 <ImageButton
                     android:id="@+id/btn_star3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_star" />
+                    android:background="@drawable/ic_star"
+                    android:contentDescription="@string/cd_rating_star" />
 
                 <ImageButton
                     android:id="@+id/btn_star4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_star" />
+                    android:background="@drawable/ic_star"
+                    android:contentDescription="@string/cd_rating_star" />
 
                 <ImageButton
                     android:id="@+id/btn_star5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_star" />
+                    android:background="@drawable/ic_star"
+                    android:contentDescription="@string/cd_rating_star" />
 
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/back_arrow2"
                 style="@style/Widget.App.IconButton.Arrow"
+                android:contentDescription="@string/cd_open_product_details"
                 android:layout_marginEnd="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/bottomAnchor"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -362,7 +375,7 @@
         android:layout_height="65dp"
         android:layout_marginHorizontal="25dp"
         android:layout_marginBottom="10dp"
-        android:text="Add to Basket"
+        android:text="@string/add_to_basket"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
