@@ -12,10 +12,11 @@ data class FilterParams(
 ): Parcelable
 
 
-enum class Brands {
-    COCOOLA,
-    IFAAD,
-    KAZI_FARMAS
+enum class Brands(val displayName: String) {
+    INDIVIDUAL_COLLECTION("Individual Collection"),
+    COCACOOLA("CocaCola"),
+    IFAAD("Ifad"),
+    KAZI_FARMS("Kazi Farms")
 }
 
 enum class PriceSort(val displayName: String) {

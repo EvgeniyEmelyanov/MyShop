@@ -12,6 +12,9 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.filter.FilterParams
+import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
+import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import com.example.myshop.core.ui.ProductGridAdapter
 import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
@@ -52,7 +55,7 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
         }
 
         binding.btnFilter.setOnClickListener {
-//            openFilter()
+            openFilter()
         }
 
         binding.tvProductGroupTitle.text = category.displayName
@@ -93,6 +96,14 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
                 vm.toastShown()
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<FilterParams>(FILTER_PARAMS_KEY)
+            ?.observe(viewLifecycleOwner) { filterParams ->
+                if (vm.state.value?.filterParams != filterParams) {
+                    vm.onFilterChanged(filterParams)
+                }
+            }
     }
 
     private fun render(state: ProductsByCategoryUiState) {
@@ -108,9 +119,14 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
         )
     }
 
-//    private fun openFilter() {
-//        findNavController().navigate(R.id.action_productsByCategoryFragment_to_filterFragment)
-//    }
+    private fun openFilter() {
+        val currentFilterParams = vm.state.value?.filterParams ?: FilterParams()
+
+        findNavController().navigate(R.id.action_productsByCategoryFragment_to_filterForProductsByCategory)
+
+        findNavController().getBackStackEntry(R.id.filterForProductsByCategory)
+            .savedStateHandle[INITIAL_FILTER_PARAMS_KEY] = currentFilterParams
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

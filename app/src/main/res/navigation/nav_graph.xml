@@ -74,6 +74,9 @@
             android:name="category"
             app:argType="string" />
         <action
+            android:id="@+id/action_productsByCategoryFragment_to_filterForProductsByCategory"
+            app:destination="@id/filterForProductsByCategory" />
+        <action
             android:id="@+id/action_productsByCategoryFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
     </fragment>
@@ -82,5 +85,10 @@
         android:name="com.example.myshop.core.filter.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter" />
+    <fragment
+        android:id="@+id/filterForProductsByCategory"
+        android:name="com.example.myshop.features.productsByCategory.presentation.FilterForProductsByCategory"
+        android:label="fragment_filter_for_products_by_category"
+        tools:layout="@layout/fragment_filter_for_products_by_category" />
 
 </navigation>

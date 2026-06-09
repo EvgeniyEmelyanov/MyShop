@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myshop.core.filter.FilterParams
+import com.example.myshop.core.filter.PriceSort
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
@@ -12,6 +14,7 @@ import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.GetCartUseCase
 import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Category
+import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +29,7 @@ class ProductsByCategoryViewModel @Inject constructor(
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
     private val moneyFormatter: MoneyFormatter,
     private val imageKeyResolver: ImageKeyResolver
-    ) : ViewModel() {
+) : ViewModel() {
 
     private var currentCategory: Category? = null
 
@@ -36,6 +39,10 @@ class ProductsByCategoryViewModel @Inject constructor(
     val toastMessage: LiveData<String?> = _toastMessage
 
     fun setCategory(category: Category) {
+        if (currentCategory == category) {
+            return
+        }
+
         currentCategory = category
         load()
     }
@@ -68,37 +75,68 @@ class ProductsByCategoryViewModel @Inject constructor(
         _toastMessage.value = null
     }
 
-    private suspend fun reloadState() {
-        val currentState = _state.value ?: ProductsByCategoryUiState()
-        _state.value = currentState.copy(isLoading = true)
-        val newState = buildState()
-        _state.value = newState.copy(isLoading = false)
+    fun onFilterChanged(filterParams: FilterParams) {
+        viewModelScope.launch {
+            val currentState = _state.value ?: ProductsByCategoryUiState()
+            _state.value = currentState.copy(
+                filterParams = filterParams,
+                isLoading = true
+            )
+
+            val filteredProducts = getVisibleProducts(filterParams)
+            val latestState = _state.value ?: ProductsByCategoryUiState()
+
+            _state.value = latestState.copy(
+                products = filteredProducts,
+                filterParams = filterParams,
+                isLoading = false
+            )
+        }
     }
 
-    private suspend fun buildState(): ProductsByCategoryUiState {
-        val category = currentCategory ?: return ProductsByCategoryUiState()
+    private suspend fun getVisibleProducts(
+        filterParams: FilterParams
+    ): List<CommonProductUiModel> {
+        val category = currentCategory ?: return emptyList()
 
         val products = getProductsByCategoryUseCase.getByCategory(category)
 
-        val uiProducts = products.map { product ->
-            CommonProductUiModel(
-                id = product.id,
-                title = product.title,
-                subtitle = product.subtitle,
-                priceText = moneyFormatter.format(product.price),
-                imageRes = imageKeyResolver.resolve(product.imageKey)
-            )
+        val filteredByPrice = when (filterParams.priceSort) {
+            PriceSort.LOW_TO_HIGH -> products.sortedBy { it.price.cents }
+            PriceSort.HIGH_TO_LOW -> products.sortedByDescending { it.price.cents }
+            null -> products
         }
 
-        return ProductsByCategoryUiState(
-            products = uiProducts
+        return filteredByPrice.map(::toProductUiModel)
+    }
+
+    private suspend fun reloadState() {
+        val stateBeforeLoad = _state.value ?: ProductsByCategoryUiState()
+        _state.value = stateBeforeLoad.copy(isLoading = true)
+
+        val products = getVisibleProducts(stateBeforeLoad.filterParams)
+        val latestState = _state.value ?: ProductsByCategoryUiState()
+
+        _state.value = latestState.copy(
+            products = products,
+            isLoading = false
         )
     }
 
-    private fun startAmount(type: AmountType): Amount =
-        when (type) {
-            AmountType.PIECE -> Amount.Piece(1)
-            AmountType.WEIGHT -> Amount.Grams(1000)
+    private fun startAmount(type: AmountType): Amount = when (type) {
+        AmountType.PIECE -> Amount.Piece(1)
+        AmountType.WEIGHT -> Amount.Grams(1000)
 
-        }
+    }
+
+    private fun toProductUiModel(product: Product): CommonProductUiModel {
+        return CommonProductUiModel(
+            id = product.id,
+            title = product.title,
+            subtitle = product.subtitle,
+            priceText = moneyFormatter.format(product.price),
+            imageRes = imageKeyResolver.resolve(product.imageKey)
+        )
+
+    }
 }
