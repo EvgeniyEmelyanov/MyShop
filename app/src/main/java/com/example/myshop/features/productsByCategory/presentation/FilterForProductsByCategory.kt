@@ -9,6 +9,7 @@ import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract
 import com.example.myshop.core.filter.PriceSort
 import com.example.myshop.databinding.FragmentFilterForProductsByCategoryBinding
+import com.example.myshop.domain.product.model.Brand
 import com.google.android.material.checkbox.MaterialCheckBox
 
 class FilterForProductsByCategory :
@@ -26,6 +27,7 @@ class FilterForProductsByCategory :
 
         val initialFilterParams = getInitialFilterParams()
 
+        setupBrandCheckboxes(initialFilterParams)
         setupPriceCheckboxes(initialFilterParams)
         setupPriceSingleChoice()
         setupActions()
@@ -51,8 +53,16 @@ class FilterForProductsByCategory :
         }
     }
 
+    private fun setupBrandCheckboxes(initialFilterParams: FilterParams) {
+        brandCheckboxes().forEach { (checkbox, brand) ->
+            checkbox.text = brand.displayName
+            checkbox.isChecked = brand in initialFilterParams.brands
+        }
+    }
+
     private fun applyFilter() {
         val filterParams = FilterParams(
+            brands = collectSelectedBrands(),
             priceSort = collectSelectedPriceSort()
         )
 
@@ -65,6 +75,11 @@ class FilterForProductsByCategory :
 
     private fun collectSelectedPriceSort(): PriceSort? {
         return priceCheckboxes().firstOrNull { (checkbox, _) -> checkbox.isChecked }?.second
+    }
+
+    private fun collectSelectedBrands(): Set<Brand> {
+        return brandCheckboxes().filter { (checkbox, _) -> checkbox.isChecked }
+            .map { (_, brand) -> brand }.toSet()
     }
 
     private fun setupPriceSingleChoice() {
@@ -84,6 +99,25 @@ class FilterForProductsByCategory :
             listOf(
                 cbPriceLowToHigh to PriceSort.LOW_TO_HIGH,
                 cbPriceHighToLow to PriceSort.HIGH_TO_LOW,
+            )
+        }
+    }
+
+    private fun brandCheckboxes(): List<Pair<MaterialCheckBox, Brand>> {
+        return with(binding) {
+            listOf(
+                cbBrandFreshfield to Brand.FRESHFIELD,
+                cbBrandOrchardLane to Brand.ORCHARD_LANE,
+                cbBrandMeadowDairy to Brand.MEADOW_DAIRY,
+                cbBrandSunnyHen to Brand.SUNNY_HEN,
+                cbBrandClearspring to Brand.CLEARSPRING,
+                cbBrandNorthRoast to Brand.NORTH_ROAST,
+                cbBrandGoldenHarvest to Brand.GOLDEN_HARVEST,
+                cbBrandPurepress to Brand.PUREPRESS,
+                cbBrandFarmstead to Brand.FARMSTEAD,
+                cbBrandHarborCatch to Brand.HARBOR_CATCH,
+                cbBrandBakerStreet to Brand.BAKER_STREET,
+                cbBrandCrunchClub to Brand.CRUNCH_CLUB,
             )
         }
     }

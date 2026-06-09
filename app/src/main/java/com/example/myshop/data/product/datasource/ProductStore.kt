@@ -2,6 +2,7 @@ package com.example.myshop.data.product.datasource
 
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.data.product.model.Product
+import com.example.myshop.domain.product.model.Brand
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.data.product.model.ProductUnit
 
@@ -23,7 +24,8 @@ object ProductStore {
                 ProductTag.GROCERIES_PRODUCT
             ),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "002_organic_bananas",
@@ -34,7 +36,8 @@ object ProductStore {
             productDescription = "Organic bananas with a soft, creamy texture. Perfect for smoothies, breakfast bowls, or a quick pre-workout snack.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "003_bell_pepper_red",
@@ -45,7 +48,8 @@ object ProductStore {
             productDescription = "Juicy red bell pepper with a bright, sweet taste. Adds crunch to salads and works great in stir-fries.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "004_strawberries",
@@ -60,7 +64,8 @@ object ProductStore {
                 ProductTag.GROCERIES_PRODUCT
             ),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "005_blueberries",
@@ -71,7 +76,8 @@ object ProductStore {
             productDescription = "Sweet blueberries — a classic topping for oatmeal and yogurt. Great for baking and light snacking.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "006_grapes_seedless",
@@ -82,7 +88,8 @@ object ProductStore {
             productDescription = "Seedless grapes that are crisp and refreshing. Easy snack, perfect for fruit salads and cheese boards.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT, ProductTag.BEST_SELLING),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "007_mandarins",
@@ -93,7 +100,8 @@ object ProductStore {
             productDescription = "Easy-to-peel mandarins with a bright citrus flavor. Great for kids and everyday snacking.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "008_avocado_hass",
@@ -104,7 +112,8 @@ object ProductStore {
             productDescription = "Creamy Hass avocado with a buttery texture. Perfect for toast, salads, and homemade guacamole.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "009_pineapple",
@@ -115,7 +124,8 @@ object ProductStore {
             productDescription = "Sweet and tangy pineapple with a tropical aroma. Great fresh, in smoothies, or grilled.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "010_kiwi",
@@ -126,7 +136,8 @@ object ProductStore {
             productDescription = "Juicy kiwi with a sweet-tart taste. A fresh way to upgrade fruit bowls and breakfasts.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "011_mango",
@@ -137,7 +148,8 @@ object ProductStore {
             productDescription = "Ripe mango with smooth tropical sweetness. Perfect for smoothies, desserts, and fruit salads.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT, ProductTag.BEST_SELLING),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "012_watermelon",
@@ -152,7 +164,8 @@ object ProductStore {
                 ProductTag.GROCERIES_PRODUCT
             ),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "013_tomatoes_cherry",
@@ -163,7 +176,8 @@ object ProductStore {
             productDescription = "Sweet cherry tomatoes — juicy, bite-sized, and perfect for salads and quick snacks.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "014_cucumber",
@@ -174,7 +188,8 @@ object ProductStore {
             productDescription = "Fresh cucumber with a crisp, clean taste. Great in salads, sandwiches, and light meals.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "015_carrots",
@@ -185,7 +200,8 @@ object ProductStore {
             productDescription = "Crunchy carrots — perfect for soups, roasting, and healthy snacking.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "016_broccoli",
@@ -196,7 +212,8 @@ object ProductStore {
             productDescription = "Tender broccoli with a mild flavor. Great steamed, roasted, or in stir-fries.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "017_potatoes",
@@ -207,7 +224,8 @@ object ProductStore {
             productDescription = "Versatile potatoes for mashing, roasting, and baking. A staple for hearty meals.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         ),
         Product(
             id = "018_onions",
@@ -218,7 +236,8 @@ object ProductStore {
             productDescription = "Everyday onions that add sweetness and depth to cooked dishes. Essential for most recipes.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.ORCHARD_LANE
         ),
 
         Product(
@@ -234,7 +253,8 @@ object ProductStore {
                 ProductTag.GROCERIES_PRODUCT
             ),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "020_greek_yogurt",
@@ -245,7 +265,8 @@ object ProductStore {
             productDescription = "Thick Greek yogurt with a clean, creamy taste. Great for breakfast and high-protein snacks.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT, ProductTag.EXCLUSIVE_OFFER),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "021_cheddar_cheese",
@@ -256,7 +277,8 @@ object ProductStore {
             productDescription = "Rich cheddar with a balanced savory flavor. Perfect for sandwiches, pasta, and melting.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "022_eggs_free_range",
@@ -267,7 +289,8 @@ object ProductStore {
             productDescription = "Free-range eggs for breakfast and baking.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.SUNNY_HEN
         ),
         Product(
             id = "023_butter_unsalted",
@@ -278,7 +301,8 @@ object ProductStore {
             productDescription = "Creamy unsalted butter for cooking and toast.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "024_sour_cream",
@@ -289,7 +313,8 @@ object ProductStore {
             productDescription = "Classic sour cream for sauces and meals.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "025_cottage_cheese",
@@ -300,7 +325,8 @@ object ProductStore {
             productDescription = "High-protein cottage cheese, great with fruits.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
         Product(
             id = "026_mozzarella",
@@ -311,7 +337,8 @@ object ProductStore {
             productDescription = "Soft mozzarella for salads and pizza.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.DAIRY_EGGS
+            category = Category.DAIRY_EGGS,
+            brand = Brand.MEADOW_DAIRY
         ),
 
         Product(
@@ -323,7 +350,8 @@ object ProductStore {
             productDescription = "Still drinking water, refreshing and clean.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.CLEARSPRING
         ),
         Product(
             id = "102_water_sparkling",
@@ -334,7 +362,8 @@ object ProductStore {
             productDescription = "Sparkling water with light bubbles.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.CLEARSPRING
         ),
         Product(
             id = "103_orange_juice",
@@ -345,7 +374,8 @@ object ProductStore {
             productDescription = "Classic orange juice for breakfast.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "104_apple_juice",
@@ -356,7 +386,8 @@ object ProductStore {
             productDescription = "Sweet apple juice, perfect chilled.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.ORCHARD_LANE
         ),
         Product(
             id = "105_cola_soda",
@@ -367,7 +398,8 @@ object ProductStore {
             productDescription = "Classic cola soda drink.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.CLEARSPRING
         ),
         Product(
             id = "106_lemonade",
@@ -378,7 +410,8 @@ object ProductStore {
             productDescription = "Fresh lemonade taste, lightly sweet.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.CLEARSPRING
         ),
         Product(
             id = "107_iced_tea",
@@ -389,7 +422,8 @@ object ProductStore {
             productDescription = "Iced tea with a smooth taste.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.CLEARSPRING
         ),
         Product(
             id = "108_coffee_ground",
@@ -400,7 +434,8 @@ object ProductStore {
             productDescription = "Ground coffee for moka pot or filter.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BEVERAGES
+            category = Category.BEVERAGES,
+            brand = Brand.NORTH_ROAST
         ),
 
         Product(
@@ -412,7 +447,8 @@ object ProductStore {
             productDescription = "Extra virgin olive oil for salads and cooking.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.GOLDEN_HARVEST
         ),
         Product(
             id = "202_sunflower_oil",
@@ -423,7 +459,8 @@ object ProductStore {
             productDescription = "Neutral sunflower oil, great for frying.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.PUREPRESS
         ),
         Product(
             id = "203_canola_oil",
@@ -434,7 +471,8 @@ object ProductStore {
             productDescription = "Light canola oil for everyday cooking.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.GOLDEN_HARVEST
         ),
         Product(
             id = "204_coconut_oil",
@@ -445,7 +483,8 @@ object ProductStore {
             productDescription = "Coconut oil for baking and cooking.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.PUREPRESS
         ),
         Product(
             id = "205_ghee",
@@ -456,7 +495,8 @@ object ProductStore {
             productDescription = "Clarified butter (ghee) with rich flavor.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.GOLDEN_HARVEST
         ),
         Product(
             id = "206_sesame_oil",
@@ -467,7 +507,8 @@ object ProductStore {
             productDescription = "Aromatic sesame oil for Asian dishes.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.PUREPRESS
         ),
         Product(
             id = "207_butter_ghee_blend",
@@ -478,7 +519,8 @@ object ProductStore {
             productDescription = "Blend for quick cooking and toast.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.GOLDEN_HARVEST
         ),
         Product(
             id = "208_cooking_spray",
@@ -489,7 +531,8 @@ object ProductStore {
             productDescription = "Non-stick cooking spray for pans and baking.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.OIL_GHEE
+            category = Category.OIL_GHEE,
+            brand = Brand.PUREPRESS
         ),
 
         Product(
@@ -501,7 +544,8 @@ object ProductStore {
             productDescription = "Lean chicken breast, great for grilling.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.FARMSTEAD
         ),
         Product(
             id = "302_chicken_thighs",
@@ -512,7 +556,8 @@ object ProductStore {
             productDescription = "Juicy chicken thighs for roasting.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.FARMSTEAD
         ),
         Product(
             id = "303_beef_minced",
@@ -523,7 +568,8 @@ object ProductStore {
             productDescription = "Minced beef for burgers and pasta.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.FARMSTEAD
         ),
         Product(
             id = "304_pork_chops",
@@ -534,7 +580,8 @@ object ProductStore {
             productDescription = "Pork chops for pan-fry or grill.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.GRAM,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.FARMSTEAD
         ),
         Product(
             id = "305_salmon_fillet",
@@ -545,7 +592,8 @@ object ProductStore {
             productDescription = "Salmon fillet for baking and salads.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.HARBOR_CATCH
         ),
         Product(
             id = "306_tuna_steak",
@@ -556,7 +604,8 @@ object ProductStore {
             productDescription = "Tuna steak, quick to sear.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.HARBOR_CATCH
         ),
         Product(
             id = "307_shrimp",
@@ -567,7 +616,8 @@ object ProductStore {
             productDescription = "Shrimp for pasta and stir-fry.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.HARBOR_CATCH
         ),
         Product(
             id = "308_sausages",
@@ -578,7 +628,8 @@ object ProductStore {
             productDescription = "Classic sausages for breakfast or grill.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.MEAT_FISH
+            category = Category.MEAT_FISH,
+            brand = Brand.FARMSTEAD
         ),
 
         Product(
@@ -590,7 +641,8 @@ object ProductStore {
             productDescription = "Soft white bread loaf.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.BAKER_STREET
         ),
         Product(
             id = "402_wholegrain_bread",
@@ -601,7 +653,8 @@ object ProductStore {
             productDescription = "Wholegrain bread for healthy sandwiches.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.BAKER_STREET
         ),
         Product(
             id = "403_croissant",
@@ -612,7 +665,8 @@ object ProductStore {
             productDescription = "Buttery croissants, great with coffee.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.BAKER_STREET
         ),
         Product(
             id = "404_muffins",
@@ -623,7 +677,8 @@ object ProductStore {
             productDescription = "Soft muffins for snacks and breakfast.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.BAKER_STREET
         ),
         Product(
             id = "405_potato_chips",
@@ -634,7 +689,8 @@ object ProductStore {
             productDescription = "Crunchy potato chips.",
             tags = setOf(ProductTag.BEST_SELLING, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.CRUNCH_CLUB
         ),
         Product(
             id = "406_crackers",
@@ -645,7 +701,8 @@ object ProductStore {
             productDescription = "Salty crackers for cheese and dips.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.CRUNCH_CLUB
         ),
         Product(
             id = "407_granola_bars",
@@ -656,7 +713,8 @@ object ProductStore {
             productDescription = "Granola bars for quick energy.",
             tags = setOf(ProductTag.EXCLUSIVE_OFFER, ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.CRUNCH_CLUB
         ),
         Product(
             id = "408_cookies",
@@ -667,7 +725,8 @@ object ProductStore {
             productDescription = "Classic cookies for tea time.",
             tags = setOf(ProductTag.GROCERIES_PRODUCT),
             unit = ProductUnit.PIECE,
-            category = Category.BAKERY_SNACKS
+            category = Category.BAKERY_SNACKS,
+            brand = Brand.CRUNCH_CLUB
         )
     )
 

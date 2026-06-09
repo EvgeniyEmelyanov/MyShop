@@ -10,5 +10,6 @@ data class ProductDto(
     val amountType: String,
     val pricingUnit: String,
     val tags: List<String>,
-    val category: String
+    val category: String,
+    val brand: String
 )

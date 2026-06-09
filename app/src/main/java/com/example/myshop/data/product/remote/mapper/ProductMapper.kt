@@ -3,6 +3,7 @@ package com.example.myshop.data.product.remote.mapper
 import com.example.myshop.data.product.remote.model.ProductDto
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.product.model.Brand
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.model.PricingUnit
@@ -21,7 +22,8 @@ fun ProductDto.toDomain(): Product {
         amountType = AmountType.valueOf(amountType),
         pricingUnit = PricingUnit.valueOf(pricingUnit),
         tags = tags.map { ProductTag.valueOf(it) }.toSet(),
-        category = Category.valueOf(category)
+        category = Category.valueOf(category),
+        brand = Brand.valueOf(brand)
     )
 }
 

@@ -13,7 +13,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "002_organic_bananas",
@@ -28,7 +29,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "003_bell_pepper_red",
@@ -43,7 +45,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "004_strawberries",
@@ -59,7 +62,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "005_blueberries",
@@ -74,7 +78,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "006_grapes_seedless",
@@ -89,7 +94,8 @@
       "GROCERIES_PRODUCT",
       "BEST_SELLING"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "007_mandarins",
@@ -103,7 +109,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "008_avocado_hass",
@@ -118,7 +125,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "009_pineapple",
@@ -133,7 +141,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "010_kiwi",
@@ -148,7 +157,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "011_mango",
@@ -163,7 +173,8 @@
       "GROCERIES_PRODUCT",
       "BEST_SELLING"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "012_watermelon",
@@ -179,7 +190,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "013_tomatoes_cherry",
@@ -193,7 +205,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "014_cucumber",
@@ -208,7 +221,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "015_carrots",
@@ -222,7 +236,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "016_broccoli",
@@ -237,7 +252,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "017_potatoes",
@@ -252,7 +268,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
   },
   {
     "id": "018_onions",
@@ -267,7 +284,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "FRUITS_VEGETABLES"
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "019_milk_2percent",
@@ -283,7 +301,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "020_greek_yogurt",
@@ -298,7 +317,8 @@
       "GROCERIES_PRODUCT",
       "EXCLUSIVE_OFFER"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "021_cheddar_cheese",
@@ -313,7 +333,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "022_eggs_free_range",
@@ -328,7 +349,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "SUNNY_HEN"
   },
   {
     "id": "023_butter_unsalted",
@@ -342,7 +364,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "024_sour_cream",
@@ -356,7 +379,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "025_cottage_cheese",
@@ -371,7 +395,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "026_mozzarella",
@@ -385,7 +410,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "DAIRY_EGGS"
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
   },
   {
     "id": "101_water_still",
@@ -400,7 +426,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
   },
   {
     "id": "102_water_sparkling",
@@ -414,7 +441,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
   },
   {
     "id": "103_orange_juice",
@@ -429,7 +457,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "104_apple_juice",
@@ -443,7 +472,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "ORCHARD_LANE"
   },
   {
     "id": "105_cola_soda",
@@ -458,7 +488,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
   },
   {
     "id": "106_lemonade",
@@ -472,7 +503,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
   },
   {
     "id": "107_iced_tea",
@@ -487,7 +519,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
   },
   {
     "id": "108_coffee_ground",
@@ -501,7 +534,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BEVERAGES"
+    "category": "BEVERAGES",
+    "brand": "NORTH_ROAST"
   },
   {
     "id": "201_olive_oil",
@@ -516,7 +550,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
   },
   {
     "id": "202_sunflower_oil",
@@ -530,7 +565,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
   },
   {
     "id": "203_canola_oil",
@@ -544,7 +580,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
   },
   {
     "id": "204_coconut_oil",
@@ -559,7 +596,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
   },
   {
     "id": "205_ghee",
@@ -574,7 +612,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
   },
   {
     "id": "206_sesame_oil",
@@ -588,7 +627,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
   },
   {
     "id": "207_butter_ghee_blend",
@@ -602,7 +642,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
   },
   {
     "id": "208_cooking_spray",
@@ -617,7 +658,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "OIL_GHEE"
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
   },
   {
     "id": "301_chicken_breast",
@@ -632,7 +674,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
   },
   {
     "id": "302_chicken_thighs",
@@ -646,7 +689,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
   },
   {
     "id": "303_beef_minced",
@@ -661,7 +705,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
   },
   {
     "id": "304_pork_chops",
@@ -675,7 +720,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
   },
   {
     "id": "305_salmon_fillet",
@@ -690,7 +736,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
   },
   {
     "id": "306_tuna_steak",
@@ -704,7 +751,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
   },
   {
     "id": "307_shrimp",
@@ -719,7 +767,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
   },
   {
     "id": "308_sausages",
@@ -733,7 +782,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "MEAT_FISH"
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
   },
   {
     "id": "401_white_bread",
@@ -748,7 +798,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
   },
   {
     "id": "402_wholegrain_bread",
@@ -762,7 +813,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
   },
   {
     "id": "403_croissant",
@@ -777,7 +829,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
   },
   {
     "id": "404_muffins",
@@ -791,7 +844,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
   },
   {
     "id": "405_potato_chips",
@@ -806,7 +860,8 @@
       "BEST_SELLING",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
   },
   {
     "id": "406_crackers",
@@ -820,7 +875,8 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
   },
   {
     "id": "407_granola_bars",
@@ -835,7 +891,8 @@
       "EXCLUSIVE_OFFER",
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
   },
   {
     "id": "408_cookies",
@@ -849,6 +906,7 @@
     "tags": [
       "GROCERIES_PRODUCT"
     ],
-    "category": "BAKERY_SNACKS"
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
   }
 ]

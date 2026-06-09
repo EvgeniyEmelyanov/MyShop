@@ -109,25 +109,65 @@
                     android:textSize="22sp" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/cbBrandIndividualCollection"
+                    android:id="@+id/cbBrandFreshfield"
                     style="@style/Widget.App.Filter.CheckBox"
                     android:layout_marginTop="18dp"
-                    android:text="@string/brand_individual_collection" />
+                    android:text="@string/brand_freshfield" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/cbBrandCocola"
+                    android:id="@+id/cbBrandOrchardLane"
                     style="@style/Widget.App.Filter.CheckBox"
-                    android:text="@string/brand_cocola" />
+                    android:text="@string/brand_orchard_lane" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/cbBrandIfad"
+                    android:id="@+id/cbBrandMeadowDairy"
                     style="@style/Widget.App.Filter.CheckBox"
-                    android:text="@string/brand_ifad" />
+                    android:text="@string/brand_meadow_dairy" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/cbBrandKaziFarmas"
+                    android:id="@+id/cbBrandSunnyHen"
                     style="@style/Widget.App.Filter.CheckBox"
-                    android:text="@string/brand_kazi_farms" />
+                    android:text="@string/brand_sunny_hen" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandClearspring"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_clearspring" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandNorthRoast"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_north_roast" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandGoldenHarvest"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_golden_harvest" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandPurepress"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_purepress" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandFarmstead"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_farmstead" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandHarborCatch"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_harbor_catch" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandBakerStreet"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_baker_street" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbBrandCrunchClub"
+                    style="@style/Widget.App.Filter.CheckBox"
+                    android:text="@string/brand_crunch_club" />
 
                 <TextView
                     style="@style/TextAppearance.SectionTitle"

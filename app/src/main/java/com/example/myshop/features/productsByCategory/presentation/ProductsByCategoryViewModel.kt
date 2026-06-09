@@ -101,10 +101,18 @@ class ProductsByCategoryViewModel @Inject constructor(
 
         val products = getProductsByCategoryUseCase.getByCategory(category)
 
+        val filteredByBrands = if (filterParams.brands.isEmpty()) {
+            products
+        } else {
+            products.filter { product ->
+                product.brand in filterParams.brands
+            }
+        }
+
         val filteredByPrice = when (filterParams.priceSort) {
-            PriceSort.LOW_TO_HIGH -> products.sortedBy { it.price.cents }
-            PriceSort.HIGH_TO_LOW -> products.sortedByDescending { it.price.cents }
-            null -> products
+            PriceSort.LOW_TO_HIGH -> filteredByBrands.sortedBy { it.price.cents }
+            PriceSort.HIGH_TO_LOW -> filteredByBrands.sortedByDescending { it.price.cents }
+            null -> filteredByBrands
         }
 
         return filteredByPrice.map(::toProductUiModel)

@@ -10,6 +10,7 @@ import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
 import com.example.myshop.domain.favourite.model.FavouriteItem
 import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.product.model.Brand
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.model.PricingUnit
@@ -248,7 +249,8 @@ class AddAllFavouriteToCartUseCaseTest {
                 AmountType.WEIGHT -> PricingUnit.PER_KG
             },
             tags = emptySet<ProductTag>(),
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         )
     }
 }

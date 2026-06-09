@@ -7,6 +7,7 @@ import com.example.myshop.domain.cart.model.CartItem
 import com.example.myshop.domain.cart.service.LinePriceCalculator
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.AmountType
+import com.example.myshop.domain.product.model.Brand
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.model.PricingUnit
@@ -136,7 +137,8 @@ class CalculateCartTotalsUseCaseTest {
             },
             pricingUnit = pricingUnit,
             tags = emptySet<ProductTag>(),
-            category = Category.FRUITS_VEGETABLES
+            category = Category.FRUITS_VEGETABLES,
+            brand = Brand.FRESHFIELD
         )
     }
 }

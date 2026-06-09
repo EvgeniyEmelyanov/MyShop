@@ -132,10 +132,18 @@ class ExploreViewModel @Inject constructor(
             }
         }
 
+        val filteredByBrands = if (filterParams.brands.isEmpty()) {
+            filteredByCategories
+        } else {
+            filteredByCategories.filter { product ->
+                product.brand in filterParams.brands
+            }
+        }
+
         val filterByPrice = when (filterParams.priceSort) {
-            PriceSort.LOW_TO_HIGH -> filteredByCategories.sortedBy { it.price.cents }
-            PriceSort.HIGH_TO_LOW -> filteredByCategories.sortedByDescending { it.price.cents }
-            null -> filteredByCategories
+            PriceSort.LOW_TO_HIGH -> filteredByBrands.sortedBy { it.price.cents }
+            PriceSort.HIGH_TO_LOW -> filteredByBrands.sortedByDescending { it.price.cents }
+            null -> filteredByBrands
         }
 
         return filterByPrice.map(::toProductUiModel)

@@ -73,7 +73,8 @@ class ProductRepositoryImpl @Inject constructor(
             amountType = unit.toAmountType(),
             pricingUnit = ProductPricingMapper.fromWeight(weight),
             tags = tags,
-            category = category
+            category = category,
+            brand = brand
         )
     }
 
