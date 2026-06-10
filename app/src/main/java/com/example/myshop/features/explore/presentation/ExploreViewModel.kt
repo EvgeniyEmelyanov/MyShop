@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.ProductFilter
 import com.example.myshop.core.ui.CommonProductUiModel
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.AddToCartResult
@@ -15,6 +16,7 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,18 +67,24 @@ class ExploreViewModel @Inject constructor(
 
     private suspend fun reloadState() {
         val stateBeforeLoad = _state.value ?: ExploreUiState()
-        _state.value = stateBeforeLoad.copy(isLoading = true)
+        _state.value = stateBeforeLoad.copy(contentState = ContentState.LOADING)
 
-        val categories = provider.getCategories()
-        allProducts = getAllProductsUseCase.getAllProducts()
+        try {
+            val categories = provider.getCategories()
+            allProducts = getAllProductsUseCase.getAllProducts()
+            val latestState = _state.value ?: ExploreUiState()
+            val products = getVisibleProducts(latestState.searchQuery, latestState.filterParams)
 
-        val latestState = _state.value ?: ExploreUiState()
-
-        _state.value = latestState.copy(
-            isLoading = false,
-            categories = categories,
-            products = getVisibleProducts(latestState.searchQuery, latestState.filterParams)
-        )
+            _state.value = latestState.copy(
+                categories = categories,
+                products = products,
+                contentState = contentState(latestState.searchQuery, products)
+            )
+        } catch (error: Exception) {
+            if (error is CancellationException) throw error
+            val latestState = _state.value ?: ExploreUiState()
+            _state.value = latestState.copy(contentState = ContentState.ERROR)
+        }
     }
 
 
@@ -86,7 +94,9 @@ class ExploreViewModel @Inject constructor(
         val visibleProducts = getVisibleProducts(currentState.searchQuery, filterParams)
 
         _state.value = currentState.copy(
-            filterParams = filterParams, products = visibleProducts
+            filterParams = filterParams,
+            products = visibleProducts,
+            contentState = contentState(currentState.searchQuery, visibleProducts)
         )
     }
 
@@ -106,8 +116,20 @@ class ExploreViewModel @Inject constructor(
 
             _state.value = latestState.copy(
                 products = visibleProducts,
-                filterParams = latestState.filterParams
+                filterParams = latestState.filterParams,
+                contentState = contentState(query, visibleProducts)
             )
+        }
+    }
+
+    private fun contentState(
+        query: String,
+        products: List<CommonProductUiModel>
+    ): ContentState {
+        return if (query.isBlank()) {
+            ContentState.CONTENT
+        } else {
+            ContentState.fromHasContent(products.isNotEmpty())
         }
     }
 

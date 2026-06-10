@@ -231,4 +231,10 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stateView"
+        layout="@layout/view_catalog_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

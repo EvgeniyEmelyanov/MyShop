@@ -16,6 +16,7 @@ import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
 import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import com.example.myshop.core.ui.ProductGridAdapter
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
@@ -56,6 +57,10 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
 
         binding.btnFilter.setOnClickListener {
             openFilter()
+        }
+
+        binding.stateView.btnRetry.setOnClickListener {
+            vm.load()
         }
 
         binding.tvProductGroupTitle.text = category.displayName
@@ -108,8 +113,32 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
 
     private fun render(state: ProductsByCategoryUiState) {
         productsByCategoryAdapter.submitList(state.products)
-        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
-        binding.rvProducts.visibility = if (state.isLoading) View.GONE else View.VISIBLE
+
+        binding.progressBar.visibility =
+            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+
+        binding.rvProducts.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
+        binding.stateView.root.visibility =
+            if (state.contentState == ContentState.EMPTY ||
+                state.contentState == ContentState.ERROR
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
+        binding.stateView.tvStateMessage.setText(
+            if (state.contentState == ContentState.ERROR) {
+                R.string.error_loading_products
+            } else {
+                R.string.empty_products
+            }
+        )
+
+        binding.stateView.btnRetry.visibility =
+            if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
     }
 
     private fun openProductDetail(productId: String) {

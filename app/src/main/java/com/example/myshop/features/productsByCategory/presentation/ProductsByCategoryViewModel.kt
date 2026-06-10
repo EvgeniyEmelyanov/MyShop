@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.ProductFilter
 import com.example.myshop.core.ui.CommonProductUiModel
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.model.Amount
@@ -20,6 +21,7 @@ import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 
 @HiltViewModel
 class ProductsByCategoryViewModel @Inject constructor(
@@ -81,17 +83,10 @@ class ProductsByCategoryViewModel @Inject constructor(
             val currentState = _state.value ?: ProductsByCategoryUiState()
             _state.value = currentState.copy(
                 filterParams = filterParams,
-                isLoading = true
+                contentState = ContentState.LOADING
             )
 
-            val filteredProducts = getVisibleProducts(filterParams)
-            val latestState = _state.value ?: ProductsByCategoryUiState()
-
-            _state.value = latestState.copy(
-                products = filteredProducts,
-                filterParams = filterParams,
-                isLoading = false
-            )
+            loadProducts(filterParams)
         }
     }
 
@@ -107,15 +102,29 @@ class ProductsByCategoryViewModel @Inject constructor(
 
     private suspend fun reloadState() {
         val stateBeforeLoad = _state.value ?: ProductsByCategoryUiState()
-        _state.value = stateBeforeLoad.copy(isLoading = true)
+        _state.value = stateBeforeLoad.copy(contentState = ContentState.LOADING)
 
-        val products = getVisibleProducts(stateBeforeLoad.filterParams)
-        val latestState = _state.value ?: ProductsByCategoryUiState()
+        loadProducts(stateBeforeLoad.filterParams)
+    }
 
-        _state.value = latestState.copy(
-            products = products,
-            isLoading = false
-        )
+    private suspend fun loadProducts(filterParams: FilterParams) {
+        try {
+            val products = getVisibleProducts(filterParams)
+            val latestState = _state.value ?: ProductsByCategoryUiState()
+
+            _state.value = latestState.copy(
+                products = products,
+                filterParams = filterParams,
+                contentState = ContentState.fromHasContent(products.isNotEmpty())
+            )
+        } catch (error: Exception) {
+            if (error is CancellationException) throw error
+            val latestState = _state.value ?: ProductsByCategoryUiState()
+            _state.value = latestState.copy(
+                filterParams = filterParams,
+                contentState = ContentState.ERROR
+            )
+        }
     }
 
     private fun startAmount(type: AmountType): Amount = when (type) {

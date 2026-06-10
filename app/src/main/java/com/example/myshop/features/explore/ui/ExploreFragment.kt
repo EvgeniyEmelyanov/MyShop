@@ -12,6 +12,7 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.ProductGridAdapter
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.databinding.FragmentExploreBinding
 import com.example.myshop.domain.product.model.Category
@@ -51,6 +52,10 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
         binding.btnFilter.setOnClickListener {
             openFilter()
+        }
+
+        binding.stateView.btnRetry.setOnClickListener {
+            vm.load()
         }
 
         if (savedInstanceState == null) {
@@ -131,6 +136,28 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
         }
 
         binding.btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
+
+        binding.progressBar.visibility =
+            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+        binding.rvExploreBanner.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+        binding.stateView.root.visibility =
+            if (state.contentState == ContentState.EMPTY ||
+                state.contentState == ContentState.ERROR
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        binding.stateView.tvStateMessage.setText(
+            if (state.contentState == ContentState.ERROR) {
+                R.string.error_loading_products
+            } else {
+                R.string.empty_products
+            }
+        )
+        binding.stateView.btnRetry.visibility =
+            if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
     }
 
 
