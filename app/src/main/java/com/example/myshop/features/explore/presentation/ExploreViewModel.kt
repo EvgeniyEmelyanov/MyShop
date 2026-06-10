@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.filter.FilterParams
-import com.example.myshop.core.filter.PriceSort
+import com.example.myshop.core.filter.ProductFilter
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
@@ -25,6 +25,7 @@ class ExploreViewModel @Inject constructor(
     private val imageKeyResolver: ImageKeyResolver,
     private val moneyFormatter: MoneyFormatter,
     private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
+    private val productFilter: ProductFilter,
 ) : ViewModel() {
 
     private val provider = ExploreCategoriesProvider
@@ -124,29 +125,7 @@ class ExploreViewModel @Inject constructor(
             }
         }
 
-        val filteredByCategories = if (filterParams.categories.isEmpty()) {
-            filteredProducts
-        } else {
-            filteredProducts.filter { product ->
-                product.category in filterParams.categories
-            }
-        }
-
-        val filteredByBrands = if (filterParams.brands.isEmpty()) {
-            filteredByCategories
-        } else {
-            filteredByCategories.filter { product ->
-                product.brand in filterParams.brands
-            }
-        }
-
-        val filterByPrice = when (filterParams.priceSort) {
-            PriceSort.LOW_TO_HIGH -> filteredByBrands.sortedBy { it.price.cents }
-            PriceSort.HIGH_TO_LOW -> filteredByBrands.sortedByDescending { it.price.cents }
-            null -> filteredByBrands
-        }
-
-        return filterByPrice.map(::toProductUiModel)
+        return productFilter.apply(filteredProducts, filterParams).map(::toProductUiModel)
     }
 
     private fun toProductUiModel(product: Product): CommonProductUiModel {
