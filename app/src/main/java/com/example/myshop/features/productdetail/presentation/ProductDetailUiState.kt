@@ -1,5 +1,7 @@
 package com.example.myshop.features.productdetail.presentation
 
+import com.example.myshop.core.ui.ContentState
+
 data class ProductDetailUiState(
     val id: String = "",
     val title: String = "",
@@ -13,5 +15,5 @@ data class ProductDetailUiState(
     val addButtonText: String = "",
     val isAddEnabled: Boolean = true,
     val isDescriptionExpanded: Boolean = false,
-    val isLoading: Boolean = false
+    val contentState: ContentState = ContentState.LOADING
 )

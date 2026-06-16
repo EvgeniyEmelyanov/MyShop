@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.databinding.FragmentProductDetailBinding
 import com.example.myshop.features.productdetail.presentation.ProductDetailUiState
 import com.example.myshop.features.productdetail.presentation.ProductDetailViewModel
@@ -18,7 +19,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
     private val binding get() = _binding!!
 
 
-    private val vm: ProductDetailViewModel by viewModels ()
+    private val vm: ProductDetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,9 +83,27 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
         btnToggleDescription.rotation = if (state.isDescriptionExpanded) 90f else 0f
 
-        progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
-        scrollContent.visibility = if (state.isLoading) View.GONE else View.VISIBLE
-        bntAddToCart.visibility = if (state.isLoading) View.GONE else View.VISIBLE
+        progressBar.visibility =
+            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+
+        stateView.root.visibility =
+            if (state.contentState == ContentState.ERROR ||
+                state.contentState == ContentState.EMPTY) View.VISIBLE else View.GONE
+
+        stateView.tvStateMessage.setText(
+            if (state.contentState == ContentState.ERROR) {
+                R.string.error_loading_product
+            } else {
+                R.string.empty_product
+            }
+        )
+
+
+        scrollContent.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
+        bntAddToCart.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

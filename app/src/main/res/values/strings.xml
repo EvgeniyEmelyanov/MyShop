@@ -41,6 +41,7 @@
     <string name="apply_filter">Apply Filter</string>
     <string name="retry">Retry</string>
     <string name="error_loading_products">Couldn\'t load products</string>
+    <string name="error_loading_product">Couldn\'t load product</string>
     <string name="empty_products">No products found</string>
     <string name="review">Review</string>
     <string name="product_detail">Product Detail</string>
@@ -51,6 +52,11 @@
     <string name="account_user_name">Test Test</string>
     <string name="account_user_email">test@gmail.com</string>
     <string name="grocery_pulses">Pulses</string>
+    <string name="empty_product">No product found</string>
+    <string name="add_product_to_favourite">Add product to favourites</string>
+    <string name="error_loading_cart">Couldn\'t load cart</string>
+    <string name="empty_cart">No products in cart</string>
+
 
     <!-- Accessibility -->
     <string name="cd_app_logo">Carrot logo</string>

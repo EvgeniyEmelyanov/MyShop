@@ -11,6 +11,7 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.features.favourite.presentation.FavouriteViewModel
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.databinding.FragmentFavouriteBinding
 import com.example.myshop.features.favourite.presentation.FavouriteUiState
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +44,10 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
         }
 
+        binding.stateView.btnRetry.setOnClickListener {
+            vm.load()
+        }
+
     }
 
     private fun setupAdapter() {
@@ -54,7 +59,7 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
 
     private fun setupList() {
-        binding.rvProductsCart.apply {
+        binding.rvProductsFavourite.apply {
             adapter = favouriteAdapter
             layoutManager = LinearLayoutManager(requireContext())
 
@@ -89,6 +94,37 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private fun render(state: FavouriteUiState) {
         favouriteAdapter.submitList(state.items)
+
+        binding.progressBar.visibility =
+            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+
+        binding.rvProductsFavourite.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
+        binding.stateView.root.visibility =
+            if (state.contentState == ContentState.EMPTY ||
+                state.contentState == ContentState.ERROR
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
+        binding.stateView.tvStateMessage.setText(
+            if (state.contentState == ContentState.ERROR) {
+                R.string.error_loading_products
+            } else {
+                R.string.add_product_to_favourite
+            }
+        )
+
+        binding.stateView.btnRetry.visibility =
+            if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+
+        binding.btnAddAllToCart.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
+
 
     }
 

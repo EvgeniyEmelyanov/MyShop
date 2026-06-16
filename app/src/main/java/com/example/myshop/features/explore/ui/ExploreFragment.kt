@@ -28,10 +28,8 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
-
     private val vm: ExploreViewModel by viewModels()
     private lateinit var exploreCategoriesAdapter: ExploreBannerAdapter
-
     private lateinit var productsAdapter: ProductGridAdapter
 
 
@@ -139,8 +137,10 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
         binding.progressBar.visibility =
             if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+
         binding.rvExploreBanner.visibility =
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
         binding.stateView.root.visibility =
             if (state.contentState == ContentState.EMPTY ||
                 state.contentState == ContentState.ERROR
@@ -149,17 +149,18 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
             } else {
                 View.GONE
             }
+
         binding.stateView.tvStateMessage.setText(
             if (state.contentState == ContentState.ERROR) {
                 R.string.error_loading_products
             } else {
-                R.string.empty_products
+                R.string.empty_product
             }
         )
+
         binding.stateView.btnRetry.visibility =
             if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
     }
-
 
     private fun openProductsByCategory(category: Category) {
         findNavController().navigate(
@@ -184,7 +185,6 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
         )
     }
 
-
     private fun setupSearch() {
         binding.editText2.doOnTextChanged { text, _, _, _ ->
             val query = text?.toString().orEmpty()
@@ -194,7 +194,6 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
