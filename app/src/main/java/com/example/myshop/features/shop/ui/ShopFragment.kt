@@ -9,12 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.decoration.GridSpacingItemDecoration
+import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapter
 import com.example.myshop.features.shop.presentation.ShopUiState

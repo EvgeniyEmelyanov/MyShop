@@ -6,7 +6,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.evgeniyemelyanov.core.ui.dpToPx
+import com.example.myshop.core.ui.dpToPx
 
 open class BaseFragment(layoutId: Int) : Fragment(layoutId) {
 

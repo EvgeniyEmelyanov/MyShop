@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evgeniyemelyanov.core.ui.dpToPx
+import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.features.favourite.presentation.FavouriteViewModel
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment

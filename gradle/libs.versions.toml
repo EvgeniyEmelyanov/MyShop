@@ -8,7 +8,6 @@ appcompat = "1.7.1"
 material = "1.14.0"
 activity = "1.13.0"
 constraintlayout = "2.2.1"
-myandroidcore = "0.1.1"
 ucrop = "2.2.11-native"
 viewpager2 = "1.1.0"
 navigationFragmentKtx = "2.9.8"
@@ -51,7 +50,6 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-myandroidcore = { module = "com.github.EvgeniyEmelyanov:MyAndroidCore", version.ref = "myandroidcore" }
 ucrop = { module = "com.github.Yalantis:uCrop", version.ref = "ucrop" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }

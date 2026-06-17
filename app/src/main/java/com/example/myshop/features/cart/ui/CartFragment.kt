@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.R
 import com.example.myshop.core.ui.ContentState
+import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentCartBinding
 import com.example.myshop.features.cart.presentation.CartUiState
 import com.example.myshop.features.cart.presentation.CartViewModel
