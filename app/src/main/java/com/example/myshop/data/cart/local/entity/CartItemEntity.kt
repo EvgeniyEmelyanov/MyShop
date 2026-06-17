@@ -8,5 +8,6 @@ data class CartItemEntity(
     @PrimaryKey
     val productId: String,
     val amountType: String,
-    val amountValue: Long
+    val amountValue: Long,
+    val sortOrder: Long
 )
