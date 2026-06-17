@@ -11,6 +11,7 @@ import com.example.myshop.core.ui.ContentState
 import com.example.myshop.databinding.FragmentCartBinding
 import com.example.myshop.features.cart.presentation.CartUiState
 import com.example.myshop.features.cart.presentation.CartViewModel
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,21 +30,33 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         setupAdapter()
         setupList()
         observeState()
+        setClick()
 
+        vm.load()
+    }
+
+    private fun setClick() {
         binding.stateView.btnRetry.setOnClickListener {
             vm.load()
         }
 
-        vm.load()
+        binding.checkoutBar.setOnClickListener {
+            val state = vm.state.value ?: return@setOnClickListener
 
-
+            if (state.contentState == ContentState.CONTENT && parentFragmentManager.findFragmentByTag(
+                    CheckoutBottomSheetFragment.TAG
+                ) == null
+            ) {
+                CheckoutBottomSheetFragment.newInstance(totalString = state.totalString)
+                    .show(parentFragmentManager, CheckoutBottomSheetFragment.TAG)
+            }
+        }
     }
 
-    private fun setupAdapter(){
+    private fun setupAdapter() {
         cartAdapter = CartAdapter(
             onClickIncrease = { id -> vm.increaseAmount(id) },
-            onClickDecrease = { id -> vm.decreaseAmount(id) }
-        ) { id -> vm.removeProduct(id) }
+            onClickDecrease = { id -> vm.decreaseAmount(id) }) { id -> vm.removeProduct(id) }
     }
 
     private fun setupList() {
@@ -82,9 +95,7 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
         binding.stateView.root.visibility =
-            if (state.contentState == ContentState.EMPTY ||
-                state.contentState == ContentState.ERROR
-            ) {
+            if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -103,6 +114,7 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
         binding.checkoutBar.visibility =
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+
 
     }
 
