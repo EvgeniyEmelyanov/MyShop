@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.databinding.FragmentProductsByCategoryBinding
-import com.evgeniyemelyanov.core.ui.dpToPx
+import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.domain.product.model.Category
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment

@@ -73,11 +73,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.myandroidcore) {
-        exclude(group = "androidx.core", module = "core")
-        exclude(group = "androidx.core", module = "core-ktx")
-        exclude(group = "androidx.appcompat", module = "appcompat")
-        exclude(group = "com.google.android.material", module = "material")
-    }
     implementation(libs.ucrop)
 }
