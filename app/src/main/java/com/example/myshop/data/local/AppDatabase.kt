@@ -9,7 +9,7 @@ import com.example.myshop.data.favourite.local.entity.FavouriteItemEntity
 
 @Database(
     entities = [CartItemEntity::class, FavouriteItemEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

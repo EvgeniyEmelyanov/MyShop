@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:background="@drawable/shape_for_nav_bottom"
+        android:background="@drawable/bg_bottom_navigation"
         app:backgroundTint="@android:color/white"
         app:itemBackground="@null"
         app:itemRippleColor="@android:color/transparent"

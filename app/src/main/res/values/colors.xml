@@ -19,6 +19,13 @@
     <!-- Border Colors (цвета для границ) -->
     <color name="divider">#E2E2E2</color>
 
+    <!-- Checkbox Colors (цвета для чекбоксов) -->
+    <color name="checkbox_stroke">#B1B1B1</color>
+    <color name="checkbox_checkmark">#FCFCFC</color>
+
+    <!-- Background Colors (цвета для границ) -->
+    <color name="filter_panel_bg">#F2F3F2</color>
+
 
     <!-- Specific Elements (специфичные элементы) -->
     <color name="background_cardNutritionValue">#EBEBEB</color>

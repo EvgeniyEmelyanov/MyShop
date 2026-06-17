@@ -6,11 +6,11 @@ import com.example.myshop.domain.product.model.Product
 interface ProductRepository {
 
 
-    fun getAllProducts(): List<Product>
+    suspend fun getAllProducts(): List<Product>
 
-    fun getById (id: String): Product?
+    suspend fun getById(id: String): Product?
 
-    fun getProductsByCategory(category: Category): List<Product>
+    suspend fun getProductsByCategory(category: Category): List<Product>
 
 
 }

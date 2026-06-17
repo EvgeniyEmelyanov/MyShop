@@ -1,4 +1,4 @@
-package com.example.myshop.core.ui.formatter
+package com.example.myshop.core.formatter
 
 import com.example.myshop.domain.cart.model.Amount
 import javax.inject.Inject

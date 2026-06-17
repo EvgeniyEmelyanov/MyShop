@@ -13,7 +13,8 @@ import com.evgeniyemelyanov.core.ui.dpToPx
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.CommonProductUiModel
-import com.example.myshop.core.ui.decoration.GridSpacingItemDecoration
+import com.example.myshop.core.ui.ContentState
+import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapter
 import com.example.myshop.features.shop.presentation.ShopUiState
@@ -52,6 +53,10 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         setupLists()
         setupSeeAllClicks()
         observeState()
+
+        binding.stateView?.btnRetry?.setOnClickListener {
+            vm.load()
+        }
 
         vm.load()
     }
@@ -168,8 +173,29 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         binding.tvSeeAllFirst.text = exclusiveListMode.actionText()
         binding.tvSeeAllSecond.text = bestSellingListMode.actionText()
         binding.tvSeeAllThird.text = groceriesProductsListMode.actionText()
-        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
-        binding.contentContainer.visibility = if (state.isLoading) View.GONE else View.VISIBLE
+        binding.progressBar.visibility =
+            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+        binding.contentContainer.visibility =
+            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+        binding.stateView?.let { stateView ->
+            stateView.root.visibility =
+                if (state.contentState == ContentState.EMPTY ||
+                    state.contentState == ContentState.ERROR
+                ) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            stateView.tvStateMessage.setText(
+                if (state.contentState == ContentState.ERROR) {
+                    R.string.error_loading_products
+                } else {
+                    R.string.empty_products
+                }
+            )
+            stateView.btnRetry.visibility =
+                if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+        }
     }
 
     private fun renderProductList(

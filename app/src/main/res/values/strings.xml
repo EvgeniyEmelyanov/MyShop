@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Carrot\n</string>
+    <string name="close">Close</string>
     <string name="fresh_vegetables">Fresh Vegetables</string>
+    <string name="location_minsk_belarus">Minsk, Belarus</string>
+    <string name="search_store">Search Store</string>
+    <string name="see_all">See all</string>
+    <string name="exclusive_offer">Exclusive Offer</string>
+    <string name="best_selling">Best Selling</string>
+    <string name="groceries">Groceries</string>
+    <string name="shop_banner_discount">Get Up To 40% OFF</string>
+    <string name="find_products">Find Products</string>
+    <string name="nav_shop">Shop</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_favourite">Favourite</string>
+    <string name="nav_account">Account</string>
+    <string name="my_cart">My Cart</string>
+    <string name="go_to_checkout">Go to Checkout</string>
+    <string name="favourite">Favourite</string>
+    <string name="add_all_to_cart">Add All To Cart</string>
+    <string name="filters">Filters</string>
+    <string name="categories">Categories</string>
+    <string name="brand">Brand</string>
+    <string name="brand_freshfield">FreshField</string>
+    <string name="brand_orchard_lane">Orchard Lane</string>
+    <string name="brand_meadow_dairy">Meadow Dairy</string>
+    <string name="brand_sunny_hen">Sunny Hen</string>
+    <string name="brand_clearspring">ClearSpring</string>
+    <string name="brand_north_roast">North Roast</string>
+    <string name="brand_golden_harvest">Golden Harvest</string>
+    <string name="brand_purepress">PurePress</string>
+    <string name="brand_farmstead">Farmstead</string>
+    <string name="brand_harbor_catch">Harbor Catch</string>
+    <string name="brand_baker_street">Baker Street</string>
+    <string name="brand_crunch_club">Crunch Club</string>
+    <string name="price">Price</string>
+    <string name="price_low_to_high">Low to High</string>
+    <string name="price_high_to_low">High to Low</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="retry">Retry</string>
+    <string name="error_loading_products">Couldn\'t load products</string>
+    <string name="error_loading_product">Couldn\'t load product</string>
+    <string name="empty_products">No products found</string>
+    <string name="review">Review</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="nutrition">Nutritions</string>
+    <string name="nutrition_value_100g">100g</string>
+    <string name="add_to_basket">Add to Basket</string>
+    <string name="default_product_count">1</string>
+    <string name="account_user_name">Test Test</string>
+    <string name="account_user_email">test@gmail.com</string>
+    <string name="grocery_pulses">Pulses</string>
+    <string name="empty_product">No product found</string>
+    <string name="add_product_to_favourite">Add product to favourites</string>
+    <string name="error_loading_cart">Couldn\'t load cart</string>
+    <string name="empty_cart">No products in cart</string>
+
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">Carrot logo</string>
+    <string name="cd_filter">Open filters</string>
+    <string name="cd_close_filter">Close filters</string>
+    <string name="cd_back">Go back</string>
+    <string name="cd_share_product">Share product</string>
+    <string name="cd_add_to_favourite">Add to favourites</string>
+    <string name="cd_decrease_quantity">Decrease quantity</string>
+    <string name="cd_increase_quantity">Increase quantity</string>
+    <string name="cd_delete_cart_item">Remove item from cart</string>
+    <string name="cd_add_to_cart">Add to cart</string>
+    <string name="cd_open_product_details">Open product details</string>
+    <string name="cd_toggle_product_description">Toggle product description</string>
+    <string name="cd_toggle_nutrition">Toggle nutrition details</string>
+    <string name="cd_rating_star">Rating star</string>
+    <string name="cd_account_avatar">Account avatar</string>
 
 
     <!-- Account fragment -->
@@ -14,6 +86,8 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="log_out">Log Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

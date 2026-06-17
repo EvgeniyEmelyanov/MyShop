@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myshop.databinding.ItemExploreBannerBinding
+import com.example.myshop.databinding.ItemExploreCategoryBinding
 import com.example.myshop.features.explore.presentation.ExploreCategoryUiModel
 
 class ExploreBannerAdapter(
@@ -14,7 +14,7 @@ class ExploreBannerAdapter(
 ) : ListAdapter<ExploreCategoryUiModel, ExploreBannerAdapter.VH>(ExploreBannerDiffUtil()) {
 
 
-    inner class VH(private val binding: ItemExploreBannerBinding) :
+    inner class VH(private val binding: ItemExploreCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ExploreCategoryUiModel) = with(binding) {
@@ -32,7 +32,7 @@ class ExploreBannerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = ItemExploreBannerBinding.inflate(
+        val binding = ItemExploreCategoryBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

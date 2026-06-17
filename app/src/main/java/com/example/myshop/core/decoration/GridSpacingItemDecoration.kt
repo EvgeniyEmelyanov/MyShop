@@ -1,4 +1,4 @@
-package com.example.myshop.core.ui.decoration
+package com.example.myshop.core.decoration
 
 import android.graphics.Rect
 import android.view.View

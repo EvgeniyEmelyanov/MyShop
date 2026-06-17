@@ -11,9 +11,10 @@ import com.example.myshop.domain.cart.usecase.*
 import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
-import com.example.myshop.core.ui.formatter.MoneyFormatter
-import com.example.myshop.core.ui.formatter.QuantityFormatter
-import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.core.formatter.MoneyFormatter
+import com.example.myshop.core.formatter.QuantityFormatter
+import com.example.myshop.core.image.ImageKeyResolver
+import com.example.myshop.core.ui.ContentState
 import com.example.myshop.domain.cart.AddToCartResult
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
@@ -21,6 +22,7 @@ import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import kotlin.coroutines.cancellation.CancellationException
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
@@ -117,7 +119,11 @@ class ProductDetailViewModel @Inject constructor(
 
     fun onAddToCart() {
         viewModelScope.launch {
-            when (val result = addProductToCartIfAbsentUseCase(productId!!)) {
+            val id = productId ?: return@launch
+            val product = getProductByIdUseCase(id) ?: return@launch
+            val amount = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
+
+            when (addProductToCartIfAbsentUseCase(id, amount)) {
                 is AddToCartResult.Added -> reloadState()
                 is AddToCartResult.AlreadyInCart -> Unit
                 AddToCartResult.ProductNotFound -> Unit
@@ -127,10 +133,23 @@ class ProductDetailViewModel @Inject constructor(
 
     private suspend fun reloadState() {
         val id = productId ?: return
+
         val currentState = _state.value ?: ProductDetailUiState()
-        _state.value = currentState.copy(isLoading = true)
-        val newState = buildState(id)
-        _state.value = newState.copy(isLoading = false)
+
+        _state.value = currentState.copy(contentState = ContentState.LOADING)
+
+        try {
+            val newState = buildState(id)
+            _state.value = newState.copy(contentState = ContentState.CONTENT)
+        } catch (error: Exception) {
+            if (error is CancellationException) {
+                throw error
+            }
+
+            _state.value = currentState.copy(
+                contentState = ContentState.ERROR
+            )
+        }
 
     }
 
@@ -147,9 +166,9 @@ class ProductDetailViewModel @Inject constructor(
 
         val imageRes = imageKeyResolver.resolve(product.imageKey)
 
-        val amountToShow = realItem?.amount
-            ?: selectedAmountPreview
-            ?: defaultCartAmountFactory(product.amountType)
+        val amountToShow = realItem?.amount ?: selectedAmountPreview ?: defaultCartAmountFactory(
+            product.amountType
+        )
 
         val countText = quantityFormatter.quantityFormat(amountToShow)
 

@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="9dp"
-                android:contentDescription="Carrot picture"
+                android:contentDescription="@string/cd_app_logo"
                 android:src="@drawable/ic_carrot" />
 
             <TextView
@@ -41,18 +41,18 @@
                 android:drawableStart="@drawable/ic_exclude"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/gilroy_black"
-                android:text="Minsk, Belarus" />
+                android:text="@string/location_minsk_belarus" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/shape_rounded_edit_text"
-                android:drawableStart="@drawable/ic_vector"
+                android:background="@drawable/bg_search_field"
+                android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/gilroy_semibold"
-                android:hint="Search Store"
+                android:hint="@string/search_store"
                 android:paddingStart="15dp"
                 android:textSize="14sp"
                 tools:ignore="RtlSymmetry" />
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 tools:layout_height="110dp"
-                tools:listitem="@layout/item_banner">
+                tools:listitem="@layout/item_shop_banner">
 
             </androidx.viewpager2.widget.ViewPager2>
 
@@ -82,7 +82,7 @@
                     android:layout_marginBottom="4.5dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center|end"
-                    android:text="See all"
+                    android:text="@string/see_all"
                     android:textColor="@color/text_tertiary"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +96,7 @@
                     style="@style/TextAppearance.SectionTitle"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Exclusive Offer"
+                    android:text="@string/exclusive_offer"
                     android:gravity="center|start"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvSeeAllFirst"
@@ -115,7 +115,7 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -133,7 +133,7 @@
                     android:layout_marginBottom="4.5dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center|end"
-                    android:text="See all"
+                    android:text="@string/see_all"
                     android:textColor="@color/text_tertiary"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +147,7 @@
                     style="@style/TextAppearance.SectionTitle"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Best Selling"
+                    android:text="@string/best_selling"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvSeeAllSecond"
                     app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +164,7 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -182,7 +182,7 @@
                     android:layout_marginBottom="4.5dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center|end"
-                    android:text="See all"
+                    android:text="@string/see_all"
                     android:textColor="@color/text_tertiary"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -196,7 +196,7 @@
                     style="@style/TextAppearance.SectionTitle"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Groceries"
+                    android:text="@string/groceries"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvSeeAllThird"
                     app:layout_constraintStart_toStartOf="parent"
@@ -213,7 +213,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_groceries" />
+                tools:listitem="@layout/item_grocery_category" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGroceriesProductCard"
@@ -224,11 +224,17 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_cart" />
+                tools:listitem="@layout/item_product_horizontal" />
 
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/stateView"
+        layout="@layout/view_catalog_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

@@ -1,6 +1,7 @@
 package com.example.myshop.domain.cart.usecase
 
 import com.example.myshop.domain.cart.AddToCartResult
+import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import javax.inject.Inject
@@ -12,7 +13,10 @@ class AddProductToCartIfAbsentUseCase @Inject constructor(
     private val defaultCartAmountFactory: DefaultCartAmountFactory
 ) {
 
-    suspend operator fun invoke(productId: String): AddToCartResult {
+    suspend operator fun invoke(
+        productId: String,
+        amountOverride: Amount? = null
+    ): AddToCartResult {
         val product =
             getProductByIdUseCase(productId) ?: return AddToCartResult.ProductNotFound
 
@@ -23,7 +27,7 @@ class AddProductToCartIfAbsentUseCase @Inject constructor(
             return AddToCartResult.AlreadyInCart(product.title)
         }
 
-        val amount = defaultCartAmountFactory(product.amountType)
+        val amount = amountOverride ?: defaultCartAmountFactory(product.amountType)
 
         addProductToCartUseCase(productId, amount)
         return AddToCartResult.Added(product.title)

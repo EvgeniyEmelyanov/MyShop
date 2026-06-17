@@ -13,29 +13,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Find Products"
+        android:text="@string/find_products"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+     <EditText
         android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/shape_rounded_edit_text"
-        android:drawableStart="@drawable/ic_vector"
+        android:background="@drawable/bg_search_field"
+        android:drawableStart="@drawable/ic_search"
         android:drawablePadding="10dp"
+        android:importantForAutofill="no"
         android:fontFamily="@font/gilroy_semibold"
-        android:hint="Search Store"
+        android:hint="@string/search_store"
         android:paddingStart="15dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnFilter"
+        app:layout_goneMarginEnd="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeaderExplore"
         tools:ignore="RtlSymmetry" />
+
+    <ImageButton
+        android:id="@+id/btnFilter"
+        style="@style/Widget.App.IconButton.Filter"
+        android:layout_width="44dp"
+        android:contentDescription="@string/cd_filter"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExploreBanner"
@@ -48,6 +61,27 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2"
-        tools:listitem="@layout/item_explore_banner" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_explore_category" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvExploreBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvExploreBanner" />
+
+    <include
+        android:id="@+id/stateView"
+        layout="@layout/view_catalog_state"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/rvExploreBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvExploreBanner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

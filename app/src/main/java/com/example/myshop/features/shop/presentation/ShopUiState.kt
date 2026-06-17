@@ -1,6 +1,7 @@
 package com.example.myshop.features.shop.presentation
 
 import com.example.myshop.core.ui.CommonProductUiModel
+import com.example.myshop.core.ui.ContentState
 
 data class ShopUiState(
     val banners: List<BannerUiModel> = emptyList(),
@@ -8,5 +9,5 @@ data class ShopUiState(
     val bestSelling: List<CommonProductUiModel> = emptyList(),
     val groceriesProducts: List<CommonProductUiModel> = emptyList(),
     val groceriesCategories: List<GroceriesCategoryUiModel> = emptyList(),
-    val isLoading: Boolean = false
-    )
+    val contentState: ContentState = ContentState.LOADING
+)

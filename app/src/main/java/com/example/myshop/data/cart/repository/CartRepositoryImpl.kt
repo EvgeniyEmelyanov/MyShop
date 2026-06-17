@@ -6,6 +6,7 @@ import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.data.cart.local.mapper.toDomain
 import com.example.myshop.data.cart.local.mapper.toEntity
+import com.example.myshop.data.cart.local.mapper.typeAndValue
 import javax.inject.Inject
 
 
@@ -24,7 +25,15 @@ class CartRepositoryImpl @Inject constructor(private val cartDao: CartDao) : Car
         productId: String,
         amount: Amount
     ) {
-        cartDao.insert(amount.toEntity(productId))
+        val existingItem = cartDao.getByProductId(productId)
+
+        if (existingItem != null) {
+            updateAmount(productId, amount)
+            return
+        }
+
+        val nextSortOrder = (cartDao.getMaxSortOrder() ?: 0L) + 1L
+        cartDao.insert(amount.toEntity(productId, nextSortOrder))
     }
 
     override suspend fun removeProduct(productId: String) {
@@ -39,6 +48,19 @@ class CartRepositoryImpl @Inject constructor(private val cartDao: CartDao) : Car
         productId: String,
         amount: Amount
     ) {
-        cartDao.insert(amount.toEntity(productId))
+        updateAmount(productId, amount)
+    }
+
+    private suspend fun updateAmount(
+        productId: String,
+        amount: Amount
+    ) {
+        val (amountType, amountValue) = amount.typeAndValue()
+
+        cartDao.updateAmount(
+            productId = productId,
+            amountType = amountType,
+            amountValue = amountValue
+        )
     }
 }

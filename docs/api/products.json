@@ -1,0 +1,912 @@
+[
+  {
+    "id": "001_red_apple",
+    "title": "Red Apple",
+    "subtitle": "1kg, Price/kg",
+    "description": "Crisp and sweet red apples — great for snacks, oatmeal, and fresh salads. A simple source of fiber and natural energy.",
+    "imageKey": "apple_picture",
+    "priceCents": 499,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "002_organic_bananas",
+    "title": "Organic Bananas",
+    "subtitle": "7pcs, Price/ea",
+    "description": "Organic bananas with a soft, creamy texture. Perfect for smoothies, breakfast bowls, or a quick pre-workout snack.",
+    "imageKey": "banana_picture",
+    "priceCents": 349,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "003_bell_pepper_red",
+    "title": "Bell Pepper Red",
+    "subtitle": "1kg, Price/kg",
+    "description": "Juicy red bell pepper with a bright, sweet taste. Adds crunch to salads and works great in stir-fries.",
+    "imageKey": "pepper_picture",
+    "priceCents": 299,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "004_strawberries",
+    "title": "Strawberries",
+    "subtitle": "500g, Price/pack",
+    "description": "Fresh strawberries with a rich aroma and balanced sweetness. Ideal for desserts, yogurt, and fruit bowls.",
+    "imageKey": "apple_picture",
+    "priceCents": 549,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "005_blueberries",
+    "title": "Blueberries",
+    "subtitle": "250g, Price/pack",
+    "description": "Sweet blueberries — a classic topping for oatmeal and yogurt. Great for baking and light snacking.",
+    "imageKey": "apple_picture",
+    "priceCents": 399,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "006_grapes_seedless",
+    "title": "Grapes Seedless",
+    "subtitle": "1kg, Price/kg",
+    "description": "Seedless grapes that are crisp and refreshing. Easy snack, perfect for fruit salads and cheese boards.",
+    "imageKey": "apple_picture",
+    "priceCents": 429,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "GROCERIES_PRODUCT",
+      "BEST_SELLING"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "007_mandarins",
+    "title": "Mandarins",
+    "subtitle": "1kg, Price/kg",
+    "description": "Easy-to-peel mandarins with a bright citrus flavor. Great for kids and everyday snacking.",
+    "imageKey": "apple_picture",
+    "priceCents": 279,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "008_avocado_hass",
+    "title": "Avocado Hass",
+    "subtitle": "2pcs, Price/ea",
+    "description": "Creamy Hass avocado with a buttery texture. Perfect for toast, salads, and homemade guacamole.",
+    "imageKey": "apple_picture",
+    "priceCents": 359,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "009_pineapple",
+    "title": "Pineapple",
+    "subtitle": "1pc, Price/ea",
+    "description": "Sweet and tangy pineapple with a tropical aroma. Great fresh, in smoothies, or grilled.",
+    "imageKey": "apple_picture",
+    "priceCents": 299,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "010_kiwi",
+    "title": "Kiwi",
+    "subtitle": "6pcs, Price/ea",
+    "description": "Juicy kiwi with a sweet-tart taste. A fresh way to upgrade fruit bowls and breakfasts.",
+    "imageKey": "apple_picture",
+    "priceCents": 319,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "011_mango",
+    "title": "Mango",
+    "subtitle": "1pc, Price/ea",
+    "description": "Ripe mango with smooth tropical sweetness. Perfect for smoothies, desserts, and fruit salads.",
+    "imageKey": "apple_picture",
+    "priceCents": 249,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT",
+      "BEST_SELLING"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "012_watermelon",
+    "title": "Watermelon",
+    "subtitle": "1pc, Price/ea",
+    "description": "Refreshing watermelon with a clean, sweet finish. Ideal for hot days and sharing.",
+    "imageKey": "apple_picture",
+    "priceCents": 699,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "013_tomatoes_cherry",
+    "title": "Tomatoes Cherry",
+    "subtitle": "400g, Price/pack",
+    "description": "Sweet cherry tomatoes — juicy, bite-sized, and perfect for salads and quick snacks.",
+    "imageKey": "apple_picture",
+    "priceCents": 269,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "014_cucumber",
+    "title": "Cucumber",
+    "subtitle": "1pc, Price/ea",
+    "description": "Fresh cucumber with a crisp, clean taste. Great in salads, sandwiches, and light meals.",
+    "imageKey": "apple_picture",
+    "priceCents": 99,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "015_carrots",
+    "title": "Carrots",
+    "subtitle": "1kg, Price/kg",
+    "description": "Crunchy carrots — perfect for soups, roasting, and healthy snacking.",
+    "imageKey": "apple_picture",
+    "priceCents": 139,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "016_broccoli",
+    "title": "Broccoli",
+    "subtitle": "1pc, Price/ea",
+    "description": "Tender broccoli with a mild flavor. Great steamed, roasted, or in stir-fries.",
+    "imageKey": "apple_picture",
+    "priceCents": 179,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "017_potatoes",
+    "title": "Potatoes",
+    "subtitle": "2kg, Price/bag",
+    "description": "Versatile potatoes for mashing, roasting, and baking. A staple for hearty meals.",
+    "imageKey": "apple_picture",
+    "priceCents": 249,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "FRESHFIELD"
+  },
+  {
+    "id": "018_onions",
+    "title": "Onions",
+    "subtitle": "1kg, Price/kg",
+    "description": "Everyday onions that add sweetness and depth to cooked dishes. Essential for most recipes.",
+    "imageKey": "apple_picture",
+    "priceCents": 109,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "FRUITS_VEGETABLES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "019_milk_2percent",
+    "title": "Milk 2%",
+    "subtitle": "1L, Price/ea",
+    "description": "Smooth 2% milk for coffee, cereal, and cooking. Balanced taste for everyday use.",
+    "imageKey": "apple_picture",
+    "priceCents": 129,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "020_greek_yogurt",
+    "title": "Greek Yogurt",
+    "subtitle": "500g, Price/pack",
+    "description": "Thick Greek yogurt with a clean, creamy taste. Great for breakfast and high-protein snacks.",
+    "imageKey": "apple_picture",
+    "priceCents": 299,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT",
+      "EXCLUSIVE_OFFER"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "021_cheddar_cheese",
+    "title": "Cheddar Cheese",
+    "subtitle": "200g, Price/pack",
+    "description": "Rich cheddar with a balanced savory flavor. Perfect for sandwiches, pasta, and melting.",
+    "imageKey": "apple_picture",
+    "priceCents": 349,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "022_eggs_free_range",
+    "title": "Eggs Free-Range",
+    "subtitle": "10pcs, Price/box",
+    "description": "Free-range eggs for breakfast and baking.",
+    "imageKey": "apple_picture",
+    "priceCents": 279,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "SUNNY_HEN"
+  },
+  {
+    "id": "023_butter_unsalted",
+    "title": "Butter Unsalted",
+    "subtitle": "200g, Price/pack",
+    "description": "Creamy unsalted butter for cooking and toast.",
+    "imageKey": "apple_picture",
+    "priceCents": 239,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "024_sour_cream",
+    "title": "Sour Cream",
+    "subtitle": "400g, Price/pack",
+    "description": "Classic sour cream for sauces and meals.",
+    "imageKey": "apple_picture",
+    "priceCents": 189,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "025_cottage_cheese",
+    "title": "Cottage Cheese",
+    "subtitle": "300g, Price/pack",
+    "description": "High-protein cottage cheese, great with fruits.",
+    "imageKey": "apple_picture",
+    "priceCents": 209,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "026_mozzarella",
+    "title": "Mozzarella",
+    "subtitle": "125g, Price/pack",
+    "description": "Soft mozzarella for salads and pizza.",
+    "imageKey": "apple_picture",
+    "priceCents": 259,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "DAIRY_EGGS",
+    "brand": "MEADOW_DAIRY"
+  },
+  {
+    "id": "101_water_still",
+    "title": "Water Still",
+    "subtitle": "1.5L, Price/ea",
+    "description": "Still drinking water, refreshing and clean.",
+    "imageKey": "apple_picture",
+    "priceCents": 79,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
+  },
+  {
+    "id": "102_water_sparkling",
+    "title": "Water Sparkling",
+    "subtitle": "1.5L, Price/ea",
+    "description": "Sparkling water with light bubbles.",
+    "imageKey": "apple_picture",
+    "priceCents": 89,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
+  },
+  {
+    "id": "103_orange_juice",
+    "title": "Orange Juice",
+    "subtitle": "1L, Price/ea",
+    "description": "Classic orange juice for breakfast.",
+    "imageKey": "apple_picture",
+    "priceCents": 249,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "104_apple_juice",
+    "title": "Apple Juice",
+    "subtitle": "1L, Price/ea",
+    "description": "Sweet apple juice, perfect chilled.",
+    "imageKey": "apple_picture",
+    "priceCents": 229,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "ORCHARD_LANE"
+  },
+  {
+    "id": "105_cola_soda",
+    "title": "Cola Soda",
+    "subtitle": "2L, Price/ea",
+    "description": "Classic cola soda drink.",
+    "imageKey": "apple_picture",
+    "priceCents": 159,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
+  },
+  {
+    "id": "106_lemonade",
+    "title": "Lemonade",
+    "subtitle": "1.5L, Price/ea",
+    "description": "Fresh lemonade taste, lightly sweet.",
+    "imageKey": "apple_picture",
+    "priceCents": 129,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
+  },
+  {
+    "id": "107_iced_tea",
+    "title": "Iced Tea",
+    "subtitle": "1.5L, Price/ea",
+    "description": "Iced tea with a smooth taste.",
+    "imageKey": "apple_picture",
+    "priceCents": 149,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "CLEARSPRING"
+  },
+  {
+    "id": "108_coffee_ground",
+    "title": "Coffee Ground",
+    "subtitle": "250g, Price/pack",
+    "description": "Ground coffee for moka pot or filter.",
+    "imageKey": "apple_picture",
+    "priceCents": 399,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BEVERAGES",
+    "brand": "NORTH_ROAST"
+  },
+  {
+    "id": "201_olive_oil",
+    "title": "Olive Oil",
+    "subtitle": "500ml, Price/bottle",
+    "description": "Extra virgin olive oil for salads and cooking.",
+    "imageKey": "apple_picture",
+    "priceCents": 549,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
+  },
+  {
+    "id": "202_sunflower_oil",
+    "title": "Sunflower Oil",
+    "subtitle": "1L, Price/bottle",
+    "description": "Neutral sunflower oil, great for frying.",
+    "imageKey": "apple_picture",
+    "priceCents": 219,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
+  },
+  {
+    "id": "203_canola_oil",
+    "title": "Canola Oil",
+    "subtitle": "1L, Price/bottle",
+    "description": "Light canola oil for everyday cooking.",
+    "imageKey": "apple_picture",
+    "priceCents": 239,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
+  },
+  {
+    "id": "204_coconut_oil",
+    "title": "Coconut Oil",
+    "subtitle": "400ml, Price/jar",
+    "description": "Coconut oil for baking and cooking.",
+    "imageKey": "apple_picture",
+    "priceCents": 459,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
+  },
+  {
+    "id": "205_ghee",
+    "title": "Ghee",
+    "subtitle": "300g, Price/jar",
+    "description": "Clarified butter (ghee) with rich flavor.",
+    "imageKey": "apple_picture",
+    "priceCents": 499,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
+  },
+  {
+    "id": "206_sesame_oil",
+    "title": "Sesame Oil",
+    "subtitle": "250ml, Price/bottle",
+    "description": "Aromatic sesame oil for Asian dishes.",
+    "imageKey": "apple_picture",
+    "priceCents": 349,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
+  },
+  {
+    "id": "207_butter_ghee_blend",
+    "title": "Butter & Ghee Blend",
+    "subtitle": "250g, Price/pack",
+    "description": "Blend for quick cooking and toast.",
+    "imageKey": "apple_picture",
+    "priceCents": 329,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "GOLDEN_HARVEST"
+  },
+  {
+    "id": "208_cooking_spray",
+    "title": "Cooking Spray",
+    "subtitle": "200ml, Price/can",
+    "description": "Non-stick cooking spray for pans and baking.",
+    "imageKey": "apple_picture",
+    "priceCents": 299,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "OIL_GHEE",
+    "brand": "PUREPRESS"
+  },
+  {
+    "id": "301_chicken_breast",
+    "title": "Chicken Breast",
+    "subtitle": "1kg, Price/kg",
+    "description": "Lean chicken breast, great for grilling.",
+    "imageKey": "apple_picture",
+    "priceCents": 649,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
+  },
+  {
+    "id": "302_chicken_thighs",
+    "title": "Chicken Thighs",
+    "subtitle": "1kg, Price/kg",
+    "description": "Juicy chicken thighs for roasting.",
+    "imageKey": "apple_picture",
+    "priceCents": 579,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
+  },
+  {
+    "id": "303_beef_minced",
+    "title": "Beef Minced",
+    "subtitle": "500g, Price/pack",
+    "description": "Minced beef for burgers and pasta.",
+    "imageKey": "apple_picture",
+    "priceCents": 499,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
+  },
+  {
+    "id": "304_pork_chops",
+    "title": "Pork Chops",
+    "subtitle": "1kg, Price/kg",
+    "description": "Pork chops for pan-fry or grill.",
+    "imageKey": "apple_picture",
+    "priceCents": 619,
+    "amountType": "WEIGHT",
+    "pricingUnit": "PER_KG",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
+  },
+  {
+    "id": "305_salmon_fillet",
+    "title": "Salmon Fillet",
+    "subtitle": "400g, Price/pack",
+    "description": "Salmon fillet for baking and salads.",
+    "imageKey": "apple_picture",
+    "priceCents": 899,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
+  },
+  {
+    "id": "306_tuna_steak",
+    "title": "Tuna Steak",
+    "subtitle": "300g, Price/pack",
+    "description": "Tuna steak, quick to sear.",
+    "imageKey": "apple_picture",
+    "priceCents": 749,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
+  },
+  {
+    "id": "307_shrimp",
+    "title": "Shrimp",
+    "subtitle": "500g, Price/pack",
+    "description": "Shrimp for pasta and stir-fry.",
+    "imageKey": "apple_picture",
+    "priceCents": 699,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "HARBOR_CATCH"
+  },
+  {
+    "id": "308_sausages",
+    "title": "Sausages",
+    "subtitle": "500g, Price/pack",
+    "description": "Classic sausages for breakfast or grill.",
+    "imageKey": "apple_picture",
+    "priceCents": 429,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "MEAT_FISH",
+    "brand": "FARMSTEAD"
+  },
+  {
+    "id": "401_white_bread",
+    "title": "White Bread",
+    "subtitle": "500g, Price/loaf",
+    "description": "Soft white bread loaf.",
+    "imageKey": "apple_picture",
+    "priceCents": 129,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
+  },
+  {
+    "id": "402_wholegrain_bread",
+    "title": "Wholegrain Bread",
+    "subtitle": "500g, Price/loaf",
+    "description": "Wholegrain bread for healthy sandwiches.",
+    "imageKey": "apple_picture",
+    "priceCents": 149,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
+  },
+  {
+    "id": "403_croissant",
+    "title": "Croissant",
+    "subtitle": "4pcs, Price/pack",
+    "description": "Buttery croissants, great with coffee.",
+    "imageKey": "apple_picture",
+    "priceCents": 239,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
+  },
+  {
+    "id": "404_muffins",
+    "title": "Muffins",
+    "subtitle": "6pcs, Price/pack",
+    "description": "Soft muffins for snacks and breakfast.",
+    "imageKey": "apple_picture",
+    "priceCents": 299,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "BAKER_STREET"
+  },
+  {
+    "id": "405_potato_chips",
+    "title": "Potato Chips",
+    "subtitle": "150g, Price/pack",
+    "description": "Crunchy potato chips.",
+    "imageKey": "apple_picture",
+    "priceCents": 179,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "BEST_SELLING",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
+  },
+  {
+    "id": "406_crackers",
+    "title": "Crackers",
+    "subtitle": "200g, Price/pack",
+    "description": "Salty crackers for cheese and dips.",
+    "imageKey": "apple_picture",
+    "priceCents": 159,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
+  },
+  {
+    "id": "407_granola_bars",
+    "title": "Granola Bars",
+    "subtitle": "6pcs, Price/box",
+    "description": "Granola bars for quick energy.",
+    "imageKey": "apple_picture",
+    "priceCents": 249,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "EXCLUSIVE_OFFER",
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
+  },
+  {
+    "id": "408_cookies",
+    "title": "Cookies",
+    "subtitle": "300g, Price/pack",
+    "description": "Classic cookies for tea time.",
+    "imageKey": "apple_picture",
+    "priceCents": 219,
+    "amountType": "PIECE",
+    "pricingUnit": "PER_ITEM",
+    "tags": [
+      "GROCERIES_PRODUCT"
+    ],
+    "category": "BAKERY_SNACKS",
+    "brand": "CRUNCH_CLUB"
+  }
+]

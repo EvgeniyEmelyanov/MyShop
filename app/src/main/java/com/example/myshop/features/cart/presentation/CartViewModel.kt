@@ -14,12 +14,14 @@ import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
 import com.example.myshop.domain.cart.usecase.SetAmountUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
-import com.example.myshop.core.ui.formatter.MoneyFormatter
-import com.example.myshop.core.ui.formatter.QuantityFormatter
-import com.example.myshop.core.ui.image.ImageKeyResolver
+import com.example.myshop.core.formatter.MoneyFormatter
+import com.example.myshop.core.formatter.QuantityFormatter
+import com.example.myshop.core.image.ImageKeyResolver
+import com.example.myshop.core.ui.ContentState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import kotlin.coroutines.cancellation.CancellationException
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
@@ -90,9 +92,24 @@ class CartViewModel @Inject constructor(
 
     private suspend fun reloadState() {
         val currentState = _state.value ?: CartUiState()
-        _state.value = currentState.copy(isLoading = true)
-        val newState = buildState()
-        _state.value = newState.copy(isLoading = false)
+        _state.value = currentState.copy(contentState = ContentState.LOADING)
+
+        try {
+            val newState = buildState()
+
+            if (newState.items.isEmpty()) {
+                _state.value = newState.copy(contentState = ContentState.EMPTY)
+            } else {
+                _state.value = newState.copy(contentState = ContentState.CONTENT)
+            }
+        } catch (error: Exception) {
+            if (error is CancellationException) {
+                throw error
+            }
+            _state.value = currentState.copy(contentState = ContentState.ERROR)
+
+        }
+
     }
 
     private suspend fun buildState(): CartUiState {
@@ -105,9 +122,8 @@ class CartViewModel @Inject constructor(
 
             val imageRes = imageKeyResolver.resolve(product.imageKey)
             val quantityText = quantityFormatter.quantityFormat(item.amount)
-            val lineTotalText = totals.lineTotals[item.productId]
-                ?.let(moneyFormatter::format)
-                ?: "—"
+            val lineTotalText =
+                totals.lineTotals[item.productId]?.let(moneyFormatter::format) ?: "—"
 
             CartUiModel(
                 productId = product.id,
@@ -120,8 +136,7 @@ class CartViewModel @Inject constructor(
         }
 
         return CartUiState(
-            items = uiItems,
-            totalString = totalString
+            items = uiItems, totalString = totalString
         )
     }
 }
