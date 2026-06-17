@@ -23,12 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
-
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
-
     private val vm: ShopViewModel by viewModels ()
-
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var exclusiveAdapter: ProductHorizontalAdapter
     private lateinit var bestSellingAdapter: ProductHorizontalAdapter
@@ -45,7 +42,6 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentShopBinding.bind(view)
-
 
         setInsetsForView(binding.ivCarrot, additionalTopMarginDp = 10)
 
@@ -228,6 +224,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     ) {
         recyclerView.apply {
             adapter = listAdapter
+            setPadding(0, 0, 0, 0)
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
@@ -248,13 +245,19 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     ) {
         recyclerView.apply {
             adapter = listAdapter
+            setPadding(
+                requireContext().dpToPx(15),
+                0,
+                requireContext().dpToPx(15),
+                0
+            )
             layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
             clearItemDecorations()
             addItemDecoration(
                 GridSpacingItemDecoration(
                     spanCount = GRID_SPAN_COUNT,
                     spacing = requireContext().dpToPx(15),
-                    includeEdge = true
+                    includeEdge = false
                 )
             )
         }
