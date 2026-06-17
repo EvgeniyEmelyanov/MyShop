@@ -18,6 +18,16 @@
     <string name="nav_account">Account</string>
     <string name="my_cart">My Cart</string>
     <string name="go_to_checkout">Go to Checkout</string>
+    <string name="checkout">Checkout</string>
+    <string name="checkout_delivery">Delivery</string>
+    <string name="checkout_delivery_method">Select Method</string>
+    <string name="checkout_payment">Payment</string>
+    <string name="checkout_payment_method">Card</string>
+    <string name="checkout_promo_code">Promo Code</string>
+    <string name="checkout_promo_value">Pick discount</string>
+    <string name="checkout_total_cost">Total Cost</string>
+    <string name="checkout_terms">By placing an order you agree to our terms and conditions.</string>
+    <string name="place_order">Place Order</string>
     <string name="favourite">Favourite</string>
     <string name="add_all_to_cart">Add All To Cart</string>
     <string name="filters">Filters</string>

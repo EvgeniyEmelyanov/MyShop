@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_checkout_bottom_sheet"
+    android:paddingStart="25dp"
+    android:paddingTop="28dp"
+    android:paddingEnd="25dp"
+    android:paddingBottom="25dp">
+
+    <TextView
+        android:id="@+id/tvCheckoutTitle"
+        style="@style/TextAppearance.SectionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/checkout"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/btnCloseCheckout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnCloseCheckout"
+        style="@style/Widget.App.IconButton.CloseFilter"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/close"
+        app:layout_constraintBottom_toBottomOf="@id/tvCheckoutTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvCheckoutTitle" />
+
+    <View
+        android:id="@+id/headerDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckoutTitle" />
+
+
+    <TextView
+        android:id="@+id/tvDeliveryLabel"
+        style="@style/TextAppearance.App.SectionHeader"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_delivery"
+        app:layout_constraintEnd_toStartOf="@id/tvDeliveryValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerDivider" />
+
+    <TextView
+        android:id="@+id/tvDeliveryValue"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_delivery_method"
+        app:layout_constraintBottom_toBottomOf="@id/tvDeliveryLabel"
+        app:layout_constraintEnd_toStartOf="@id/ivDeliveryArrow"
+        app:layout_constraintTop_toTopOf="@id/tvDeliveryLabel" />
+
+    <ImageView
+        android:id="@+id/ivDeliveryArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvDeliveryLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDeliveryLabel" />
+
+    <View
+        android:id="@+id/deliveryDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDeliveryLabel" />
+
+
+    <TextView
+        android:id="@+id/tvPaymentLabel"
+        style="@style/TextAppearance.App.SectionHeader"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_payment"
+        app:layout_constraintEnd_toStartOf="@id/tvPaymentValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deliveryDivider" />
+
+    <TextView
+        android:id="@+id/tvPaymentValue"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_payment_method"
+        app:layout_constraintBottom_toBottomOf="@id/tvPaymentLabel"
+        app:layout_constraintEnd_toStartOf="@id/ivPaymentArrow"
+        app:layout_constraintTop_toTopOf="@id/tvPaymentLabel" />
+
+    <ImageView
+        android:id="@+id/ivPaymentArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvPaymentLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPaymentLabel" />
+
+    <View
+        android:id="@+id/paymentDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPaymentLabel" />
+
+
+    <TextView
+        android:id="@+id/tvPromoLabel"
+        style="@style/TextAppearance.App.SectionHeader"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_promo_code"
+        app:layout_constraintEnd_toStartOf="@id/tvPromoValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentDivider" />
+
+    <TextView
+        android:id="@+id/tvPromoValue"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_promo_value"
+        app:layout_constraintBottom_toBottomOf="@id/tvPromoLabel"
+        app:layout_constraintEnd_toStartOf="@id/ivPromoArrow"
+        app:layout_constraintTop_toTopOf="@id/tvPromoLabel" />
+
+    <ImageView
+        android:id="@+id/ivPromoArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvPromoLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPromoLabel" />
+
+    <View
+        android:id="@+id/promoDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPromoLabel" />
+
+    <TextView
+        android:id="@+id/tvTotalLabel"
+        style="@style/TextAppearance.App.SectionHeader"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:gravity="center_vertical"
+        android:text="@string/checkout_total_cost"
+        app:layout_constraintEnd_toStartOf="@id/tvTotalCost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/promoDivider" />
+
+    <TextView
+        android:id="@+id/tvTotalCost"
+        style="@style/TextAppearance.App.ProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/tvTotalLabel"
+        app:layout_constraintEnd_toStartOf="@id/ivTotalArrow"
+        app:layout_constraintTop_toTopOf="@id/tvTotalLabel"
+        tools:text="$13.97" />
+
+    <ImageView
+        android:id="@+id/ivTotalArrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvTotalLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTotalLabel" />
+
+    <View
+        android:id="@+id/totalDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalLabel" />
+
+    <TextView
+        android:id="@+id/tvCheckoutTerms"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:lineSpacingExtra="2dp"
+        android:text="@string/checkout_terms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalDivider" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPlaceOrder"
+        style="@style/Widget.App.Button.Confirm"
+        android:layout_width="0dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/place_order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckoutTerms" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
