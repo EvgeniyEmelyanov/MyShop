@@ -42,6 +42,9 @@ class CartViewModel @Inject constructor(
     private val _state = MutableLiveData(CartUiState())
     val state: LiveData<CartUiState> = _state
 
+    private val _orderPlacedEvent = MutableLiveData(false)
+    val orderPlacedEvent: LiveData<Boolean> = _orderPlacedEvent
+
     fun load() {
         viewModelScope.launch {
             reloadState()
@@ -81,6 +84,18 @@ class CartViewModel @Inject constructor(
             clearProductsUseCase.clearProducts()
             reloadState()
         }
+    }
+
+    fun placeOrder() {
+        viewModelScope.launch {
+            clearProductsUseCase.clearProducts()
+            reloadState()
+            _orderPlacedEvent.value = true
+        }
+    }
+
+    fun orderPlacedEventHandled() {
+        _orderPlacedEvent.value = false
     }
 
     fun setAmount(productId: String, amount: Amount) {

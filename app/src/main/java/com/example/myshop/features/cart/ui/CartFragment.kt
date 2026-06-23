@@ -2,7 +2,9 @@ package com.example.myshop.features.cart.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.R
@@ -12,6 +14,8 @@ import com.example.myshop.databinding.FragmentCartBinding
 import com.example.myshop.features.cart.presentation.CartUiState
 import com.example.myshop.features.cart.presentation.CartViewModel
 import com.example.myshop.features.checkout.CheckoutBottomSheetFragment
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_CONFIRMED_KEY
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_RESULT_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +35,8 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         setupList()
         observeState()
         setClick()
+        setupCheckoutResultListener()
+
 
         vm.load()
     }
@@ -49,6 +55,16 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
             ) {
                 CheckoutBottomSheetFragment.newInstance(totalString = state.totalString)
                     .show(parentFragmentManager, CheckoutBottomSheetFragment.TAG)
+            }
+        }
+    }
+
+    private fun setupCheckoutResultListener() {
+        setFragmentResultListener(CHECKOUT_RESULT_KEY) { _, bundle ->
+            val isConfirmed = bundle.getBoolean(CHECKOUT_CONFIRMED_KEY)
+
+            if (isConfirmed) {
+                vm.placeOrder()
             }
         }
     }
@@ -81,6 +97,13 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
     private fun observeState() {
         vm.state.observe(viewLifecycleOwner) { state ->
             render(state)
+        }
+
+        vm.orderPlacedEvent.observe(viewLifecycleOwner) { event ->
+            if (event) {
+                openOrderAcceptedScreen()
+                vm.orderPlacedEventHandled()
+            }
         }
     }
 
@@ -117,6 +140,13 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
 
     }
+
+    private fun openOrderAcceptedScreen() {
+        findNavController().navigate(
+            R.id.action_cartFragment_to_orderAcceptedFragment
+        )
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

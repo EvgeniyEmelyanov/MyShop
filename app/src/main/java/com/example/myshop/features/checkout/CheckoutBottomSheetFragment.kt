@@ -29,7 +29,9 @@ class CheckoutBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
         binding.btnPlaceOrder.setOnClickListener {
             setFragmentResult(
                 CHECKOUT_RESULT_KEY,
-                bundleOf(CHECKOUT_CONFIRMED_KEY to true)
+                Bundle().apply {
+                    putBoolean(CHECKOUT_CONFIRMED_KEY, true)
+                }
             )
             dismiss()
         }

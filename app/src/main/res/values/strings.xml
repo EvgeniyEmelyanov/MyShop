@@ -66,6 +66,11 @@
     <string name="add_product_to_favourite">Add product to favourites</string>
     <string name="error_loading_cart">Couldn\'t load cart</string>
     <string name="empty_cart">No products in cart</string>
+    <string name="order_accepted_title">Your Order has been accepted</string>
+    <string name="order_accepted_subtitle">Your items have been placed and are being processed.</string>
+    <string name="track_order">Track Order</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="coming_soon">Coming soon</string>
 
 
     <!-- Accessibility -->
@@ -84,6 +89,7 @@
     <string name="cd_toggle_nutrition">Toggle nutrition details</string>
     <string name="cd_rating_star">Rating star</string>
     <string name="cd_account_avatar">Account avatar</string>
+    <string name="cd_order_accepted">Order accepted</string>
 
 
     <!-- Account fragment -->
