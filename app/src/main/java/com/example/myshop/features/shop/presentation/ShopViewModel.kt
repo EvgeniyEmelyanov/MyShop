@@ -1,7 +1,5 @@
 package com.example.myshop.features.shop.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.ui.CommonProductUiModel
@@ -14,9 +12,13 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ShopViewModel @Inject constructor(
@@ -26,11 +28,10 @@ class ShopViewModel @Inject constructor(
     private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase
 ) : ViewModel() {
 
-    private val _state = MutableLiveData(ShopUiState())
-    val state: LiveData<ShopUiState> = _state
-
-    private val _toastMessage = MutableLiveData<String?>()
-    val toastMessage: LiveData<String?> = _toastMessage
+    private val _state = MutableStateFlow(ShopUiState())
+    val state = _state.asStateFlow()
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
     private val groceriesCategoriesProvider = GroceriesCategoriesProvider
     private val bannersProvider = BannersProvider
 
@@ -45,7 +46,7 @@ class ShopViewModel @Inject constructor(
             when (val result = addProductToCartIfAbsentUseCase(productId)) {
                 is AddToCartResult.Added -> reloadState()
                 is AddToCartResult.AlreadyInCart -> {
-                    _toastMessage.value = "${result.productTitle} is already in cart"
+                    _toastMessage.emit("${result.productTitle} is already in cart")
                 }
 
                 AddToCartResult.ProductNotFound -> Unit
@@ -53,12 +54,8 @@ class ShopViewModel @Inject constructor(
         }
     }
 
-    fun toastShown() {
-        _toastMessage.value = null
-    }
-
     private suspend fun reloadState() {
-        val currentState = _state.value ?: ShopUiState()
+        val currentState = _state.value
         _state.value = currentState.copy(contentState = ContentState.LOADING)
 
         try {

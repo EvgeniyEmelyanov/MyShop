@@ -5,6 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +23,7 @@ import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapt
 import com.example.myshop.features.shop.presentation.ShopUiState
 import com.example.myshop.features.shop.presentation.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
@@ -114,29 +118,32 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private fun setupSeeAllClicks() = with(binding) {
         tvSeeAllFirst.setOnClickListener {
             exclusiveListMode = exclusiveListMode.toggle()
-            render(vm.state.value ?: ShopUiState())
+            render(vm.state.value)
         }
 
         tvSeeAllSecond.setOnClickListener {
             bestSellingListMode = bestSellingListMode.toggle()
-            render(vm.state.value ?: ShopUiState())
+            render(vm.state.value)
         }
 
         tvSeeAllThird.setOnClickListener {
             groceriesProductsListMode = groceriesProductsListMode.toggle()
-            render(vm.state.value ?: ShopUiState())
+            render(vm.state.value)
         }
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.state.collect(::render)
+                }
 
-        vm.toastMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                vm.toastShown()
+                launch {
+                    vm.toastMessage.collect { message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

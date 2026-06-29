@@ -1,7 +1,5 @@
 package com.example.myshop.features.productsByCategory.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.core.filter.FilterParams
@@ -19,9 +17,13 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.domain.product.usecase.GetProductsByCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ProductsByCategoryViewModel @Inject constructor(
@@ -36,10 +38,10 @@ class ProductsByCategoryViewModel @Inject constructor(
 
     private var currentCategory: Category? = null
 
-    private val _state = MutableLiveData(ProductsByCategoryUiState())
-    val state: LiveData<ProductsByCategoryUiState> = _state
-    private val _toastMessage = MutableLiveData<String?>()
-    val toastMessage: LiveData<String?> = _toastMessage
+    private val _state = MutableStateFlow(ProductsByCategoryUiState())
+    val state = _state.asStateFlow()
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
 
     fun setCategory(category: Category) {
         if (currentCategory == category) {
@@ -69,18 +71,14 @@ class ProductsByCategoryViewModel @Inject constructor(
                 addProductToCartUseCase(productId, amount)
                 reloadState()
             } else {
-                _toastMessage.value = "${product.title} already in cart"
+                _toastMessage.emit("${product.title} already in cart")
             }
         }
     }
 
-    fun toastShown() {
-        _toastMessage.value = null
-    }
-
     fun onFilterChanged(filterParams: FilterParams) {
         viewModelScope.launch {
-            val currentState = _state.value ?: ProductsByCategoryUiState()
+            val currentState = _state.value
             _state.value = currentState.copy(
                 filterParams = filterParams,
                 contentState = ContentState.LOADING
@@ -101,7 +99,7 @@ class ProductsByCategoryViewModel @Inject constructor(
     }
 
     private suspend fun reloadState() {
-        val stateBeforeLoad = _state.value ?: ProductsByCategoryUiState()
+        val stateBeforeLoad = _state.value
         _state.value = stateBeforeLoad.copy(contentState = ContentState.LOADING)
 
         loadProducts(stateBeforeLoad.filterParams)
@@ -110,7 +108,7 @@ class ProductsByCategoryViewModel @Inject constructor(
     private suspend fun loadProducts(filterParams: FilterParams) {
         try {
             val products = getVisibleProducts(filterParams)
-            val latestState = _state.value ?: ProductsByCategoryUiState()
+            val latestState = _state.value
 
             _state.value = latestState.copy(
                 products = products,
@@ -119,7 +117,7 @@ class ProductsByCategoryViewModel @Inject constructor(
             )
         } catch (error: Exception) {
             if (error is CancellationException) throw error
-            val latestState = _state.value ?: ProductsByCategoryUiState()
+            val latestState = _state.value
             _state.value = latestState.copy(
                 filterParams = filterParams,
                 contentState = ContentState.ERROR

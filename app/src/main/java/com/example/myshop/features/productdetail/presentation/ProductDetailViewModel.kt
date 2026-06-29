@@ -1,7 +1,6 @@
 package com.example.myshop.features.productdetail.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.domain.cart.model.Amount
@@ -20,6 +19,8 @@ import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
 import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -45,9 +46,8 @@ class ProductDetailViewModel @Inject constructor(
     private var selectedAmountPreview: Amount? = null
     private var isDescriptionExpanded: Boolean = false
 
-    private val _state = MutableLiveData(ProductDetailUiState())
-    val state: LiveData<ProductDetailUiState> = _state
-
+    private val _state = MutableStateFlow(ProductDetailUiState())
+    val state = _state.asStateFlow()
 
     fun load() {
         viewModelScope.launch {
@@ -134,7 +134,7 @@ class ProductDetailViewModel @Inject constructor(
     private suspend fun reloadState() {
         val id = productId ?: return
 
-        val currentState = _state.value ?: ProductDetailUiState()
+        val currentState = _state.value
 
         _state.value = currentState.copy(contentState = ContentState.LOADING)
 

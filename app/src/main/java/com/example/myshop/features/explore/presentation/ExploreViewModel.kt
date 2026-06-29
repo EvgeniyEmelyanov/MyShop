@@ -33,15 +33,11 @@ class ExploreViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val provider = ExploreCategoriesProvider
-
     private var allProducts: List<Product> = emptyList()
-
     private val _state = MutableStateFlow(ExploreUiState())
     val state = _state.asStateFlow()
-
     private val _toastMessage = MutableSharedFlow<String>()
     val toastMessage = _toastMessage.asSharedFlow()
-
     private var searchJob: Job? = null
 
     fun load() {

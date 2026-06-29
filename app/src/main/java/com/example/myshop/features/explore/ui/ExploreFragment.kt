@@ -24,6 +24,7 @@ import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
 import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -95,6 +96,10 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
     }
 
     private fun observeState() {
+        val filterResults: StateFlow<FilterParams>? = findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getStateFlow(FILTER_PARAMS_KEY, vm.state.value.filterParams)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -111,14 +116,15 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
                     }
                 }
 
-            }
-        }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterParams>(
-            FILTER_PARAMS_KEY
-        )?.observe(viewLifecycleOwner) { filterParams ->
-            if (vm.state.value.filterParams != filterParams) {
-                vm.onFilterChanged(filterParams)
+                if (filterResults != null) {
+                    launch {
+                        filterResults.collect { filterParams ->
+                            if (vm.state.value.filterParams != filterParams) {
+                                vm.onFilterChanged(filterParams)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -5,6 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.databinding.FragmentProductsByCategoryBinding
@@ -21,6 +24,8 @@ import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryUiState
 import com.example.myshop.features.productsByCategory.presentation.ProductsByCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_category) {
@@ -91,24 +96,34 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
+        val filterResults: StateFlow<FilterParams>? = findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getStateFlow(FILTER_PARAMS_KEY, vm.state.value.filterParams)
 
-        vm.toastMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                vm.toastShown()
-            }
-        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.state.collect(::render)
+                }
 
-        findNavController().currentBackStackEntry?.savedStateHandle
-            ?.getLiveData<FilterParams>(FILTER_PARAMS_KEY)
-            ?.observe(viewLifecycleOwner) { filterParams ->
-                if (vm.state.value?.filterParams != filterParams) {
-                    vm.onFilterChanged(filterParams)
+                launch {
+                    vm.toastMessage.collect { message ->
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                if (filterResults != null) {
+                    launch {
+                        filterResults.collect { filterParams ->
+                            if (vm.state.value.filterParams != filterParams) {
+                                vm.onFilterChanged(filterParams)
+                            }
+                        }
+                    }
                 }
             }
+        }
     }
 
     private fun render(state: ProductsByCategoryUiState) {
@@ -149,7 +164,7 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
     }
 
     private fun openFilter() {
-        val currentFilterParams = vm.state.value?.filterParams ?: FilterParams()
+        val currentFilterParams = vm.state.value.filterParams
 
         findNavController().navigate(R.id.action_productsByCategoryFragment_to_filterForProductsByCategory)
 
