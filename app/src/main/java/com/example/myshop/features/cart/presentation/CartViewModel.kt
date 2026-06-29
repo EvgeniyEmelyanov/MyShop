@@ -1,7 +1,5 @@
 package com.example.myshop.features.cart.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.domain.cart.model.Amount
@@ -19,6 +17,10 @@ import com.example.myshop.core.formatter.QuantityFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -39,11 +41,12 @@ class CartViewModel @Inject constructor(
     private val moneyFormatter: MoneyFormatter
 ) : ViewModel() {
 
-    private val _state = MutableLiveData(CartUiState())
-    val state: LiveData<CartUiState> = _state
+    private val _state = MutableStateFlow(CartUiState())
+    val state = _state.asStateFlow()
+    private val _orderPlacedEvent = MutableSharedFlow<Unit>()
+    val orderPlacedEvent = _orderPlacedEvent.asSharedFlow()
 
-    private val _orderPlacedEvent = MutableLiveData(false)
-    val orderPlacedEvent: LiveData<Boolean> = _orderPlacedEvent
+
 
     fun load() {
         viewModelScope.launch {
@@ -90,13 +93,10 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             clearProductsUseCase.clearProducts()
             reloadState()
-            _orderPlacedEvent.value = true
+            _orderPlacedEvent.emit(Unit)
         }
     }
 
-    fun orderPlacedEventHandled() {
-        _orderPlacedEvent.value = false
-    }
 
     fun setAmount(productId: String, amount: Amount) {
         viewModelScope.launch {
@@ -106,7 +106,7 @@ class CartViewModel @Inject constructor(
     }
 
     private suspend fun reloadState() {
-        val currentState = _state.value ?: CartUiState()
+        val currentState = _state.value
         _state.value = currentState.copy(contentState = ContentState.LOADING)
 
         try {
