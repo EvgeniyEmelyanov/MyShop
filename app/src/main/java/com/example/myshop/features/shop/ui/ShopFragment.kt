@@ -3,7 +3,6 @@ package com.example.myshop.features.shop.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -279,7 +278,9 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
             R.id.action_shopFragment_to_productDetailFragment,
-            bundleOf("productId" to productId)
+            Bundle().apply {
+                putString("productId", productId)
+            }
         )
     }
 

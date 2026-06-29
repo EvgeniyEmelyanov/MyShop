@@ -159,7 +159,9 @@ class ProductsByCategoryFragment : BaseFragment(R.layout.fragment_products_by_ca
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
             R.id.action_productsByCategoryFragment_to_productDetailFragment,
-            bundleOf("productId" to productId)
+            Bundle().apply {
+                putString("productId", productId)
+            }
         )
     }
 

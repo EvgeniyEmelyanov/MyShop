@@ -95,8 +95,10 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
                 launch {
                     vm.toastMessage.collect {
-                        Toast.makeText(requireContext(),
-                            it, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            it, Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -139,7 +141,9 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
             R.id.action_favouriteFragment_to_productDetailFragment,
-            bundleOf("productId" to productId)
+            Bundle().apply {
+                putString("productId", productId)
+            }
         )
     }
 
