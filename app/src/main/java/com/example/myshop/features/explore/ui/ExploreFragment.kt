@@ -3,9 +3,11 @@ package com.example.myshop.features.explore.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.R
@@ -22,6 +24,7 @@ import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
 import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
@@ -92,21 +95,29 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
 
-        vm.toastMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                vm.toastShown()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.state.collect { state ->
+                        render(state)
+                    }
+                }
+
+                launch {
+                    vm.toastMessage.collect {
+                        Toast.makeText(requireContext(),
+                            it, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             }
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterParams>(
             FILTER_PARAMS_KEY
         )?.observe(viewLifecycleOwner) { filterParams ->
-            if (vm.state.value?.filterParams != filterParams) {
+            if (vm.state.value.filterParams != filterParams) {
                 vm.onFilterChanged(filterParams)
             }
         }
@@ -142,9 +153,7 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
         binding.stateView.root.visibility =
-            if (state.contentState == ContentState.EMPTY ||
-                state.contentState == ContentState.ERROR
-            ) {
+            if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -164,32 +173,32 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
     private fun openProductsByCategory(category: Category) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productsByCategoryFragment,
-            bundleOf("category" to category.name)
-        )
+            R.id.action_exploreFragment_to_productsByCategoryFragment, Bundle().apply {
+                putString("category", category.name)
+            })
     }
 
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productDetailFragment, bundleOf("productId" to productId)
-        )
+            R.id.action_exploreFragment_to_productDetailFragment, Bundle().apply {
+                putString("productId", productId)
+            })
     }
 
     private fun openFilter() {
-        val currentState = vm.state.value?.filterParams ?: FilterParams()
+        val currentState = vm.state.value.filterParams
 
         findNavController().navigate(R.id.action_exploreFragment_to_filterFragment)
 
-        findNavController().getBackStackEntry(R.id.filterFragment).savedStateHandle.set(
-            INITIAL_FILTER_PARAMS_KEY, currentState
-        )
+        findNavController().getBackStackEntry(R.id.filterFragment).savedStateHandle[INITIAL_FILTER_PARAMS_KEY] =
+            currentState
     }
 
     private fun setupSearch() {
         binding.editText2.doOnTextChanged { text, _, _, _ ->
             val query = text?.toString().orEmpty()
 
-            if (vm.state.value?.searchQuery != query) {
+            if (vm.state.value.searchQuery != query) {
                 vm.onSearchQueryChanged(query)
             }
         }

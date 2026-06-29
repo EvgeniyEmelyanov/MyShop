@@ -18,6 +18,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,11 +38,11 @@ class ExploreViewModel @Inject constructor(
 
     private var allProducts: List<Product> = emptyList()
 
-    private val _state = MutableLiveData(ExploreUiState())
-    val state: LiveData<ExploreUiState> = _state
+    private val _state = MutableStateFlow(ExploreUiState())
+    val state = _state.asStateFlow()
 
-    private val _toastMessage = MutableLiveData<String?>()
-    val toastMessage: LiveData<String?> = _toastMessage
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
 
     private var searchJob: Job? = null
 
@@ -53,7 +57,7 @@ class ExploreViewModel @Inject constructor(
             when (val result = addProductToCartIfAbsentUseCase(productId)) {
                 is AddToCartResult.Added -> reloadState()
                 is AddToCartResult.AlreadyInCart -> {
-                    _toastMessage.value = "${result.productTitle} is already in cart"
+                    _toastMessage.emit("${result.productTitle} is already in cart")
                 }
 
                 AddToCartResult.ProductNotFound -> Unit
@@ -61,18 +65,14 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    fun toastShown() {
-        _toastMessage.value = null
-    }
-
     private suspend fun reloadState() {
-        val stateBeforeLoad = _state.value ?: ExploreUiState()
+        val stateBeforeLoad = _state.value
         _state.value = stateBeforeLoad.copy(contentState = ContentState.LOADING)
 
         try {
             val categories = provider.getCategories()
             allProducts = getAllProductsUseCase.getAllProducts()
-            val latestState = _state.value ?: ExploreUiState()
+            val latestState = _state.value
             val products = getVisibleProducts(latestState.searchQuery, latestState.filterParams)
 
             _state.value = latestState.copy(
@@ -82,14 +82,13 @@ class ExploreViewModel @Inject constructor(
             )
         } catch (error: Exception) {
             if (error is CancellationException) throw error
-            val latestState = _state.value ?: ExploreUiState()
+            val latestState = _state.value
             _state.value = latestState.copy(contentState = ContentState.ERROR)
         }
     }
 
-
     fun onFilterChanged(filterParams: FilterParams) {
-        val currentState = _state.value ?: ExploreUiState()
+        val currentState = _state.value
 
         val visibleProducts = getVisibleProducts(currentState.searchQuery, filterParams)
 
@@ -101,7 +100,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     fun onSearchQueryChanged(query: String) {
-        val currentState = _state.value ?: ExploreUiState()
+        val currentState = _state.value
 
         _state.value =
             currentState.copy(searchQuery = query, filterParams = currentState.filterParams)
@@ -111,7 +110,7 @@ class ExploreViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             delay(300)
 
-            val latestState = _state.value ?: ExploreUiState()
+            val latestState = _state.value
             val visibleProducts = getVisibleProducts(query, latestState.filterParams)
 
             _state.value = latestState.copy(
