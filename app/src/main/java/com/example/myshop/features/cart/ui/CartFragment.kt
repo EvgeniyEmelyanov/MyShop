@@ -41,8 +41,6 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         setClick()
         setupCheckoutResultListener()
 
-
-        vm.load()
     }
 
     private fun setClick() {

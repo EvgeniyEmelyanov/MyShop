@@ -17,6 +17,8 @@ import com.example.myshop.domain.product.model.PricingUnit
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.repository.ProductRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -182,6 +184,10 @@ class AddAllFavouriteToCartUseCaseTest {
 
         override suspend fun getCart(): Cart = cart
 
+        override fun observeCart(): Flow<Cart> {
+            return flowOf(cart)
+        }
+
         override suspend fun addToCart(productId: String, amount: Amount) {
             addedItems += AddedCartItem(productId, amount)
         }
@@ -198,6 +204,10 @@ class AddAllFavouriteToCartUseCaseTest {
     ) : FavouriteRepository {
 
         override suspend fun getFavourite(): Favourite = favourite
+
+        override fun observeFavourite(): Flow<Favourite> {
+            return flowOf(favourite)
+        }
 
         override suspend fun addToFavourite(id: String) = Unit
 

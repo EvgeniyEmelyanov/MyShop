@@ -4,6 +4,8 @@ import com.example.myshop.domain.cart.CartRepository
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.model.CartItem
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -65,6 +67,10 @@ class IncreaseAmountUseCaseTest {
         var setAmountValue: Amount? = null
 
         override suspend fun getCart(): Cart = cart
+
+        override fun observeCart(): Flow<Cart> {
+            return flowOf(cart)
+        }
 
         override suspend fun addToCart(productId: String, amount: Amount) = Unit
 

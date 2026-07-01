@@ -24,7 +24,6 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
-
     private val vm: FavouriteViewModel by viewModels()
     private lateinit var favouriteAdapter: FavouriteAdapter
 
@@ -59,7 +58,6 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     }
 
-
     private fun setupList() {
         binding.rvProductsFavourite.apply {
             adapter = favouriteAdapter
@@ -83,7 +81,6 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
     private fun observeState() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
 
                 launch {
@@ -134,7 +131,6 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
         binding.btnAddAllToCart.visibility =
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
-
     }
 
     private fun openProductDetail(productId: String) {
@@ -144,11 +140,6 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
                 putString("productId", productId)
             }
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        vm.load()
     }
 
     override fun onDestroyView() {

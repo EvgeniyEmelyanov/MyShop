@@ -7,13 +7,16 @@ import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
 import com.example.myshop.domain.cart.usecase.AddAllFavouriteToCartUseCase
-import com.example.myshop.domain.favourite.usecase.GetFavouriteUseCase
+import com.example.myshop.domain.favourite.model.Favourite
+import com.example.myshop.domain.favourite.usecase.ObserveFavouriteUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -21,7 +24,7 @@ import kotlin.coroutines.cancellation.CancellationException
 @HiltViewModel
 class FavouriteViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
-    private val getFavouriteUseCase: GetFavouriteUseCase,
+    private val observeFavouriteUseCase: ObserveFavouriteUseCase,
     private val addAllFavouriteToCartUseCase: AddAllFavouriteToCartUseCase,
     private val imageKeyResolver: ImageKeyResolver,
     private val moneyFormatter: MoneyFormatter
@@ -33,19 +36,20 @@ class FavouriteViewModel @Inject constructor(
     private val _toastMessage = MutableSharedFlow<String>()
     val toastMessage = _toastMessage.asSharedFlow()
 
-    fun load() {
-        viewModelScope.launch {
-            reloadState()
-        }
+    private var observeFavouriteJob: Job? = null
+
+    init {
+        observeFavourite()
     }
 
-
+    fun load() {
+        _state.value = _state.value.copy(contentState = ContentState.LOADING)
+        observeFavourite()
+    }
 
     fun onAddAllToCart() {
         viewModelScope.launch {
             val addedCount = addAllFavouriteToCartUseCase.addAll()
-
-            reloadState()
 
             _toastMessage.emit(
                 when (addedCount) {
@@ -57,13 +61,29 @@ class FavouriteViewModel @Inject constructor(
         }
     }
 
-    private suspend fun reloadState() {
+    private fun observeFavourite() {
+        observeFavouriteJob?.cancel()
+
+        observeFavouriteJob = viewModelScope.launch {
+            observeFavouriteUseCase().catch { error ->
+                if (error is CancellationException) {
+                    throw error
+                }
+                _state.value = _state.value.copy(
+                    contentState = ContentState.ERROR
+                )
+            }.collect { favourite ->
+                updateState(favourite)
+            }
+        }
+
+    }
+
+    private suspend fun updateState(favourite: Favourite) {
         val currentState = _state.value
 
-        _state.value = currentState.copy(contentState = ContentState.LOADING)
-
         try {
-            val newState = buildState()
+            val newState = buildState(favourite)
 
             if (newState.items.isEmpty()) {
                 _state.value = newState.copy(contentState = ContentState.EMPTY)
@@ -78,8 +98,7 @@ class FavouriteViewModel @Inject constructor(
         }
     }
 
-    private suspend fun buildState(): FavouriteUiState {
-        val favourite = getFavouriteUseCase.getFavourite()
+    private suspend fun buildState(favourite: Favourite): FavouriteUiState {
 
         val uiItems = favourite.items.mapNotNull { item ->
             val product = getProductByIdUseCase(item.productId) ?: return@mapNotNull null

@@ -2,6 +2,8 @@ package com.example.myshop.domain.favourite.usecase
 
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -37,6 +39,10 @@ class ToggleFavouriteUseCaseTest {
         var toggledProductId: String? = null
 
         override suspend fun getFavourite(): Favourite = Favourite()
+
+        override fun observeFavourite(): Flow<Favourite> {
+            return flowOf(Favourite())
+        }
 
         override suspend fun addToFavourite(id: String) = Unit
 

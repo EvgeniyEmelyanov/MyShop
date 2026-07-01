@@ -7,7 +7,6 @@ import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
-import com.example.myshop.domain.cart.usecase.GetCartUseCase
 import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
 import com.example.myshop.domain.cart.usecase.SetAmountUseCase
@@ -16,11 +15,15 @@ import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.formatter.QuantityFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
+import com.example.myshop.domain.cart.model.Cart
+import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -28,7 +31,7 @@ import kotlin.coroutines.cancellation.CancellationException
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
-    private val getCartUseCase: GetCartUseCase,
+    private val observeCartUseCase: ObserveCartUseCase,
     private val addProductToCartUseCase: AddProductToCartUseCase,
     private val setAmountUseCase: SetAmountUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
@@ -46,53 +49,51 @@ class CartViewModel @Inject constructor(
     private val _orderPlacedEvent = MutableSharedFlow<Unit>()
     val orderPlacedEvent = _orderPlacedEvent.asSharedFlow()
 
+    private var observeCartJob: Job? = null
+
+    init {
+        observeCart()
+    }
 
 
     fun load() {
-        viewModelScope.launch {
-            reloadState()
-        }
+        _state.value = _state.value.copy(contentState = ContentState.LOADING)
+        observeCart()
     }
 
     fun addProduct(productId: String, amount: Amount) {
         viewModelScope.launch {
             addProductToCartUseCase(productId, amount)
-            reloadState()
         }
     }
 
     fun increaseAmount(productId: String) {
         viewModelScope.launch {
             increaseAmountUseCase.increaseAmount(productId)
-            reloadState()
         }
     }
 
     fun decreaseAmount(productId: String) {
         viewModelScope.launch {
             decreaseAmountUseCase.decreaseAmount(productId)
-            reloadState()
         }
     }
 
     fun removeProduct(productId: String) {
         viewModelScope.launch {
             removeProductUseCase.removeProduct(productId)
-            reloadState()
         }
     }
 
     fun clearProducts() {
         viewModelScope.launch {
             clearProductsUseCase.clearProducts()
-            reloadState()
         }
     }
 
     fun placeOrder() {
         viewModelScope.launch {
             clearProductsUseCase.clearProducts()
-            reloadState()
             _orderPlacedEvent.emit(Unit)
         }
     }
@@ -101,16 +102,32 @@ class CartViewModel @Inject constructor(
     fun setAmount(productId: String, amount: Amount) {
         viewModelScope.launch {
             setAmountUseCase.setAmount(productId, amount)
-            reloadState()
         }
     }
 
-    private suspend fun reloadState() {
+    private fun observeCart() {
+        observeCartJob?.cancel()
+
+        observeCartJob = viewModelScope.launch {
+            observeCartUseCase()
+                .catch { error ->
+                    if (error is CancellationException) throw error
+
+                    _state.value = _state.value.copy(
+                        contentState = ContentState.ERROR
+                    )
+                }
+                .collect { cart ->
+                    updateState(cart)
+                }
+        }
+    }
+
+    private suspend fun updateState(cart: Cart) {
         val currentState = _state.value
-        _state.value = currentState.copy(contentState = ContentState.LOADING)
 
         try {
-            val newState = buildState()
+            val newState = buildState(cart)
 
             if (newState.items.isEmpty()) {
                 _state.value = newState.copy(contentState = ContentState.EMPTY)
@@ -124,12 +141,10 @@ class CartViewModel @Inject constructor(
             _state.value = currentState.copy(contentState = ContentState.ERROR)
 
         }
-
     }
 
-    private suspend fun buildState(): CartUiState {
-        val cart = getCartUseCase()
-        val totals = calculateCartTotalsUseCase.execute()
+    private suspend fun buildState(cart: Cart): CartUiState {
+        val totals = calculateCartTotalsUseCase.execute(cart)
         val totalString = moneyFormatter.format(totals.total)
 
         val uiItems = cart.items.mapNotNull { item ->

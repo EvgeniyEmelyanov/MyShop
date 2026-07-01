@@ -14,6 +14,8 @@ import com.example.myshop.domain.product.model.PricingUnit
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.repository.ProductRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -89,11 +91,46 @@ class CalculateCartTotalsUseCaseTest {
         assertFalse(result.lineTotals.containsKey("missing_product"))
     }
 
+    @Test
+    fun `execute with cart uses supplied cart without reading repository`() = runBlocking {
+        val apple = product(
+            id = "apple",
+            priceCents = 499,
+            pricingUnit = PricingUnit.PER_ITEM
+        )
+        val repository = FakeCartRepository(Cart())
+        val useCase = CalculateCartTotalsUseCase(
+            cartRepository = repository,
+            productRepository = FakeProductRepository(listOf(apple)),
+            linePriceCalculator = LinePriceCalculator()
+        )
+        val suppliedCart = Cart(
+            items = listOf(
+                CartItem(productId = "apple", amount = Amount.Piece(2))
+            )
+        )
+
+        val result = useCase.execute(suppliedCart)
+
+        assertEquals(998, result.total.cents)
+        assertEquals(0, repository.getCartCallCount)
+    }
+
     private class FakeCartRepository(
         private val cart: Cart
     ) : CartRepository {
 
-        override suspend fun getCart(): Cart = cart
+        var getCartCallCount: Int = 0
+            private set
+
+        override suspend fun getCart(): Cart {
+            getCartCallCount++
+            return cart
+        }
+
+        override fun observeCart(): Flow<Cart> {
+            return flowOf(cart)
+        }
 
         override suspend fun addToCart(productId: String, amount: Amount) = Unit
 

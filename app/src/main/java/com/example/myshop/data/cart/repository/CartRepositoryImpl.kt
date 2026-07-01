@@ -7,6 +7,8 @@ import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.data.cart.local.mapper.toDomain
 import com.example.myshop.data.cart.local.mapper.toEntity
 import com.example.myshop.data.cart.local.mapper.typeAndValue
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
@@ -18,6 +20,12 @@ class CartRepositoryImpl @Inject constructor(private val cartDao: CartDao) : Car
             entity.toDomain()
         }
         return Cart(items)
+    }
+
+    override fun observeCart(): Flow<Cart> {
+        return cartDao.observeAll().map { entities ->
+            Cart(entities.map { entity -> entity.toDomain() })
+        }
     }
 
 

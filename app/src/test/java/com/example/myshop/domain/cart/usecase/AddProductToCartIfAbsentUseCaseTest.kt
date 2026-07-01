@@ -16,6 +16,8 @@ import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.repository.ProductRepository
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -143,6 +145,10 @@ class AddProductToCartIfAbsentUseCaseTest {
         var addedAmount: Amount? = null
 
         override suspend fun getCart(): Cart = cart
+
+        override fun observeCart(): Flow<Cart> {
+            return flowOf(cart)
+        }
 
         override suspend fun addToCart(productId: String, amount: Amount) {
             addedProductId = productId

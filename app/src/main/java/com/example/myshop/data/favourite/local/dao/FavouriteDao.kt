@@ -5,12 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.myshop.data.favourite.local.entity.FavouriteItemEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavouriteDao {
 
     @Query("SELECT * FROM favourite_items")
     suspend fun getAll(): List<FavouriteItemEntity>
+
+    @Query("SELECT * FROM favourite_items")
+    fun observeAll(): Flow<List<FavouriteItemEntity>>
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insert(item: FavouriteItemEntity)
