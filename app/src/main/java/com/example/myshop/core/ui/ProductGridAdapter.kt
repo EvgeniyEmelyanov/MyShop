@@ -21,6 +21,8 @@ class ProductGridAdapter(
             tvProductTitle.text = item.title
             tvProductWeight.text = item.subtitle
             tvProductPrice.text = item.priceText
+            bntAddToCartFromItemCard.isEnabled = !item.inCart
+            bntAddToCartFromItemCard.alpha = if (item.inCart) 0.45f else 1f
 
             root.setOnClickListener {
                 onRootClick(item.id)

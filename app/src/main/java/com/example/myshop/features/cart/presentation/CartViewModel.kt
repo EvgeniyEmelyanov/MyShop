@@ -3,7 +3,6 @@ package com.example.myshop.features.cart.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.cart.usecase.AddProductToCartUseCase
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
@@ -32,7 +31,6 @@ import kotlin.coroutines.cancellation.CancellationException
 class CartViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val observeCartUseCase: ObserveCartUseCase,
-    private val addProductToCartUseCase: AddProductToCartUseCase,
     private val setAmountUseCase: SetAmountUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
     private val clearProductsUseCase: ClearProductsUseCase,
@@ -59,12 +57,6 @@ class CartViewModel @Inject constructor(
     fun load() {
         _state.value = _state.value.copy(contentState = ContentState.LOADING)
         observeCart()
-    }
-
-    fun addProduct(productId: String, amount: Amount) {
-        viewModelScope.launch {
-            addProductToCartUseCase(productId, amount)
-        }
     }
 
     fun increaseAmount(productId: String) {

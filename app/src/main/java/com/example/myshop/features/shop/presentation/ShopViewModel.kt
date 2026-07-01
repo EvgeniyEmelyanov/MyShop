@@ -8,11 +8,13 @@ import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.AddToCartResult
 import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
+import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.model.ProductTag
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,7 +27,8 @@ class ShopViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val moneyFormatter: MoneyFormatter,
     private val imageKeyResolver: ImageKeyResolver,
-    private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase
+    private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
+    private val observeCartUseCase: ObserveCartUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ShopUiState())
@@ -35,8 +38,11 @@ class ShopViewModel @Inject constructor(
     private val groceriesCategoriesProvider = GroceriesCategoriesProvider
     private val bannersProvider = BannersProvider
 
+    private var observationJob: Job? = null
+
     fun load() {
-        viewModelScope.launch {
+        observationJob?.cancel()
+        observationJob = viewModelScope.launch {
             reloadState()
         }
     }
@@ -44,7 +50,7 @@ class ShopViewModel @Inject constructor(
     fun onAddToCart(productId: String) {
         viewModelScope.launch {
             when (val result = addProductToCartIfAbsentUseCase(productId)) {
-                is AddToCartResult.Added -> reloadState()
+                is AddToCartResult.Added -> Unit
                 is AddToCartResult.AlreadyInCart -> {
                     _toastMessage.emit("${result.productTitle} is already in cart")
                 }
@@ -59,31 +65,49 @@ class ShopViewModel @Inject constructor(
         _state.value = currentState.copy(contentState = ContentState.LOADING)
 
         try {
-            val newState = buildState()
-            val hasProducts = newState.exclusiveOffers.isNotEmpty() ||
-                newState.bestSelling.isNotEmpty() ||
-                newState.groceriesProducts.isNotEmpty()
+            val products = getAllProductsUseCase.getAllProducts()
 
-            _state.value = newState.copy(
-                contentState = ContentState.fromHasContent(hasProducts)
-            )
+            observeCartUseCase().collect { cart ->
+                val cartProductIds = cart.items
+                    .map { item -> item.productId }
+                    .toSet()
+
+                val newState = buildState(products, cartProductIds)
+
+                val hasProducts = newState.exclusiveOffers.isNotEmpty() ||
+                        newState.bestSelling.isNotEmpty() ||
+                        newState.groceriesProducts.isNotEmpty()
+
+                _state.value = newState.copy(
+                    contentState = ContentState.fromHasContent(hasProducts)
+                )
+            }
         } catch (error: Exception) {
             if (error is CancellationException) throw error
+
             _state.value = currentState.copy(contentState = ContentState.ERROR)
         }
     }
 
-    private suspend fun buildState(): ShopUiState {
-        val products = getAllProductsUseCase.getAllProducts()
+    private fun buildState(
+        products: List<Product>,
+        cartProductIds: Set<String>
+    ): ShopUiState {
 
         val exclusiveOffers = products.filter { it.tags.contains(ProductTag.EXCLUSIVE_OFFER) }
-            .map(::toProductCardUiModel)
+            .map { product ->
+                toProductCardUiModel(product, cartProductIds)
+            }
 
         val bestSelling = products.filter { it.tags.contains(ProductTag.BEST_SELLING) }
-            .map(::toProductCardUiModel)
+            .map { product ->
+                toProductCardUiModel(product, cartProductIds)
+            }
 
         val groceriesProducts = products.filter { it.tags.contains(ProductTag.GROCERIES_PRODUCT) }
-            .map(::toProductCardUiModel)
+            .map { product ->
+                toProductCardUiModel(product, cartProductIds)
+            }
 
         return ShopUiState(
             banners = bannersProvider.getBanners(),
@@ -94,13 +118,17 @@ class ShopViewModel @Inject constructor(
         )
     }
 
-    private fun toProductCardUiModel(product: Product): CommonProductUiModel {
+    private fun toProductCardUiModel(
+        product: Product,
+        cartProductIds: Set<String>
+    ): CommonProductUiModel {
         return CommonProductUiModel(
             id = product.id,
             title = product.title,
             subtitle = product.subtitle,
             priceText = moneyFormatter.format(product.price),
-            imageRes = imageKeyResolver.resolve(product.imageKey)
+            imageRes = imageKeyResolver.resolve(product.imageKey),
+            inCart = product.id in cartProductIds
         )
     }
 

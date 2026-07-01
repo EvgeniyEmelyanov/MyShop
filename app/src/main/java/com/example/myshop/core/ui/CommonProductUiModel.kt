@@ -5,5 +5,6 @@ data class CommonProductUiModel(
     val title: String,
     val subtitle: String,
     val imageRes: Int,
-    val priceText: String
+    val priceText: String,
+    val inCart: Boolean = false
 )

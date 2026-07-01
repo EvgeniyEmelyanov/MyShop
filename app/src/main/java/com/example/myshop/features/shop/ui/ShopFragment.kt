@@ -99,7 +99,6 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private fun setupLists() = with(binding) {
         vpBanners.adapter = bannerAdapter
 
-
         setupHorizontalProductsList(rvExclusiveOffer, exclusiveAdapter)
         setupHorizontalProductsList(rvBestSellingProducts, bestSellingAdapter)
         setupHorizontalProductsList(rvGroceriesProductCard, groceriesProductsAdapter)
