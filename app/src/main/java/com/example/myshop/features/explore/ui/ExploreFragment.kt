@@ -111,8 +111,10 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
 
                 launch {
                     vm.toastMessage.collect {
-                        Toast.makeText(requireContext(),
-                            it, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            it, Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
@@ -150,31 +152,34 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
             exploreCategoriesAdapter.submitList(state.categories)
         }
 
-        binding.btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
+        with(binding) {
 
-        binding.progressBar.visibility =
-            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+            btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
 
-        binding.rvExploreBanner.visibility =
-            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+            progressBar.visibility =
+                if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
 
-        binding.stateView.root.visibility =
-            if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            rvExploreBanner.visibility =
+                if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
-        binding.stateView.tvStateMessage.setText(
-            if (state.contentState == ContentState.ERROR) {
-                R.string.error_loading_products
-            } else {
-                R.string.empty_product
-            }
-        )
+            stateView.root.visibility =
+                if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
 
-        binding.stateView.btnRetry.visibility =
-            if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+            stateView.tvStateMessage.setText(
+                if (state.contentState == ContentState.ERROR) {
+                    R.string.error_loading_products
+                } else {
+                    R.string.empty_product
+                }
+            )
+
+            stateView.btnRetry.visibility =
+                if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+        }
     }
 
     private fun openProductsByCategory(category: Category) {

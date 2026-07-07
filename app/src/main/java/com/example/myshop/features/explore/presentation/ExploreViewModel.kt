@@ -10,6 +10,7 @@ import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.domain.cart.AddToCartResult
 import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
+import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.usecase.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +31,7 @@ class ExploreViewModel @Inject constructor(
     private val moneyFormatter: MoneyFormatter,
     private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
     private val productFilter: ProductFilter,
+    private val observeCartUseCase: ObserveCartUseCase
 ) : ViewModel() {
 
     private val provider = ExploreCategoriesProvider
@@ -39,6 +41,12 @@ class ExploreViewModel @Inject constructor(
     private val _toastMessage = MutableSharedFlow<String>()
     val toastMessage = _toastMessage.asSharedFlow()
     private var searchJob: Job? = null
+    private var observeCartJob: Job? = null
+    private var cartProductIds: Set<String> = emptySet()
+
+    init {
+        observeCart()
+    }
 
     fun load() {
         viewModelScope.launch {
@@ -49,7 +57,7 @@ class ExploreViewModel @Inject constructor(
     fun onAddToCart(productId: String) {
         viewModelScope.launch {
             when (val result = addProductToCartIfAbsentUseCase(productId)) {
-                is AddToCartResult.Added -> reloadState()
+                is AddToCartResult.Added -> Unit
                 is AddToCartResult.AlreadyInCart -> {
                     _toastMessage.emit("${result.productTitle} is already in cart")
                 }
@@ -115,9 +123,28 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
+    private fun observeCart() {
+        observeCartJob?.cancel()
+
+        observeCartJob = viewModelScope.launch {
+            observeCartUseCase().collect { cart ->
+                cartProductIds = cart.items.map { item -> item.productId }.toSet()
+
+                val currentState = _state.value
+
+                _state.value = currentState.copy(
+                    products = currentState.products.map { product ->
+                        product.copy(
+                            inCart = product.id in cartProductIds
+                        )
+                    }
+                )
+            }
+        }
+    }
+
     private fun contentState(
-        query: String,
-        products: List<CommonProductUiModel>
+        query: String, products: List<CommonProductUiModel>
     ): ContentState {
         return if (query.isBlank()) {
             ContentState.CONTENT
@@ -140,16 +167,21 @@ class ExploreViewModel @Inject constructor(
             }
         }
 
-        return productFilter.apply(filteredProducts, filterParams).map(::toProductUiModel)
+        return productFilter.apply(filteredProducts, filterParams).map { product ->
+            toProductUiModel(product, cartProductIds)
+        }
     }
 
-    private fun toProductUiModel(product: Product): CommonProductUiModel {
+    private fun toProductUiModel(
+        product: Product, cartProductIds: Set<String>
+    ): CommonProductUiModel {
         return CommonProductUiModel(
             id = product.id,
             title = product.title,
             subtitle = product.subtitle,
             imageRes = imageKeyResolver.resolve(product.imageKey),
-            priceText = moneyFormatter.format(product.price)
+            priceText = moneyFormatter.format(product.price),
+            inCart = product.id in cartProductIds
         )
 
     }
