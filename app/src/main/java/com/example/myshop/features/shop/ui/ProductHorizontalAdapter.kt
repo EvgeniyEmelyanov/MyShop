@@ -22,7 +22,8 @@ class ProductHorizontalAdapter(
             tvProductTitle.text = item.title
             tvProductWeight.text = item.subtitle
             tvProductPrice.text = item.priceText
-
+            bntAddToCartFromItemCard.isEnabled = !item.inCart
+            bntAddToCartFromItemCard.alpha = if (item.inCart) 0.45f else 1f
 
             binding.root.setOnClickListener {
                 onRootClick(item.id)

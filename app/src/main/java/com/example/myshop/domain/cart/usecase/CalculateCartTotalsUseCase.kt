@@ -1,6 +1,7 @@
 package com.example.myshop.domain.cart.usecase
 
 import com.example.myshop.domain.cart.CartRepository
+import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.model.CartTotals
 import com.example.myshop.domain.cart.service.LinePriceCalculator
 import com.example.myshop.domain.common.Money
@@ -14,7 +15,10 @@ class CalculateCartTotalsUseCase @Inject constructor(
 ) {
 
     suspend fun execute(): CartTotals {
-        val cart = cartRepository.getCart()
+        return execute(cartRepository.getCart())
+    }
+
+    suspend fun execute(cart: Cart): CartTotals {
 
         val lineTotalsCents = mutableMapOf<String, Long>()
         var totalCents = 0L

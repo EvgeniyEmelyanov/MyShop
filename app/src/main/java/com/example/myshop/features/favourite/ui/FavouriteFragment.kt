@@ -3,8 +3,10 @@ package com.example.myshop.features.favourite.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myshop.core.ui.dpToPx
@@ -15,14 +17,14 @@ import com.example.myshop.core.ui.ContentState
 import com.example.myshop.databinding.FragmentFavouriteBinding
 import com.example.myshop.features.favourite.presentation.FavouriteUiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
-
-    private val vm: FavouriteViewModel by viewModels ()
+    private val vm: FavouriteViewModel by viewModels()
     private lateinit var favouriteAdapter: FavouriteAdapter
 
 
@@ -52,11 +54,9 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
 
     private fun setupAdapter() {
         favouriteAdapter = FavouriteAdapter(
-            onClickItem = { id -> openProductDetail(id) }
-        )
+            onClickItem = { id -> openProductDetail(id) })
 
     }
-
 
     private fun setupList() {
         binding.rvProductsFavourite.apply {
@@ -79,17 +79,26 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
 
-        vm.toastMessage.observe(viewLifecycleOwner) {message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                vm.toastShown()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+
+                launch {
+                    vm.state.collect { state ->
+                        render(state)
+                    }
+                }
+
+                launch {
+                    vm.toastMessage.collect {
+                        Toast.makeText(
+                            requireContext(),
+                            it, Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         }
-
     }
 
     private fun render(state: FavouriteUiState) {
@@ -102,9 +111,7 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
         binding.stateView.root.visibility =
-            if (state.contentState == ContentState.EMPTY ||
-                state.contentState == ContentState.ERROR
-            ) {
+            if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -124,20 +131,15 @@ class FavouriteFragment : BaseFragment(R.layout.fragment_favourite) {
         binding.btnAddAllToCart.visibility =
             if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
-
-
     }
 
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
             R.id.action_favouriteFragment_to_productDetailFragment,
-            bundleOf("productId" to productId)
+            Bundle().apply {
+                putString("productId", productId)
+            }
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        vm.load()
     }
 
     override fun onDestroyView() {

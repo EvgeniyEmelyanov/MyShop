@@ -2,7 +2,12 @@ package com.example.myshop.features.cart.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myshop.app.BaseFragment
 import com.example.myshop.R
@@ -12,7 +17,10 @@ import com.example.myshop.databinding.FragmentCartBinding
 import com.example.myshop.features.cart.presentation.CartUiState
 import com.example.myshop.features.cart.presentation.CartViewModel
 import com.example.myshop.features.checkout.CheckoutBottomSheetFragment
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_CONFIRMED_KEY
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_RESULT_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CartFragment : BaseFragment(R.layout.fragment_cart) {
@@ -31,8 +39,8 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         setupList()
         observeState()
         setClick()
+        setupCheckoutResultListener()
 
-        vm.load()
     }
 
     private fun setClick() {
@@ -41,7 +49,7 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         }
 
         binding.checkoutBar.setOnClickListener {
-            val state = vm.state.value ?: return@setOnClickListener
+            val state = vm.state.value
 
             if (state.contentState == ContentState.CONTENT && parentFragmentManager.findFragmentByTag(
                     CheckoutBottomSheetFragment.TAG
@@ -49,6 +57,16 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
             ) {
                 CheckoutBottomSheetFragment.newInstance(totalString = state.totalString)
                     .show(parentFragmentManager, CheckoutBottomSheetFragment.TAG)
+            }
+        }
+    }
+
+    private fun setupCheckoutResultListener() {
+        setFragmentResultListener(CHECKOUT_RESULT_KEY) { _, bundle ->
+            val isConfirmed = bundle.getBoolean(CHECKOUT_CONFIRMED_KEY)
+
+            if (isConfirmed) {
+                vm.placeOrder()
             }
         }
     }
@@ -79,8 +97,21 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                launch {
+                    vm.state.collect { state ->
+                        render(state)
+                    }
+                }
+
+                launch {
+                    vm.orderPlacedEvent.collect {
+                        openOrderAcceptedScreen()
+                    }
+                }
+            }
         }
     }
 
@@ -117,6 +148,13 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
 
 
     }
+
+    private fun openOrderAcceptedScreen() {
+        findNavController().navigate(
+            R.id.action_cartFragment_to_orderAcceptedFragment
+        )
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

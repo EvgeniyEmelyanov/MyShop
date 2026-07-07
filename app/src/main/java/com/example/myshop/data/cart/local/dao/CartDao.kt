@@ -5,12 +5,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.myshop.data.cart.local.entity.CartItemEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CartDao {
 
     @Query("SELECT * FROM cart_items ORDER BY sortOrder ASC")
     suspend fun getAll(): List<CartItemEntity>
+
+    @Query("SELECT * FROM cart_items ORDER BY sortOrder ASC")
+    fun observeAll(): Flow<List<CartItemEntity>>
+
 
     @Query("SELECT * FROM cart_items WHERE productId = :productId")
     suspend fun getByProductId(productId: String): CartItemEntity?

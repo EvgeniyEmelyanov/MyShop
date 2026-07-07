@@ -21,7 +21,7 @@
         android:id="@+id/exploreFragment"
         android:name="com.example.myshop.features.explore.ui.ExploreFragment"
         android:label="Explore"
-        tools:layout="@layout/fragment_explore" >
+        tools:layout="@layout/fragment_explore">
         <action
             android:id="@+id/action_exploreFragment_to_productsByCategoryFragment"
             app:destination="@id/productsByCategoryFragment" />
@@ -37,7 +37,11 @@
         android:id="@+id/cartFragment"
         android:name="com.example.myshop.features.cart.ui.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_orderAcceptedFragment"
+            app:destination="@id/orderAcceptedFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/favouriteFragment"
@@ -69,7 +73,7 @@
     <fragment
         android:id="@+id/productsByCategoryFragment"
         android:name="com.example.myshop.features.productsByCategory.ui.ProductsByCategoryFragment"
-        android:label="ProductsByCategoryFragment" >
+        android:label="ProductsByCategoryFragment">
         <argument
             android:name="category"
             app:argType="string" />
@@ -90,5 +94,9 @@
         android:name="com.example.myshop.features.productsByCategory.presentation.FilterForProductsByCategory"
         android:label="fragment_filter_for_products_by_category"
         tools:layout="@layout/fragment_filter_for_products_by_category" />
+    <fragment
+        android:id="@+id/orderAcceptedFragment"
+        android:name="com.example.myshop.features.checkout.OrderAcceptedFragment"
+        android:label="OrderAcceptedFragment" />
 
 </navigation>

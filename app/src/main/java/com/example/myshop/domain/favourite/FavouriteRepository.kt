@@ -1,10 +1,13 @@
 package com.example.myshop.domain.favourite
 
 import com.example.myshop.domain.favourite.model.Favourite
+import kotlinx.coroutines.flow.Flow
 
 interface FavouriteRepository {
 
     suspend fun getFavourite(): Favourite
+
+    fun observeFavourite(): Flow<Favourite>
 
     suspend fun addToFavourite(id: String)
 

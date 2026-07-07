@@ -4,9 +4,6 @@ import com.example.myshop.domain.product.model.Category
 import com.example.myshop.domain.product.model.Product
 import com.example.myshop.domain.product.repository.ProductRepository
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 
 class GetProductsByCategoryUseCase @Inject constructor(private val productRepository: ProductRepository) {
 

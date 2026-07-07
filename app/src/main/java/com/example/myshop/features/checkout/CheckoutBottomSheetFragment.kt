@@ -2,7 +2,6 @@ package com.example.myshop.features.checkout
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.myshop.R
 import com.example.myshop.databinding.BottomSheetCheckoutBinding
@@ -29,7 +28,9 @@ class CheckoutBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
         binding.btnPlaceOrder.setOnClickListener {
             setFragmentResult(
                 CHECKOUT_RESULT_KEY,
-                bundleOf(CHECKOUT_CONFIRMED_KEY to true)
+                Bundle().apply {
+                    putBoolean(CHECKOUT_CONFIRMED_KEY, true)
+                }
             )
             dismiss()
         }

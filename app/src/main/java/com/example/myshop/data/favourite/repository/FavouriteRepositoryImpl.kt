@@ -5,17 +5,24 @@ import com.example.myshop.data.favourite.local.mapper.toDomain
 import com.example.myshop.data.favourite.local.mapper.toEntity
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FavouriteRepositoryImpl @Inject constructor(private val favouriteDao: FavouriteDao) :
     FavouriteRepository {
-
 
     override suspend fun getFavourite(): Favourite {
         val items = favouriteDao.getAll().map { entity ->
             entity.toDomain()
         }
         return Favourite(items)
+    }
+
+    override fun observeFavourite(): Flow<Favourite> {
+        return favouriteDao.observeAll().map { entities ->
+            Favourite(entities.map { entity -> entity.toDomain() })
+        }
     }
 
     override suspend fun isFavourite(id: String): Boolean {

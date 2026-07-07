@@ -1,7 +1,6 @@
 package com.example.myshop.features.productdetail.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myshop.domain.cart.model.Amount
@@ -15,11 +14,17 @@ import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.formatter.QuantityFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
-import com.example.myshop.domain.cart.AddToCartResult
+import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
-import com.example.myshop.domain.favourite.usecase.IsFavouriteUseCase
+import com.example.myshop.domain.favourite.usecase.ObserveFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
+import com.example.myshop.domain.product.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
@@ -27,7 +32,6 @@ import kotlin.coroutines.cancellation.CancellationException
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
-    private val getCartUseCase: GetCartUseCase,
     private val increaseAmountUseCase: IncreaseAmountUseCase,
     private val decreaseAmountUseCase: DecreaseAmountUseCase,
     private val calculateCartTotalsUseCase: CalculateCartTotalsUseCase,
@@ -35,62 +39,72 @@ class ProductDetailViewModel @Inject constructor(
     private val moneyFormatter: MoneyFormatter,
     private val linePriceCalculator: LinePriceCalculator,
     private val imageKeyResolver: ImageKeyResolver,
-    private val isFavouriteUseCase: IsFavouriteUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
     private val addProductToCartIfAbsentUseCase: AddProductToCartIfAbsentUseCase,
-    private val defaultCartAmountFactory: DefaultCartAmountFactory
+    private val defaultCartAmountFactory: DefaultCartAmountFactory,
+    private val observeCartUseCase: ObserveCartUseCase,
+    private val observeFavouriteUseCase: ObserveFavouriteUseCase
 ) : ViewModel() {
 
     private var productId: String? = null
     private var selectedAmountPreview: Amount? = null
     private var isDescriptionExpanded: Boolean = false
 
-    private val _state = MutableLiveData(ProductDetailUiState())
-    val state: LiveData<ProductDetailUiState> = _state
+    private val _state = MutableStateFlow(ProductDetailUiState())
+    val state = _state.asStateFlow()
 
+    private var observeProductJob: Job? = null
 
     fun load() {
-        viewModelScope.launch {
-            reloadState()
-        }
+        val id = productId ?: return
+
+        _state.value = _state.value.copy(
+            contentState = ContentState.LOADING
+        )
+
+        observeProduct(id)
     }
 
     fun setProductId(id: String) {
-        if (productId != null && productId != id) return
+        if (productId == id) return
+
         productId = id
-        load()
+        observeProduct(id)
     }
 
     fun onAddToFavorite() {
         viewModelScope.launch {
             val id = productId ?: return@launch
             toggleFavouriteUseCase.toggle(id)
-            load()
         }
     }
 
     fun onToggleDescription() {
         isDescriptionExpanded = !isDescriptionExpanded
-        load()
+
+        _state.value = _state.value.copy(
+            isDescriptionExpanded = isDescriptionExpanded
+        )
     }
 
     fun onPlus() {
         val id = productId ?: return
         viewModelScope.launch {
-            val cartItem = getCartUseCase().items.find { it.productId == id }
 
-            if (cartItem != null) {
+            if (_state.value.isCart) {
                 increaseAmountUseCase.increaseAmount(id)
             } else {
                 val product = getProductByIdUseCase(id) ?: return@launch
                 val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
-                selectedAmountPreview = when (cur) {
+                val newAmount = when (cur) {
                     is Piece -> Piece(cur.count + 1)
                     is Grams -> Grams(cur.grams + 20)
                 }
+
+                selectedAmountPreview = newAmount
+                updatePreview(product, newAmount)
             }
-            reloadState()
         }
 
     }
@@ -99,20 +113,21 @@ class ProductDetailViewModel @Inject constructor(
         val id = productId ?: return
 
         viewModelScope.launch {
-            val cartItem = getCartUseCase().items.find { it.productId == id }
 
-            if (cartItem != null) {
+            if (_state.value.isCart) {
                 decreaseAmountUseCase.decreaseAmount(id)
             } else {
                 val product = getProductByIdUseCase(id) ?: return@launch
                 val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
-                selectedAmountPreview = when (cur) {
+                val newAmount = when (cur) {
                     is Piece -> Piece(maxOf(1, cur.count - 1))
                     is Grams -> Grams(maxOf(20, cur.grams - 20))
                 }
+
+                selectedAmountPreview = newAmount
+                updatePreview(product, newAmount)
             }
-            reloadState()
         }
 
     }
@@ -123,23 +138,56 @@ class ProductDetailViewModel @Inject constructor(
             val product = getProductByIdUseCase(id) ?: return@launch
             val amount = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
-            when (addProductToCartIfAbsentUseCase(id, amount)) {
-                is AddToCartResult.Added -> reloadState()
-                is AddToCartResult.AlreadyInCart -> Unit
-                AddToCartResult.ProductNotFound -> Unit
-            }
+            addProductToCartIfAbsentUseCase(id, amount)
         }
     }
 
-    private suspend fun reloadState() {
-        val id = productId ?: return
+    private fun updatePreview(
+        product: Product, amount: Amount
+    ) {
+        val lineCents = linePriceCalculator.calculateLineCents(
+            priceCents = product.price.cents, pricingUnit = product.pricingUnit, amount = amount
+        )
 
-        val currentState = _state.value ?: ProductDetailUiState()
+        _state.value = _state.value.copy(
+            countText = quantityFormatter.quantityFormat(amount),
+            price = moneyFormatter.format(Money(lineCents, Currency.USD))
+        )
+    }
 
-        _state.value = currentState.copy(contentState = ContentState.LOADING)
+    private fun observeProduct(id: String) {
+        observeProductJob?.cancel()
+
+        observeProductJob = viewModelScope.launch {
+            combine(
+                observeCartUseCase(), observeFavouriteUseCase()
+            ) { cart, favourite ->
+                cart to favourite
+            }.catch { error ->
+                if (error is CancellationException) {
+                    throw error
+                }
+
+                _state.value = _state.value.copy(
+                    contentState = ContentState.ERROR
+                )
+            }.collect { (cart, favourite) ->
+                    val isFavourite = favourite.items.any { item ->
+                        item.productId == id
+                    }
+
+                    updateState(id, cart, isFavourite)
+                }
+        }
+    }
+
+    private suspend fun updateState(
+        id: String, cart: Cart, isFavourite: Boolean
+    ) {
+        val currentState = _state.value
 
         try {
-            val newState = buildState(id)
+            val newState = buildState(id, cart, isFavourite)
             _state.value = newState.copy(contentState = ContentState.CONTENT)
         } catch (error: Exception) {
             if (error is CancellationException) {
@@ -150,19 +198,17 @@ class ProductDetailViewModel @Inject constructor(
                 contentState = ContentState.ERROR
             )
         }
-
     }
 
-    private suspend fun buildState(id: String): ProductDetailUiState {
+    private suspend fun buildState(
+        id: String, cart: Cart, isFavourite: Boolean
+    ): ProductDetailUiState {
         val product = getProductByIdUseCase(id) ?: error("Product not found")
 
-        val cart = getCartUseCase()
         val realItem = cart.items.find { it.productId == id }
         val inCart = realItem != null
         val addButtonText = if (inCart) "Added" else "Add to cart"
         val isAddEnabled = !inCart
-
-        val isFavourite = isFavouriteUseCase.isFavourite(id)
 
         val imageRes = imageKeyResolver.resolve(product.imageKey)
 
@@ -174,7 +220,7 @@ class ProductDetailViewModel @Inject constructor(
 
         // цена строки: считаем totals один раз и берём lineTotals[id]
         val priceText = if (inCart) {
-            val totals = calculateCartTotalsUseCase.execute()
+            val totals = calculateCartTotalsUseCase.execute(cart)
             val lineMoney = totals.lineTotals[id]
             lineMoney?.let(moneyFormatter::format) ?: "—"
         } else {

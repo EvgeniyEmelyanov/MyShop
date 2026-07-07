@@ -3,9 +3,11 @@ package com.example.myshop.features.explore.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myshop.R
@@ -22,6 +24,8 @@ import com.example.myshop.core.filter.FilterParams
 import com.example.myshop.core.filter.FilterResultContract.FILTER_PARAMS_KEY
 import com.example.myshop.core.filter.FilterResultContract.INITIAL_FILTER_PARAMS_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
@@ -92,22 +96,37 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
     }
 
     private fun observeState() {
-        vm.state.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
+        val filterResults: StateFlow<FilterParams>? = findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getStateFlow(FILTER_PARAMS_KEY, vm.state.value.filterParams)
 
-        vm.toastMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                vm.toastShown()
-            }
-        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.state.collect { state ->
+                        render(state)
+                    }
+                }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterParams>(
-            FILTER_PARAMS_KEY
-        )?.observe(viewLifecycleOwner) { filterParams ->
-            if (vm.state.value?.filterParams != filterParams) {
-                vm.onFilterChanged(filterParams)
+                launch {
+                    vm.toastMessage.collect {
+                        Toast.makeText(
+                            requireContext(),
+                            it, Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                if (filterResults != null) {
+                    launch {
+                        filterResults.collect { filterParams ->
+                            if (vm.state.value.filterParams != filterParams) {
+                                vm.onFilterChanged(filterParams)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -133,63 +152,64 @@ class ExploreFragment : BaseFragment(R.layout.fragment_explore) {
             exploreCategoriesAdapter.submitList(state.categories)
         }
 
-        binding.btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
+        with(binding) {
 
-        binding.progressBar.visibility =
-            if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
+            btnFilter.visibility = if (state.isSearchMode) View.VISIBLE else View.GONE
 
-        binding.rvExploreBanner.visibility =
-            if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
+            progressBar.visibility =
+                if (state.contentState == ContentState.LOADING) View.VISIBLE else View.GONE
 
-        binding.stateView.root.visibility =
-            if (state.contentState == ContentState.EMPTY ||
-                state.contentState == ContentState.ERROR
-            ) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            rvExploreBanner.visibility =
+                if (state.contentState == ContentState.CONTENT) View.VISIBLE else View.GONE
 
-        binding.stateView.tvStateMessage.setText(
-            if (state.contentState == ContentState.ERROR) {
-                R.string.error_loading_products
-            } else {
-                R.string.empty_product
-            }
-        )
+            stateView.root.visibility =
+                if (state.contentState == ContentState.EMPTY || state.contentState == ContentState.ERROR) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
 
-        binding.stateView.btnRetry.visibility =
-            if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+            stateView.tvStateMessage.setText(
+                if (state.contentState == ContentState.ERROR) {
+                    R.string.error_loading_products
+                } else {
+                    R.string.empty_product
+                }
+            )
+
+            stateView.btnRetry.visibility =
+                if (state.contentState == ContentState.ERROR) View.VISIBLE else View.GONE
+        }
     }
 
     private fun openProductsByCategory(category: Category) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productsByCategoryFragment,
-            bundleOf("category" to category.name)
-        )
+            R.id.action_exploreFragment_to_productsByCategoryFragment, Bundle().apply {
+                putString("category", category.name)
+            })
     }
 
     private fun openProductDetail(productId: String) {
         findNavController().navigate(
-            R.id.action_exploreFragment_to_productDetailFragment, bundleOf("productId" to productId)
-        )
+            R.id.action_exploreFragment_to_productDetailFragment, Bundle().apply {
+                putString("productId", productId)
+            })
     }
 
     private fun openFilter() {
-        val currentState = vm.state.value?.filterParams ?: FilterParams()
+        val currentState = vm.state.value.filterParams
 
         findNavController().navigate(R.id.action_exploreFragment_to_filterFragment)
 
-        findNavController().getBackStackEntry(R.id.filterFragment).savedStateHandle.set(
-            INITIAL_FILTER_PARAMS_KEY, currentState
-        )
+        findNavController().getBackStackEntry(R.id.filterFragment).savedStateHandle[INITIAL_FILTER_PARAMS_KEY] =
+            currentState
     }
 
     private fun setupSearch() {
         binding.editText2.doOnTextChanged { text, _, _, _ ->
             val query = text?.toString().orEmpty()
 
-            if (vm.state.value?.searchQuery != query) {
+            if (vm.state.value.searchQuery != query) {
                 vm.onSearchQueryChanged(query)
             }
         }

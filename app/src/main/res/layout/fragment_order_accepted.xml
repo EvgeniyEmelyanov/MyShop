@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingHorizontal="25dp"
+    tools:context=".features.checkout.OrderAcceptedFragment">
+
+    <FrameLayout
+        android:id="@+id/successIconContainer"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:background="@drawable/bg_order_success_circle"
+        app:layout_constraintBottom_toTopOf="@id/tvOrderAcceptedTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/cd_order_accepted"
+            android:src="@drawable/ic_order_success_check" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvOrderAcceptedTitle"
+        style="@style/TextAppearance.ProductName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/order_accepted_title"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@id/tvOrderAcceptedSubtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/successIconContainer" />
+
+    <TextView
+        android:id="@+id/tvOrderAcceptedSubtitle"
+        style="@style/TextAppearance.App.ProductWeight.Large"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/order_accepted_subtitle"
+        app:layout_constraintBottom_toTopOf="@id/btnTrackOrder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderAcceptedTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTrackOrder"
+        style="@style/Widget.App.Button.Confirm"
+        android:layout_width="0dp"
+        android:layout_marginTop="96dp"
+        android:text="@string/track_order"
+        app:layout_constraintBottom_toTopOf="@id/btnBackHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrderAcceptedSubtitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackHome"
+        style="@style/Widget.App.Button.LogOut"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/back_to_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTrackOrder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
