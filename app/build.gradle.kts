@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.lottie)
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
