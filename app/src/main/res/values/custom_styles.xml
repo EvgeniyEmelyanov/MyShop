@@ -202,7 +202,7 @@
         <item name="android:textColor">@color/text_primary</item>
     </style>
 
-    <!-- User name in FragmentAccount -->
+    <!-- Username in FragmentAccount -->
     <style name="TextAppearance.UserName" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/gilroy_bold</item>
