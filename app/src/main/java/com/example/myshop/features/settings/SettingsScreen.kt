@@ -18,13 +18,80 @@ import androidx.compose.ui.unit.*
 import com.example.myshop.R
 import com.example.myshop.core.ui.theme.*
 
+enum class SettingsMenuAction {
+    Orders,
+    MyDetails,
+    DeliveryAddress,
+    PaymentMethods,
+    PromoCode,
+    Notifications,
+    Help,
+    About
+}
+
+private data class SettingsMenuItem(
+    val iconRes: Int,
+    val titleRes: Int,
+    val action: SettingsMenuAction
+)
+
+private val settingsMenuItems = listOf(
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_orders,
+        titleRes = R.string.order,
+        action = SettingsMenuAction.Orders
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_my_details,
+        titleRes = R.string.my_details,
+        action = SettingsMenuAction.MyDetails
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_delivery_address,
+        titleRes = R.string.delivery_address,
+        action = SettingsMenuAction.DeliveryAddress
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_payment,
+        titleRes = R.string.payment_methods,
+        action = SettingsMenuAction.PaymentMethods
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_promo_code,
+        titleRes = R.string.promo_code,
+        action = SettingsMenuAction.PromoCode
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_bell,
+        titleRes = R.string.notifications,
+        action = SettingsMenuAction.Notifications
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_help,
+        titleRes = R.string.help,
+        action = SettingsMenuAction.Help
+    ),
+    SettingsMenuItem(
+        iconRes = R.drawable.ic_about,
+        titleRes = R.string.about,
+        action = SettingsMenuAction.About
+    )
+)
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    userName: String,
+    userEmail: String,
+    onEditProfileClick: () -> Unit,
+    onMenuItemClick: (SettingsMenuAction) -> Unit,
+    onLogoutClick: () -> Unit
+) {
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
+            .statusBarsPadding()
             .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -39,7 +106,8 @@ fun SettingsScreen() {
                     .size(width = 63.dp, height = 64.dp)
                     .clip(RoundedCornerShape(27.dp))
                     .border(
-                        shape = RoundedCornerShape(27.dp), width = 1.dp,
+                        shape = RoundedCornerShape(27.dp),
+                        width = 1.dp,
                         color = MaterialTheme.colorScheme.outline
                     )
                     .background(Color.LightGray)
@@ -50,13 +118,13 @@ fun SettingsScreen() {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Evgeniy Emelyanov",
+                        text = userName,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
                     IconButton(
-                        onClick = { }, modifier = Modifier.size(24.dp)
+                        onClick = onEditProfileClick, modifier = Modifier.size(24.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Edit,
@@ -68,7 +136,7 @@ fun SettingsScreen() {
                 }
 
                 Text(
-                    text = "Imshuvo97@gmail.com",
+                    text = userEmail,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -79,79 +147,21 @@ fun SettingsScreen() {
             thickness = 1.dp, color = MaterialTheme.colorScheme.outline
         )
 
-        AccountMenuItem(
-            iconRes = R.drawable.ic_orders,
-            title = stringResource(id = R.string.order),
-            onClick = { })
+        settingsMenuItems.forEach { item ->
+            AccountMenuItem(
+                iconRes = item.iconRes,
+                title = stringResource(id = item.titleRes),
+                onClick = { onMenuItemClick(item.action) }
+            )
 
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_my_details,
-            title = stringResource(id = R.string.my_details),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_delivery_address,
-            title = stringResource(id = R.string.delivery_address),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_payment,
-            title = stringResource(id = R.string.payment_methods),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_promo_code,
-            title = stringResource(id = R.string.promo_code),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_bell,
-            title = stringResource(id = R.string.notifications),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_help, title = stringResource(id = R.string.help), onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
-
-        AccountMenuItem(
-            iconRes = R.drawable.ic_about,
-            title = stringResource(id = R.string.about),
-            onClick = { })
-
-        HorizontalDivider(
-            thickness = 1.dp, color = MaterialTheme.colorScheme.outline
-        )
+            HorizontalDivider(
+                thickness = 1.dp, color = MaterialTheme.colorScheme.outline
+            )
+        }
 
         FilledTonalButton(
             modifier = Modifier
-                .padding(start = 24.dp, top = 52.dp, end = 24.dp)
+                .padding(start = 24.dp, top = 25.dp, end = 24.dp)
                 .fillMaxWidth()
                 .height(67.dp),
             colors = ButtonDefaults.filledTonalButtonColors(
@@ -160,7 +170,8 @@ fun SettingsScreen() {
             ),
             shape = RoundedCornerShape(19.dp),
             contentPadding = PaddingValues(0.dp),
-            onClick = {}) {
+            onClick = onLogoutClick
+        ) {
 
             Box(
                 modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
@@ -217,6 +228,12 @@ private fun AccountMenuItem(
 @Composable
 private fun SettingsScreenPreview() {
     MyShopTheme {
-        SettingsScreen()
+        SettingsScreen(
+            userName = "Test Test",
+            userEmail = "test@gmail.com",
+            onEditProfileClick = {},
+            onLogoutClick = {},
+            onMenuItemClick = {}
+        )
     }
 }

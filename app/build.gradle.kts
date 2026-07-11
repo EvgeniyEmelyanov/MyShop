@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.lottie)
+    implementation(libs.androidx.datastore.preferences)
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)

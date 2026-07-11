@@ -55,8 +55,9 @@
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.myshop.features.account.AccountFragment"
-        android:label="Account" />
+        android:name="com.example.myshop.features.settings.SettingsFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/productDetailFragment"

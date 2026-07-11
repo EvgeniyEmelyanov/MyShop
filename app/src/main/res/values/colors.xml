@@ -69,10 +69,6 @@
     <color name="surface_white">#FFFFFF</color>     <!-- белый для карточек и панелей -->
     <color name="brand_green">#53B175</color>       <!-- твой акцент (пример) -->
 
-    <!-- Ripple colors -->
-    <color name="account_menu_ripple">#2000C853</color>
-
-
 </resources>
 
 
