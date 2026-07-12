@@ -30,9 +30,7 @@ enum class SettingsMenuAction {
 }
 
 private data class SettingsMenuItem(
-    val iconRes: Int,
-    val titleRes: Int,
-    val action: SettingsMenuAction
+    val iconRes: Int, val titleRes: Int, val action: SettingsMenuAction
 )
 
 private val settingsMenuItems = listOf(
@@ -40,41 +38,30 @@ private val settingsMenuItems = listOf(
         iconRes = R.drawable.ic_orders,
         titleRes = R.string.order,
         action = SettingsMenuAction.Orders
-    ),
-    SettingsMenuItem(
+    ), SettingsMenuItem(
         iconRes = R.drawable.ic_my_details,
         titleRes = R.string.my_details,
         action = SettingsMenuAction.MyDetails
-    ),
-    SettingsMenuItem(
+    ), SettingsMenuItem(
         iconRes = R.drawable.ic_delivery_address,
         titleRes = R.string.delivery_address,
         action = SettingsMenuAction.DeliveryAddress
-    ),
-    SettingsMenuItem(
+    ), SettingsMenuItem(
         iconRes = R.drawable.ic_payment,
         titleRes = R.string.payment_methods,
         action = SettingsMenuAction.PaymentMethods
-    ),
-    SettingsMenuItem(
+    ), SettingsMenuItem(
         iconRes = R.drawable.ic_promo_code,
         titleRes = R.string.promo_code,
         action = SettingsMenuAction.PromoCode
-    ),
-    SettingsMenuItem(
+    ), SettingsMenuItem(
         iconRes = R.drawable.ic_bell,
         titleRes = R.string.notifications,
         action = SettingsMenuAction.Notifications
-    ),
-    SettingsMenuItem(
-        iconRes = R.drawable.ic_help,
-        titleRes = R.string.help,
-        action = SettingsMenuAction.Help
-    ),
-    SettingsMenuItem(
-        iconRes = R.drawable.ic_about,
-        titleRes = R.string.about,
-        action = SettingsMenuAction.About
+    ), SettingsMenuItem(
+        iconRes = R.drawable.ic_help, titleRes = R.string.help, action = SettingsMenuAction.Help
+    ), SettingsMenuItem(
+        iconRes = R.drawable.ic_about, titleRes = R.string.about, action = SettingsMenuAction.About
     )
 )
 
@@ -83,9 +70,22 @@ fun SettingsScreen(
     userName: String,
     userEmail: String,
     onEditProfileClick: () -> Unit,
+    onSaveProfileClick: (String, String) -> Unit,
     onMenuItemClick: (SettingsMenuAction) -> Unit,
     onLogoutClick: () -> Unit
 ) {
+    var isEditProfileDialogVisible by remember { mutableStateOf(false) }
+
+    var editableName by remember(userName) {
+        mutableStateOf(userName)
+    }
+
+    var editableEmail by remember(userEmail) {
+        mutableStateOf(userEmail)
+    }
+
+    val isSaveEnabled = editableName.isNotBlank() && editableEmail.isNotBlank()
+
     Column(
         Modifier
             .fillMaxSize()
@@ -124,7 +124,10 @@ fun SettingsScreen(
                     )
 
                     IconButton(
-                        onClick = onEditProfileClick, modifier = Modifier.size(24.dp)
+                        onClick = {
+                            isEditProfileDialogVisible = true
+                        },
+                        modifier = Modifier.size(24.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Edit,
@@ -151,8 +154,7 @@ fun SettingsScreen(
             AccountMenuItem(
                 iconRes = item.iconRes,
                 title = stringResource(id = item.titleRes),
-                onClick = { onMenuItemClick(item.action) }
-            )
+                onClick = { onMenuItemClick(item.action) })
 
             HorizontalDivider(
                 thickness = 1.dp, color = MaterialTheme.colorScheme.outline
@@ -193,6 +195,67 @@ fun SettingsScreen(
             }
         }
     }
+
+    if (isEditProfileDialogVisible) {
+        AlertDialog(
+            onDismissRequest = {
+                isEditProfileDialogVisible = false
+            },
+            title = {
+                Text(text = "Edit profile")
+            },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    OutlinedTextField(
+                        value = editableName,
+                        onValueChange = { newName ->
+                            editableName = newName
+                        },
+                        label = {
+                            Text(text = "Name")
+                        },
+                        singleLine = true
+                    )
+
+                    OutlinedTextField(
+                        value = editableEmail,
+                        onValueChange = { newEmail ->
+                            editableEmail = newEmail
+                        },
+                        label = {
+                            Text(text = "Email")
+                        },
+                        singleLine = true
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    enabled = isSaveEnabled,
+                    onClick = {
+                        onSaveProfileClick(
+                            editableName.trim(),
+                            editableEmail.trim()
+                        )
+                        isEditProfileDialogVisible = false
+                    }
+                ) {
+                    Text(text = "Save")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        isEditProfileDialogVisible = false
+                    }
+                ) {
+                    Text(text = "Cancel")
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -205,23 +268,22 @@ private fun AccountMenuItem(
             .height(62.dp)
             .clickable(onClick = onClick)
             .padding(start = 9.dp), headlineContent = {
-        Text(
-            text = title, style = MaterialTheme.typography.bodyLarge
-        )
+            Text(
+                text = title, style = MaterialTheme.typography.bodyLarge
+            )
 
-    }, leadingContent = {
-        Icon(
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp)
-        )
-    }, trailingContent = {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            contentDescription = null
-        )
-    }
-    )
+        }, leadingContent = {
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }, trailingContent = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null
+            )
+        })
 }
 
 @Preview(showBackground = true)
@@ -229,11 +291,12 @@ private fun AccountMenuItem(
 private fun SettingsScreenPreview() {
     MyShopTheme {
         SettingsScreen(
-            userName = "Test Test",
-            userEmail = "test@gmail.com",
+            userName = "Type your name",
+            userEmail = "Type your email",
             onEditProfileClick = {},
             onLogoutClick = {},
-            onMenuItemClick = {}
+            onMenuItemClick = {},
+            onSaveProfileClick = { _, _ -> }
         )
     }
 }

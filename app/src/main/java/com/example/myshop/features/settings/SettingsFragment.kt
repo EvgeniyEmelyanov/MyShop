@@ -1,18 +1,24 @@
 package com.example.myshop.features.settings
 
-import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import android.os.*
+import android.view.*
+import android.widget.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.*
+import androidx.lifecycle.compose.*
 import com.example.myshop.R
-import com.example.myshop.core.ui.theme.MyShopTheme
-import com.example.myshop.databinding.FragmentSettingsBinding
+import com.example.myshop.core.ui.theme.*
+import com.example.myshop.databinding.*
+import dagger.hilt.android.*
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+
+    private val vm: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,21 +30,29 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         )
 
         binding.settingsComposeView.setContent {
-            MyShopTheme {
-                SettingsScreen(
-                    userName = "Test Test",
-                    userEmail = "test@gmail.com",
-                    onEditProfileClick = {
-                        showComingSoon()
-                    },
-                    onMenuItemClick = {
-                        showComingSoon()
-                    },
-                    onLogoutClick = {
-                        showComingSoon()
-                    }
-                )
-            }
+            val state by vm.state.collectAsStateWithLifecycle()
+
+                MyShopTheme {
+                    SettingsScreen(
+                        userName = state.userProfile.userName,
+                        userEmail = state.userProfile.userEmail,
+                        onEditProfileClick = {
+                            showComingSoon()
+                        },
+                        onMenuItemClick = {
+                            showComingSoon()
+                        },
+                        onLogoutClick = {
+                            showComingSoon()
+                        },
+                        onSaveProfileClick = { name, email ->
+                            vm.saveUserProfile(
+                                userName = name,
+                                userEmail = email
+                            )
+                        },
+                    )
+                }
         }
     }
 
