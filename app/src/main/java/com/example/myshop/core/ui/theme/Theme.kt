@@ -13,7 +13,10 @@ private val LightColorScheme = lightColorScheme(
     onSurface = TextPrimary,
     onSurfaceVariant = TextSecondary,
     outline = Divider,
-    surfaceVariant = ButtonSecondaryBackground
+    surfaceVariant = ButtonSecondaryBackground,
+    tertiary = ItemBackground,
+    onTertiary = TextTertiary
+
 )
 
 @Composable

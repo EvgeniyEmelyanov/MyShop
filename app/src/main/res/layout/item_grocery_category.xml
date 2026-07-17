@@ -8,7 +8,7 @@
     android:background="@drawable/bg_grocery_category_card"
     android:orientation="horizontal"
     android:paddingStart="17dp"
-    tools:ignore="RtlSymmetry"
+    android:paddingEnd="17dp"
     tools:layout_height="105dp"
     tools:layout_width="250dp"
     tools:backgroundTint="@color/bg_grocery_pulses"

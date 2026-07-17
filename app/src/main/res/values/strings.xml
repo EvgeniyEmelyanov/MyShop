@@ -59,8 +59,6 @@
     <string name="nutrition_value_100g">100g</string>
     <string name="add_to_basket">Add to Basket</string>
     <string name="default_product_count">1</string>
-    <string name="account_user_name">Test Test</string>
-    <string name="account_user_email">test@gmail.com</string>
     <string name="grocery_pulses">Pulses</string>
     <string name="empty_product">No product found</string>
     <string name="add_product_to_favourite">Add product to favourites</string>
@@ -88,7 +86,6 @@
     <string name="cd_toggle_product_description">Toggle product description</string>
     <string name="cd_toggle_nutrition">Toggle nutrition details</string>
     <string name="cd_rating_star">Rating star</string>
-    <string name="cd_account_avatar">Account avatar</string>
     <string name="cd_order_accepted">Order accepted</string>
 
 
@@ -104,6 +101,4 @@
     <string name="log_out">Log Out</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>

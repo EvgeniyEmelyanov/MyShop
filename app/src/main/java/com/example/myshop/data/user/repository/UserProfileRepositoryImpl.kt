@@ -1,15 +1,18 @@
 package com.example.myshop.data.user.repository
 
-import android.content.*
-import androidx.datastore.preferences.core.*
-import com.example.myshop.data.user.local.*
-import com.example.myshop.domain.user.*
-import dagger.hilt.android.qualifiers.*
-import kotlinx.coroutines.flow.*
-import javax.inject.*
+import android.content.Context
+import androidx.datastore.preferences.core.edit
+import com.example.myshop.data.user.local.UserProfilePreferencesKeys
+import com.example.myshop.data.user.local.userProfileDataStore
+import com.example.myshop.domain.user.UserProfile
+import com.example.myshop.domain.user.UserProfileRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class UserProfileRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : UserProfileRepository {
 
     override fun observeUserProfile(): Flow<UserProfile> {

@@ -12,6 +12,7 @@ import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
 import com.example.myshop.domain.cart.usecase.SetAmountUseCase
+import com.example.myshop.domain.order.usecase.PlaceOrderUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.testutil.FakeCartRepository
 import com.example.myshop.testutil.FakeProductRepository
@@ -79,9 +80,7 @@ class CartViewModelTest {
         return CartViewModel(
             getProductByIdUseCase = GetProductByIdUseCase(productRepository),
             observeCartUseCase = ObserveCartUseCase(cartRepository),
-            setAmountUseCase = SetAmountUseCase(cartRepository),
             removeProductUseCase = RemoveProductUseCase(cartRepository),
-            clearProductsUseCase = ClearProductsUseCase(cartRepository),
             increaseAmountUseCase = IncreaseAmountUseCase(cartRepository),
             decreaseAmountUseCase = DecreaseAmountUseCase(cartRepository),
             imageKeyResolver = ImageKeyResolver(),
@@ -93,5 +92,6 @@ class CartViewModelTest {
             ),
             moneyFormatter = MoneyFormatter()
         )
+
     }
 }

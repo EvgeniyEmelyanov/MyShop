@@ -2,13 +2,10 @@ package com.example.myshop.features.cart.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
-import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
-import com.example.myshop.domain.cart.usecase.SetAmountUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.formatter.QuantityFormatter
@@ -16,6 +13,7 @@ import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
+import com.example.myshop.domain.order.usecase.PlaceOrderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,15 +29,14 @@ import kotlin.coroutines.cancellation.CancellationException
 class CartViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val observeCartUseCase: ObserveCartUseCase,
-    private val setAmountUseCase: SetAmountUseCase,
     private val removeProductUseCase: RemoveProductUseCase,
-    private val clearProductsUseCase: ClearProductsUseCase,
     private val increaseAmountUseCase: IncreaseAmountUseCase,
     private val decreaseAmountUseCase: DecreaseAmountUseCase,
     private val imageKeyResolver: ImageKeyResolver,
     private val quantityFormatter: QuantityFormatter,
     private val calculateCartTotalsUseCase: CalculateCartTotalsUseCase,
-    private val moneyFormatter: MoneyFormatter
+    private val moneyFormatter: MoneyFormatter,
+    private val placeOrderUseCase: PlaceOrderUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CartUiState())
@@ -77,23 +74,13 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun clearProducts() {
-        viewModelScope.launch {
-            clearProductsUseCase.clearProducts()
-        }
-    }
-
     fun placeOrder() {
         viewModelScope.launch {
-            clearProductsUseCase.clearProducts()
-            _orderPlacedEvent.emit(Unit)
-        }
-    }
+            val order = placeOrderUseCase()
 
-
-    fun setAmount(productId: String, amount: Amount) {
-        viewModelScope.launch {
-            setAmountUseCase.setAmount(productId, amount)
+            if (order != null) {
+                _orderPlacedEvent.emit(Unit)
+            }
         }
     }
 
