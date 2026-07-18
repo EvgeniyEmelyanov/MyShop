@@ -1,33 +1,35 @@
 package com.example.myshop.features.productdetail.presentation
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myshop.domain.cart.model.Amount
-import com.example.myshop.domain.cart.model.Amount.*
-import com.example.myshop.domain.cart.service.LinePriceCalculator
-import com.example.myshop.domain.cart.usecase.*
-import com.example.myshop.domain.common.Money
-import com.example.myshop.domain.product.model.Currency
-import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.core.formatter.MoneyFormatter
 import com.example.myshop.core.formatter.QuantityFormatter
 import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
+import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.service.DefaultCartAmountFactory
+import com.example.myshop.domain.cart.service.LinePriceCalculator
+import com.example.myshop.domain.cart.usecase.AddProductToCartIfAbsentUseCase
+import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
+import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
+import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
+import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
+import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.favourite.usecase.ObserveFavouriteUseCase
 import com.example.myshop.domain.favourite.usecase.ToggleFavouriteUseCase
+import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.model.Product
+import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
+import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
@@ -98,8 +100,8 @@ class ProductDetailViewModel @Inject constructor(
                 val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
                 val newAmount = when (cur) {
-                    is Piece -> Piece(cur.count + 1)
-                    is Grams -> Grams(cur.grams + 20)
+                    is Amount.Piece -> Amount.Piece(cur.count + 1)
+                    is Amount.Grams -> Amount.Grams(cur.grams + 20)
                 }
 
                 selectedAmountPreview = newAmount
@@ -121,8 +123,8 @@ class ProductDetailViewModel @Inject constructor(
                 val cur = selectedAmountPreview ?: defaultCartAmountFactory(product.amountType)
 
                 val newAmount = when (cur) {
-                    is Piece -> Piece(maxOf(1, cur.count - 1))
-                    is Grams -> Grams(maxOf(20, cur.grams - 20))
+                    is Amount.Piece -> Amount.Piece(maxOf(1, cur.count - 1))
+                    is Amount.Grams -> Amount.Grams(maxOf(20, cur.grams - 20))
                 }
 
                 selectedAmountPreview = newAmount
@@ -145,7 +147,7 @@ class ProductDetailViewModel @Inject constructor(
     private fun updatePreview(
         product: Product, amount: Amount
     ) {
-        val lineCents = linePriceCalculator.calculateLineCents(
+        val lineCents = linePriceCalculator(
             priceCents = product.price.cents, pricingUnit = product.pricingUnit, amount = amount
         )
 
@@ -224,7 +226,7 @@ class ProductDetailViewModel @Inject constructor(
             val lineMoney = totals.lineTotals[id]
             lineMoney?.let(moneyFormatter::format) ?: "—"
         } else {
-            val lineCents = linePriceCalculator.calculateLineCents(
+            val lineCents = linePriceCalculator(
                 priceCents = product.price.cents,
                 pricingUnit = product.pricingUnit,
                 amount = amountToShow

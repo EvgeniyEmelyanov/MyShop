@@ -1,6 +1,5 @@
 package com.example.myshop.data.product.repository
 
-import android.util.Log
 import com.example.myshop.data.product.datasource.ProductStore
 import com.example.myshop.data.product.mapper.ProductPricingMapper
 import com.example.myshop.data.product.model.ProductUnit
@@ -31,19 +30,11 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getAllProducts(): List<Product> {
         return runCatching {
-            val remoteProducts = remoteDataSource.getAllProducts().map { dto ->
+            remoteDataSource.getAllProducts().map { dto ->
                 dto.toDomain()
             }
-
-            Log.d(TAG, "Loaded products from remote: ${remoteProducts.size}")
-
-            remoteProducts
-        }.getOrElse { error ->
-            val localProducts = localProducts()
-
-            Log.d(TAG, "Loaded products from local fallback: ${localProducts.size}", error)
-
-            localProducts
+        }.getOrElse {
+            localProducts()
         }
     }
 
@@ -90,9 +81,5 @@ class ProductRepositoryImpl @Inject constructor(
                 .toLong()
 
         return Money(cents = cents, currency = Currency.USD)
-    }
-
-    private companion object {
-        const val TAG = "ProductRepository"
     }
 }

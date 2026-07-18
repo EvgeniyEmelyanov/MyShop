@@ -1,20 +1,25 @@
 package com.example.myshop.data.local
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.example.myshop.data.cart.local.dao.CartDao
-import com.example.myshop.data.cart.local.entity.CartItemEntity
-import com.example.myshop.data.favourite.local.dao.FavouriteDao
-import com.example.myshop.data.favourite.local.entity.FavouriteItemEntity
+import androidx.room.*
+import com.example.myshop.data.cart.local.dao.*
+import com.example.myshop.data.cart.local.entity.*
+import com.example.myshop.data.favourite.local.dao.*
+import com.example.myshop.data.favourite.local.entity.*
+import com.example.myshop.data.order.dao.*
+import com.example.myshop.data.order.entity.*
 
 @Database(
-    entities = [CartItemEntity::class, FavouriteItemEntity::class],
-    version = 3,
+    entities = [CartItemEntity::class, FavouriteItemEntity::class, OrderEntity::class, OrderItemEntity::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
 
     abstract fun favouriteDao(): FavouriteDao
+
+    abstract fun orderDao(): OrderDao
+
+    abstract fun orderItemDao(): OrderItemDao
 
 }

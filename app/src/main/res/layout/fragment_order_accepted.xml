@@ -8,25 +8,19 @@
     android:paddingHorizontal="25dp"
     tools:context=".features.checkout.OrderAcceptedFragment">
 
-    <FrameLayout
-        android:id="@+id/successIconContainer"
-        android:layout_width="156dp"
-        android:layout_height="156dp"
-        android:background="@drawable/bg_order_success_circle"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/orderSuccessAnimation"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:contentDescription="@string/cd_order_accepted"
         app:layout_constraintBottom_toTopOf="@id/tvOrderAcceptedTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/cd_order_accepted"
-            android:src="@drawable/ic_order_success_check" />
-
-    </FrameLayout>
+        app:layout_constraintVertical_chainStyle="packed"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/order_completed" />
 
     <TextView
         android:id="@+id/tvOrderAcceptedTitle"
@@ -41,7 +35,7 @@
         app:layout_constraintBottom_toTopOf="@id/tvOrderAcceptedSubtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/successIconContainer" />
+        app:layout_constraintTop_toBottomOf="@id/orderSuccessAnimation" />
 
     <TextView
         android:id="@+id/tvOrderAcceptedSubtitle"

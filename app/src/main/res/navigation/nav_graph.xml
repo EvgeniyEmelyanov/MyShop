@@ -55,8 +55,13 @@
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.myshop.features.account.AccountFragment"
-        android:label="Account" />
+        android:name="com.example.myshop.features.settings.ui.SettingsFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_accountFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/productDetailFragment"
@@ -98,5 +103,10 @@
         android:id="@+id/orderAcceptedFragment"
         android:name="com.example.myshop.features.checkout.OrderAcceptedFragment"
         android:label="OrderAcceptedFragment" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.myshop.features.orders.ui.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
 
 </navigation>

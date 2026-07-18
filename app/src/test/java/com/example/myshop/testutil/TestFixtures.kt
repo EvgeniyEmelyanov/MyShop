@@ -8,6 +8,11 @@ import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
 import com.example.myshop.domain.favourite.model.FavouriteItem
+import com.example.myshop.domain.order.model.Order
+import com.example.myshop.domain.order.model.OrderItem
+import com.example.myshop.domain.order.model.OrderStatus
+import com.example.myshop.domain.order.model.randomOrderStatus
+import com.example.myshop.domain.order.repository.OrderRepository
 import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Brand
 import com.example.myshop.domain.product.model.Category
@@ -31,6 +36,7 @@ import org.junit.runner.Description
 class MainDispatcherRule(
     val dispatcher: TestDispatcher = StandardTestDispatcher()
 ) : TestWatcher() {
+
     override fun starting(description: Description) {
         Dispatchers.setMain(dispatcher)
     }
@@ -38,6 +44,7 @@ class MainDispatcherRule(
     override fun finished(description: Description) {
         Dispatchers.resetMain()
     }
+
 }
 
 class FakeProductRepository(
@@ -128,6 +135,42 @@ class FakeFavouriteRepository(initialFavourite: Favourite = Favourite()) : Favou
         if (isFavourite) removeFavouriteItem(productId) else addToFavourite(productId)
         return !isFavourite
     }
+}
+
+class FakeOrderRepository(initialOrders: List<Order> = emptyList()) : OrderRepository {
+    private val ordersFlow = MutableStateFlow(initialOrders)
+
+    val savedOrders: List<Order>
+        get() = ordersFlow.value
+
+    override suspend fun saveOrder(order: Order) {
+        ordersFlow.value += order
+    }
+
+    override fun observeOrders(): Flow<List<Order>> = ordersFlow
+
+    override suspend fun getOrderById(orderId: String): Order? {
+        return ordersFlow.value.firstOrNull { order -> order.id == orderId }
+    }
+}
+
+fun testOrder(id: String = "123"): Order {
+    return Order(
+        id = id,
+        createdAtMillis = 0,
+        status = OrderStatus.PROCESSING,
+        items = listOf(
+            OrderItem(
+                productId = "apple",
+                title = "Apple",
+                subtitle = "1 unit",
+                imageKey = "",
+                amount = Amount.Piece(1),
+                lineTotal = Money(100, Currency.USD)
+            )
+        ),
+        total = Money(100, Currency.USD)
+    )
 }
 
 fun testProduct(

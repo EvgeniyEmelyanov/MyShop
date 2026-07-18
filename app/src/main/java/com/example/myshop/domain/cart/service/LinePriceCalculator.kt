@@ -5,7 +5,7 @@ import com.example.myshop.domain.product.model.PricingUnit
 import javax.inject.Inject
 class LinePriceCalculator @Inject constructor() {
 
-    fun calculateLineCents(
+  operator fun invoke(
         priceCents: Long,
         pricingUnit: PricingUnit,
         amount: Amount

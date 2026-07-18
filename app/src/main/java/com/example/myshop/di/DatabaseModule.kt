@@ -31,4 +31,10 @@ object DatabaseModule {
     @Provides
     fun provideFavouriteDao(db: AppDatabase) = db.favouriteDao()
 
+    @Provides
+    fun provideOrderDao(db: AppDatabase) = db.orderDao()
+
+    @Provides
+    fun provideOrderItemDao(db: AppDatabase) = db.orderItemDao()
+
 }

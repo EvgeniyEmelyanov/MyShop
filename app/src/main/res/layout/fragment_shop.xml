@@ -38,10 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:drawableStart="@drawable/ic_exclude"
                 android:drawablePadding="5dp"
                 android:fontFamily="@font/gilroy_black"
-                android:text="@string/location_minsk_belarus" />
+                android:text="@string/location_minsk_belarus"
+                app:drawableStartCompat="@drawable/ic_exclude" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -49,13 +49,15 @@
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_search_field"
-                android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:hint="@string/search_store"
+                android:importantForAutofill="no"
+                android:inputType="text"
                 android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:textSize="14sp"
-                tools:ignore="RtlSymmetry" />
+                app:drawableStartCompat="@drawable/ic_search" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vpBanners"
@@ -212,6 +214,7 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_grocery_category" />
 
