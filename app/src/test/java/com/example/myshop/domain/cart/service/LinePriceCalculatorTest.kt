@@ -12,7 +12,7 @@ class LinePriceCalculatorTest {
 
     @Test
     fun `calculateLineCents returns total for item priced product`() {
-        val result = calculator.calculateLineCents(
+        val result = calculator(
             priceCents = 499,
             pricingUnit = PricingUnit.PER_ITEM,
             amount = Amount.Piece(3)
@@ -23,7 +23,7 @@ class LinePriceCalculatorTest {
 
     @Test
     fun `calculateLineCents returns total for kg priced product`() {
-        val result = calculator.calculateLineCents(
+        val result = calculator(
             priceCents = 499,
             pricingUnit = PricingUnit.PER_KG,
             amount = Amount.Grams(500)
@@ -34,7 +34,7 @@ class LinePriceCalculatorTest {
 
     @Test
     fun `calculateLineCents returns zero when item product receives grams amount`() {
-        val result = calculator.calculateLineCents(
+        val result = calculator(
             priceCents = 499,
             pricingUnit = PricingUnit.PER_ITEM,
             amount = Amount.Grams(500)
@@ -45,7 +45,7 @@ class LinePriceCalculatorTest {
 
     @Test
     fun `calculateLineCents returns zero when kg product receives piece amount`() {
-        val result = calculator.calculateLineCents(
+        val result = calculator(
             priceCents = 499,
             pricingUnit = PricingUnit.PER_KG,
             amount = Amount.Piece(3)

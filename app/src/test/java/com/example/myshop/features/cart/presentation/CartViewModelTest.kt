@@ -8,13 +8,15 @@ import com.example.myshop.domain.cart.service.LinePriceCalculator
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.DecreaseAmountUseCase
+import com.example.myshop.domain.cart.usecase.GetCartUseCase
 import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
-import com.example.myshop.domain.cart.usecase.SetAmountUseCase
+import com.example.myshop.domain.order.service.OrderIdGenerator
 import com.example.myshop.domain.order.usecase.PlaceOrderUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.testutil.FakeCartRepository
+import com.example.myshop.testutil.FakeOrderRepository
 import com.example.myshop.testutil.FakeProductRepository
 import com.example.myshop.testutil.MainDispatcherRule
 import com.example.myshop.testutil.cartWith
@@ -77,20 +79,31 @@ class CartViewModelTest {
         cartRepository: FakeCartRepository
     ): CartViewModel {
         val linePriceCalculator = LinePriceCalculator()
+        val calculateCartTotalsUseCase = CalculateCartTotalsUseCase(
+            cartRepository,
+            productRepository,
+            linePriceCalculator
+        )
+        val getProductByIdUseCase = GetProductByIdUseCase(productRepository)
+
         return CartViewModel(
-            getProductByIdUseCase = GetProductByIdUseCase(productRepository),
+            getProductByIdUseCase = getProductByIdUseCase,
             observeCartUseCase = ObserveCartUseCase(cartRepository),
             removeProductUseCase = RemoveProductUseCase(cartRepository),
             increaseAmountUseCase = IncreaseAmountUseCase(cartRepository),
             decreaseAmountUseCase = DecreaseAmountUseCase(cartRepository),
             imageKeyResolver = ImageKeyResolver(),
             quantityFormatter = QuantityFormatter(),
-            calculateCartTotalsUseCase = CalculateCartTotalsUseCase(
-                cartRepository,
-                productRepository,
-                linePriceCalculator
-            ),
-            moneyFormatter = MoneyFormatter()
+            calculateCartTotalsUseCase = calculateCartTotalsUseCase,
+            moneyFormatter = MoneyFormatter(),
+            placeOrderUseCase = PlaceOrderUseCase(
+                orderRepository = FakeOrderRepository(),
+                getCartUseCase = GetCartUseCase(cartRepository),
+                calculateCartTotalsUseCase = calculateCartTotalsUseCase,
+                getProductByIdUseCase = getProductByIdUseCase,
+                clearProductsUseCase = ClearProductsUseCase(cartRepository),
+                orderIdGenerator = OrderIdGenerator()
+            )
         )
 
     }

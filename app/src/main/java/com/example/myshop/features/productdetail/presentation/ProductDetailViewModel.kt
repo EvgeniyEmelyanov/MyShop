@@ -147,7 +147,7 @@ class ProductDetailViewModel @Inject constructor(
     private fun updatePreview(
         product: Product, amount: Amount
     ) {
-        val lineCents = linePriceCalculator.calculateLineCents(
+        val lineCents = linePriceCalculator(
             priceCents = product.price.cents, pricingUnit = product.pricingUnit, amount = amount
         )
 
@@ -226,7 +226,7 @@ class ProductDetailViewModel @Inject constructor(
             val lineMoney = totals.lineTotals[id]
             lineMoney?.let(moneyFormatter::format) ?: "—"
         } else {
-            val lineCents = linePriceCalculator.calculateLineCents(
+            val lineCents = linePriceCalculator(
                 priceCents = product.price.cents,
                 pricingUnit = product.pricingUnit,
                 amount = amountToShow

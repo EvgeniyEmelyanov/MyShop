@@ -26,7 +26,7 @@ class CalculateCartTotalsUseCase @Inject constructor(
         for (item in cart.items) {
             val product = productRepository.getById(item.productId) ?: continue
 
-            val lineCents = linePriceCalculator.calculateLineCents(
+            val lineCents = linePriceCalculator(
                 priceCents = product.price.cents,
                 pricingUnit = product.pricingUnit,
                 amount = item.amount

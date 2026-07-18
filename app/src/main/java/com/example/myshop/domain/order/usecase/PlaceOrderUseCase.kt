@@ -6,7 +6,6 @@ import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.GetCartUseCase
 import com.example.myshop.domain.order.model.Order
 import com.example.myshop.domain.order.model.OrderItem
-import com.example.myshop.domain.order.model.OrderStatus
 import com.example.myshop.domain.order.model.randomOrderStatus
 import com.example.myshop.domain.order.repository.OrderRepository
 import com.example.myshop.domain.order.service.OrderIdGenerator
