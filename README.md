@@ -30,6 +30,38 @@ Android-приложение интернет-магазина продукто�
 - хранит имя и email пользователя через DataStore;
 - использует Compose для экрана аккаунта и истории заказов.
 
+## Скриншоты
+
+### Shop
+
+![Shop](./docs/readme/shop.png)
+
+### Explore
+
+![Explore](./docs/readme/explore.png)
+
+### Cart
+
+![Cart](./docs/readme/cart.png)
+
+### Checkout
+
+![Checkout](./docs/readme/checkout.png)
+
+### Orders
+
+![Orders](./docs/readme/orders.png)
+
+### Account
+
+![Account](./docs/readme/account.png)
+
+## Demo
+
+Короткое видео с основным flow: каталог, корзина, checkout, оформление заказа и история заказов.
+
+[Смотреть demo](docs/demo/demo.mp4)
+
 ## Основной стек
 
 - Kotlin
@@ -173,8 +205,6 @@ Checkout реализован как `BottomSheetDialogFragment`.
 
 Эти ограничения оставлены намеренно, чтобы не раздувать учебный проект и довести V1 до стабильного состояния.
 
----
-
 # English Version
 
 MyShop is an Android grocery shopping app.
@@ -204,6 +234,38 @@ It is a finished V1 portfolio project with catalog, cart, favourites, checkout, 
 - order history screen;
 - user name and email storage with DataStore;
 - Compose UI for account and order history screens.
+
+## Screenshots
+
+### Shop
+
+![Shop](./docs/readme/shop.png)
+
+### Explore
+
+![Explore](./docs/readme/explore.png)
+
+### Cart
+
+![Cart](./docs/readme/cart.png)
+
+### Checkout
+
+![Checkout](./docs/readme/checkout.png)
+
+### Orders
+
+![Orders](./docs/readme/orders.png)
+
+### Account
+
+![Account](./docs/readme/account.png)
+
+## Demo
+
+A short video showing the main flow: catalog, cart, checkout, order placement and order history.
+
+[Watch demo](docs/demo/demo.mp4)
 
 ## Tech Stack
 

@@ -26,7 +26,7 @@
         android:background="@drawable/bg_search_field"
         android:drawablePadding="10dp"
         android:fontFamily="@font/gilroy_semibold"
-        android:hint="@string/search_store"
+        android:hint="@string/search_products"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingStart="15dp"
