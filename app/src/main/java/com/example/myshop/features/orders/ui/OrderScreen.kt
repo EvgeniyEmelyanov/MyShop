@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myshop.R
@@ -108,25 +109,25 @@ fun OrdersStatusFilter(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         OrderFilterChip(
-            text = "All",
+            text = stringResource(id = R.string.orders_filter_all),
             selected = selectedFilter == OrdersFilter.ALL,
             onClick = { onFilterSelected(OrdersFilter.ALL) }
         )
 
         OrderFilterChip(
-            text = "Processing",
+            text = stringResource(id = R.string.orders_filter_processing),
             selected = selectedFilter == OrdersFilter.PROCESSING,
             onClick = { onFilterSelected(OrdersFilter.PROCESSING) }
         )
 
         OrderFilterChip(
-            text = "Completed",
+            text = stringResource(id = R.string.orders_filter_completed),
             selected = selectedFilter == OrdersFilter.COMPLETED,
             onClick = { onFilterSelected(OrdersFilter.COMPLETED) }
         )
 
         OrderFilterChip(
-            text = "Canceled",
+            text = stringResource(id = R.string.orders_filter_canceled),
             selected = selectedFilter == OrdersFilter.CANCELED,
             onClick = { onFilterSelected(OrdersFilter.CANCELED) }
         )
@@ -166,9 +167,9 @@ fun OrdersMessage(
         contentAlignment = Alignment.Center
     ) {
         val text = when (contentState) {
-            ContentState.ERROR -> "Something went wrong"
-            ContentState.EMPTY -> "No orders yet"
-            ContentState.LOADING -> "Loading..."
+            ContentState.ERROR -> stringResource(id = R.string.orders_error)
+            ContentState.EMPTY -> stringResource(id = R.string.orders_empty)
+            ContentState.LOADING -> stringResource(id = R.string.orders_loading)
             else -> ""
         }
 
@@ -303,7 +304,10 @@ fun OrderCard(order: OrderUiModel) {
             ) {
 
                 Text(
-                    text = "Order: #${orderNumberCreator(order.id)}",
+                    text = stringResource(
+                        id = R.string.orders_number,
+                        orderNumberCreator(order.id)
+                    ),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

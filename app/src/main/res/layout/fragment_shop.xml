@@ -62,9 +62,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vpBanners"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="115dp"
                 android:layout_marginTop="15dp"
-                tools:layout_height="110dp"
                 tools:listitem="@layout/item_shop_banner">
 
             </androidx.viewpager2.widget.ViewPager2>

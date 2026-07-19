@@ -1,4 +1,4 @@
-package com.example.myshop.features.productsByCategory.presentation
+package com.example.myshop.features.productsByCategory.ui
 
 import android.os.Bundle
 import android.view.View
@@ -41,7 +41,7 @@ class FilterForProductsByCategory :
 
     private fun setupActions() {
         with(binding) {
-            bntApply.setOnClickListener { applyFilter() }
+            btnApply.setOnClickListener { applyFilter() }
             closeFilter.setOnClickListener { findNavController().popBackStack() }
         }
     }

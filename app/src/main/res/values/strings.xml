@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Carrot\n</string>
+    <string name="app_name">Carrot</string>
     <string name="close">Close</string>
     <string name="fresh_vegetables">Fresh Vegetables</string>
     <string name="location_minsk_belarus">Minsk, Belarus</string>
     <string name="search_store">Search Store</string>
+    <string name="search_products">Search products</string>
     <string name="see_all">See all</string>
     <string name="exclusive_offer">Exclusive Offer</string>
     <string name="best_selling">Best Selling</string>
@@ -55,7 +56,7 @@
     <string name="empty_products">No products found</string>
     <string name="review">Review</string>
     <string name="product_detail">Product Detail</string>
-    <string name="nutrition">Nutritions</string>
+    <string name="nutrition">Nutrition</string>
     <string name="nutrition_value_100g">100g</string>
     <string name="add_to_basket">Add to Basket</string>
     <string name="default_product_count">1</string>
@@ -69,6 +70,14 @@
     <string name="track_order">Track Order</string>
     <string name="back_to_home">Back to home</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="orders_filter_all">All</string>
+    <string name="orders_filter_processing">Processing</string>
+    <string name="orders_filter_completed">Completed</string>
+    <string name="orders_filter_canceled">Canceled</string>
+    <string name="orders_error">Something went wrong</string>
+    <string name="orders_empty">No orders yet</string>
+    <string name="orders_loading">Loading…</string>
+    <string name="orders_number">Order: #%1$s</string>
 
 
     <!-- Accessibility -->
@@ -87,6 +96,7 @@
     <string name="cd_toggle_nutrition">Toggle nutrition details</string>
     <string name="cd_rating_star">Rating star</string>
     <string name="cd_order_accepted">Order accepted</string>
+    <string name="cd_edit_profile">Edit profile</string>
 
 
     <!-- Account fragment -->
@@ -99,6 +109,9 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="log_out">Log Out</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

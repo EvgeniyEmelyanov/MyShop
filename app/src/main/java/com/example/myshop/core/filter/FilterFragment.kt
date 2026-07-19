@@ -42,7 +42,7 @@ class FilterFragment : BaseFragment(R.layout.fragment_filter) {
 
     private fun setupActions() {
         with(binding) {
-            bntApply.setOnClickListener { applyFilter() }
+            btnApply.setOnClickListener { applyFilter() }
             closeFilter.setOnClickListener { findNavController().popBackStack() }
         }
     }

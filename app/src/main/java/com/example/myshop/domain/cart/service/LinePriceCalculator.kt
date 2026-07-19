@@ -3,9 +3,10 @@ package com.example.myshop.domain.cart.service
 import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.product.model.PricingUnit
 import javax.inject.Inject
+
 class LinePriceCalculator @Inject constructor() {
 
-  operator fun invoke(
+    operator fun invoke(
         priceCents: Long,
         pricingUnit: PricingUnit,
         amount: Amount
