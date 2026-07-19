@@ -20,9 +20,10 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): AppDatabase {
         return Room.databaseBuilder(
-            context, AppDatabase::class.java, "myshop_db"
-        ).fallbackToDestructiveMigration().build()
-
+            context,
+            AppDatabase::class.java,
+            "myshop_db"
+        ).fallbackToDestructiveMigration(dropAllTables = true).build()
     }
 
     @Provides
@@ -36,5 +37,4 @@ object DatabaseModule {
 
     @Provides
     fun provideOrderItemDao(db: AppDatabase) = db.orderItemDao()
-
 }

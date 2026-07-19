@@ -178,7 +178,7 @@ fun SettingsScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Edit,
-                            contentDescription = "Edit profile",
+                            contentDescription = stringResource(id = R.string.cd_edit_profile),
                             modifier = Modifier.size(15.dp),
                             tint = MaterialTheme.colorScheme.primary
                         )
@@ -283,7 +283,7 @@ private fun EditProfileDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text(text = "Edit profile")
+            Text(text = stringResource(id = R.string.edit_profile))
         },
         text = {
             Column(
@@ -293,7 +293,7 @@ private fun EditProfileDialog(
                     value = editableName,
                     onValueChange = onNameChange,
                     label = {
-                        Text(text = "Name")
+                        Text(text = stringResource(id = R.string.name))
                     },
                     singleLine = true
                 )
@@ -302,7 +302,7 @@ private fun EditProfileDialog(
                     value = editableEmail,
                     onValueChange = onEmailChange,
                     label = {
-                        Text(text = "Email")
+                        Text(text = stringResource(id = R.string.email))
                     },
                     singleLine = true
                 )
@@ -313,14 +313,14 @@ private fun EditProfileDialog(
                 enabled = isSaveEnabled,
                 onClick = onSaveClick
             ) {
-                Text(text = "Save")
+                Text(text = stringResource(id = R.string.save))
             }
         },
         dismissButton = {
             TextButton(
                 onClick = onDismiss
             ) {
-                Text(text = "Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
         }
     )

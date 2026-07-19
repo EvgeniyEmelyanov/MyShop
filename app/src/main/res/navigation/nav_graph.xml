@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_filter" />
     <fragment
         android:id="@+id/filterForProductsByCategory"
-        android:name="com.example.myshop.features.productsByCategory.presentation.FilterForProductsByCategory"
+        android:name="com.example.myshop.features.productsByCategory.ui.FilterForProductsByCategory"
         android:label="fragment_filter_for_products_by_category"
         tools:layout="@layout/fragment_filter_for_products_by_category" />
     <fragment

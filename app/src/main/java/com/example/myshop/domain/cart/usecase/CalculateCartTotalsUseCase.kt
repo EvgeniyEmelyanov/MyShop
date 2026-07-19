@@ -8,6 +8,7 @@ import com.example.myshop.domain.common.Money
 import com.example.myshop.domain.product.model.Currency
 import com.example.myshop.domain.product.repository.ProductRepository
 import javax.inject.Inject
+
 class CalculateCartTotalsUseCase @Inject constructor(
     private val cartRepository: CartRepository,
     private val productRepository: ProductRepository,
@@ -19,7 +20,6 @@ class CalculateCartTotalsUseCase @Inject constructor(
     }
 
     suspend fun execute(cart: Cart): CartTotals {
-
         val lineTotalsCents = mutableMapOf<String, Long>()
         var totalCents = 0L
 
