@@ -15,4 +15,10 @@ object UserProfilePreferencesKeys {
     val FULL_NAME = stringPreferencesKey("full_name")
     val EMAIL = stringPreferencesKey("email")
     val AVATAR_URI = stringPreferencesKey("avatar_uri")
+    val BIRTH_DATE_ISO = stringPreferencesKey("birth_date_iso")
+    val GENDER = stringPreferencesKey("gender")
+    val PHONE_NUMBER = stringPreferencesKey("phone_number")
+
+    val LEGACY_DATE_BIRTHDAY = stringPreferencesKey("dateBirthday")
+
 }

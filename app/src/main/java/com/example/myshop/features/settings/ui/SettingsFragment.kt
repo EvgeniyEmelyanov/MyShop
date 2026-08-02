@@ -42,7 +42,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                     onMenuItemClick = {
                         when (it) {
                             SettingsMenuAction.Orders -> openOrders()
-                            SettingsMenuAction.MyDetails -> showComingSoon()
+                            SettingsMenuAction.MyDetails -> openMyDetails()
                             SettingsMenuAction.DeliveryAddress -> showComingSoon()
                             SettingsMenuAction.PaymentMethods -> showComingSoon()
                             SettingsMenuAction.PromoCode -> showComingSoon()
@@ -72,6 +72,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun openOrders() {
         findNavController().navigate(R.id.action_accountFragment_to_ordersFragment)
+    }
+
+    private fun openMyDetails() {
+        findNavController().navigate(R.id.action_accountFragment_to_myDetailsFragment)
     }
 
     override fun onDestroyView() {

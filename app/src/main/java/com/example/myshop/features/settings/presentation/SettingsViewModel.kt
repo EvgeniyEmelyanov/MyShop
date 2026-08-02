@@ -2,6 +2,7 @@ package com.example.myshop.features.settings.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myshop.core.ui.UserProfileUiModel
 import com.example.myshop.domain.user.UserProfile
 import com.example.myshop.domain.user.usecase.ObserveUserProfileUseCase
 import com.example.myshop.domain.user.usecase.SaveUserProfileUseCase
@@ -32,7 +33,10 @@ class SettingsViewModel @Inject constructor(
                 UserProfile(
                     fullName = userName,
                     email = userEmail,
-                    avatarUri = _state.value.userProfile.userAvatarUri
+                    avatarUri = _state.value.userProfile.userAvatarUri,
+                    phoneNumber = _state.value.userProfile.userPhoneNumber,
+                    birthDateIso = _state.value.userProfile.userBirthDateIso,
+                    gender = _state.value.userProfile.userGender
                 )
             )
         }
@@ -46,7 +50,10 @@ class SettingsViewModel @Inject constructor(
                         userProfile = UserProfileUiModel(
                             userName = userProfile.fullName,
                             userEmail = userProfile.email,
-                            userAvatarUri = userProfile.avatarUri
+                            userAvatarUri = userProfile.avatarUri,
+                            userPhoneNumber = userProfile.phoneNumber,
+                            userBirthDateIso = userProfile.birthDateIso,
+                            userGender = userProfile.gender
                         )
                     )
                 }
