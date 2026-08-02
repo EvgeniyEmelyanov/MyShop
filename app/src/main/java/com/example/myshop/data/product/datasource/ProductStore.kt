@@ -736,27 +736,4 @@ object ProductStore {
         return allProducts.find { it.id == id }
     }
 
-    fun exclusiveOffers(): List<Product> {
-        return allProducts.filter { product ->
-            ProductTag.EXCLUSIVE_OFFER in product.tags
-        }
-    }
-
-    fun bestSelling(): List<Product> {
-        return allProducts.filter { product ->
-            ProductTag.BEST_SELLING in product.tags
-        }
-    }
-
-    fun groceriesProduct(): List<Product> {
-        return allProducts.filter { product ->
-            ProductTag.GROCERIES_PRODUCT in product.tags
-        }
-    }
-
-    fun byCategory(category: Category): List<Product> {
-        return allProducts.filter { product ->
-            product.category == category
-        }
-    }
 }

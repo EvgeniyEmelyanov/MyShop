@@ -20,7 +20,13 @@ class UserProfileRepositoryImpl @Inject constructor(
             UserProfile(
                 fullName = preferences[UserProfilePreferencesKeys.FULL_NAME] ?: "Your name",
                 email = preferences[UserProfilePreferencesKeys.EMAIL] ?: "your.email@example.com",
-                avatarUri = preferences[UserProfilePreferencesKeys.AVATAR_URI]
+                avatarUri = preferences[UserProfilePreferencesKeys.AVATAR_URI],
+                phoneNumber = preferences[UserProfilePreferencesKeys.PHONE_NUMBER]
+                    ?: "type your phone number",
+                birthDateIso = preferences[UserProfilePreferencesKeys.BIRTH_DATE_ISO]
+                    ?: preferences[UserProfilePreferencesKeys.LEGACY_DATE_BIRTHDAY]
+                    ?: "",
+                gender = preferences[UserProfilePreferencesKeys.GENDER] ?: "set your gender",
             )
         }
     }
@@ -32,6 +38,10 @@ class UserProfileRepositoryImpl @Inject constructor(
             userProfile.avatarUri?.let { avatarUri ->
                 preferences[UserProfilePreferencesKeys.AVATAR_URI] = avatarUri
             } ?: preferences.remove(UserProfilePreferencesKeys.AVATAR_URI)
+            preferences[UserProfilePreferencesKeys.PHONE_NUMBER] = userProfile.phoneNumber
+            preferences[UserProfilePreferencesKeys.BIRTH_DATE_ISO] = userProfile.birthDateIso
+            preferences.remove(UserProfilePreferencesKeys.LEGACY_DATE_BIRTHDAY)
+            preferences[UserProfilePreferencesKeys.GENDER] = userProfile.gender
         }
     }
 }

@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_accountFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_myDetailsFragment"
+            app:destination="@id/myDetailsFragment" />
     </fragment>
 
     <fragment
@@ -108,5 +111,9 @@
         android:name="com.example.myshop.features.orders.ui.OrdersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/myDetailsFragment"
+        android:name="com.example.myshop.features.myDetails.ui.MyDetailsFragment"
+        android:label="MyDetailsFragment" />
 
 </navigation>
