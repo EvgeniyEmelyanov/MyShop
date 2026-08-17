@@ -34,33 +34,33 @@ Android-приложение интернет-магазина продукто�
 
 ### Shop
 
-![Shop](./docs/readme/shop.png)
+![Shop](/docs/readme/shop.png)
 
 ### Explore
 
-![Explore](./docs/readme/explore.png)
+![Explore](/docs/readme/explore.png)
 
 ### Cart
 
-![Cart](./docs/readme/cart.png)
+![Cart](/docs/readme/cart.png)
 
 ### Checkout
 
-![Checkout](./docs/readme/checkout.png)
+![Checkout](/docs/readme/checkout.png)
 
 ### Orders
 
-![Orders](./docs/readme/orders.png)
+![Orders](/docs/readme/orders.png)
 
 ### Account
 
-![Account](./docs/readme/account.png)
+![Account](/docs/readme/account.png)
 
 ## Demo
 
 Короткое видео с основным flow: каталог, корзина, checkout, оформление заказа и история заказов.
 
-[Смотреть demo](docs/demo/demo.mp4)
+[Смотреть demo](/docs/demo/demo.mp4)
 
 ## Основной стек
 
@@ -239,33 +239,33 @@ It is a finished V1 portfolio project with catalog, cart, favourites, checkout, 
 
 ### Shop
 
-![Shop](./docs/readme/shop.png)
+![Shop](/docs/readme/shop.png)
 
 ### Explore
 
-![Explore](./docs/readme/explore.png)
+![Explore](/docs/readme/explore.png)
 
 ### Cart
 
-![Cart](./docs/readme/cart.png)
+![Cart](/docs/readme/cart.png)
 
 ### Checkout
 
-![Checkout](./docs/readme/checkout.png)
+![Checkout](/docs/readme/checkout.png)
 
 ### Orders
 
-![Orders](./docs/readme/orders.png)
+![Orders](/docs/readme/orders.png)
 
 ### Account
 
-![Account](./docs/readme/account.png)
+![Account](/docs/readme/account.png)
 
 ## Demo
 
 A short video showing the main flow: catalog, cart, checkout, order placement and order history.
 
-[Watch demo](docs/demo/demo.mp4)
+[Watch demo](/docs/demo/demo.mp4)
 
 ## Tech Stack
 
