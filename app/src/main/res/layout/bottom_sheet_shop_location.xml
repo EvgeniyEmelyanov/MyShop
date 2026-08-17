@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_checkout_bottom_sheet"
+    android:paddingStart="25dp"
+    android:paddingTop="28dp"
+    android:paddingEnd="25dp"
+    android:paddingBottom="25dp">
+
+    <TextView
+        android:id="@+id/tvShopLocationTitle"
+        style="@style/TextAppearance.SectionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/shop_location_title"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/btnCloseShopLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnCloseShopLocation"
+        style="@style/Widget.App.IconButton.CloseFilter"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/close"
+        app:layout_constraintBottom_toBottomOf="@id/tvShopLocationTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvShopLocationTitle" />
+
+    <View
+        android:id="@+id/shopLocationDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShopLocationTitle" />
+
+    <ImageView
+        android:id="@+id/ivShopLocation"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_exclude"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopLocationDivider"
+        app:tint="@color/text_tertiary" />
+
+    <TextView
+        android:id="@+id/tvShopAddressLabel"
+        style="@style/TextAppearance.App.Card.ProductWeight.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/shop_location_address_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvShopAddress"
+        app:layout_constraintTop_toTopOf="@id/ivShopLocation" />
+
+    <TextView
+        android:id="@+id/tvShopAddress"
+        style="@style/TextAppearance.App.SectionHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/shop_address_osipovichi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivShopLocation"
+        app:layout_constraintTop_toBottomOf="@id/tvShopAddressLabel"
+        tools:text="г. Осиповичи, ул. Майстренко, 2" />
+
+    <TextView
+        android:id="@+id/businessTime"
+        style="@style/TextAppearance.AppCompat.PageHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:lineSpacingExtra="2dp"
+        android:text="@string/business_hours_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShopAddress" />
+
+
+    <TextView
+        android:id="@+id/businessHours"
+        style="@style/TextAppearance.App.BusinessHours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/business_hours"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/businessTime" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBuildRoute"
+        style="@style/Widget.App.Button.Confirm"
+        android:layout_width="0dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/build_route"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/businessHours" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

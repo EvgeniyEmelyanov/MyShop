@@ -34,14 +34,24 @@
                 android:src="@drawable/ic_carrot" />
 
             <TextView
+                android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:drawablePadding="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:contentDescription="@string/cd_open_shop_location"
+                android:drawablePadding="6dp"
+                android:focusable="true"
                 android:fontFamily="@font/gilroy_black"
-                android:text="@string/location_minsk_belarus"
-                app:drawableStartCompat="@drawable/ic_exclude" />
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:text="@string/shop_address_osipovichi"
+                android:textColor="@color/text_tertiary"
+                app:drawableEndCompat="@drawable/ic_chevron_right"
+                app:drawableStartCompat="@drawable/ic_exclude"
+                app:drawableTint="@color/text_tertiary" />
 
             <EditText
                 android:layout_width="match_parent"

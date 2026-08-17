@@ -3,7 +3,10 @@
     <string name="app_name">Carrot</string>
     <string name="close">Close</string>
     <string name="fresh_vegetables">Fresh Vegetables</string>
-    <string name="location_minsk_belarus">Minsk, Belarus</string>
+    <string name="shop_address_osipovichi">г. Осиповичи, ул. Майстренко, 2</string>
+    <string name="shop_location_title">Shop location</string>
+    <string name="shop_location_address_label">Address</string>
+    <string name="shop_location_hint">Tap the marker to check where the shop is located.</string>
     <string name="search_store">Search Store</string>
     <string name="search_products">Search products</string>
     <string name="see_all">See all</string>
@@ -80,6 +83,7 @@
     <string name="orders_number">Order: #%1$s</string>
     <string name="my_details_title">My Details</string>
     <string name="my_details_add_photo">Add Photo</string>
+    <string name="delivery_address_title">Delivery Address</string>
 
 
     <!-- Accessibility -->
@@ -99,6 +103,8 @@
     <string name="cd_rating_star">Rating star</string>
     <string name="cd_order_accepted">Order accepted</string>
     <string name="cd_edit_profile">Edit profile</string>
+    <string name="cd_create_address">Create address</string>
+    <string name="cd_open_shop_location">Open shop location on map</string>
 
 
     <!-- Account fragment -->
@@ -119,4 +125,11 @@
     <string name="gender">Gender</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="default_address">Default</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="build_route">Build Route</string>
+    <string name="route_app_not_found">No maps app found</string>
+    <string name="business_hours_title">График работы:</string>
+    <string name="business_hours">Пн — выходной\nВт — выходной\nСр — выходной\nЧт — выходной\nПт — 08:00–13:30\nСб — 07:00–13:30\nВс — 07:00–13:30</string>
 </resources>

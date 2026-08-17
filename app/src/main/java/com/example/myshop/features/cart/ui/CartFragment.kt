@@ -51,7 +51,8 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         binding.checkoutBar.setOnClickListener {
             val state = vm.state.value
 
-            if (state.contentState == ContentState.CONTENT && parentFragmentManager.findFragmentByTag(
+            if (
+                state.contentState == ContentState.CONTENT && parentFragmentManager.findFragmentByTag(
                     CheckoutBottomSheetFragment.TAG
                 ) == null
             ) {

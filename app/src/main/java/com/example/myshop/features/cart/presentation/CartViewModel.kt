@@ -43,13 +43,11 @@ class CartViewModel @Inject constructor(
     val state = _state.asStateFlow()
     private val _orderPlacedEvent = MutableSharedFlow<Unit>()
     val orderPlacedEvent = _orderPlacedEvent.asSharedFlow()
-
     private var observeCartJob: Job? = null
 
     init {
         observeCart()
     }
-
 
     fun load() {
         _state.value = _state.value.copy(contentState = ContentState.LOADING)

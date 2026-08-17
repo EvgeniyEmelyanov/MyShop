@@ -27,6 +27,7 @@ coroutines = "1.10.2"
 composeBom = "2026.06.00"
 lottie = "6.6.7"
 datastore = "1.2.1"
+mapkit = "4.42.0-lite"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -66,6 +67,7 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+mapkit-lite = { group = "com.yandex.android", name = "maps.mobile", version.ref = "mapkit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
