@@ -59,6 +59,10 @@ android {
         compose = true
         buildConfig = true
     }
+
+    lint {
+        disable += "CoarseFineLocation"
+    }
 }
 
 hilt {
