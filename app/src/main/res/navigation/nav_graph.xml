@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_shopFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_shopLocationMapFragment"
+            app:destination="@id/shopLocationMapFragment" />
     </fragment>
 
     <fragment
@@ -64,6 +67,9 @@
         <action
             android:id="@+id/action_accountFragment_to_myDetailsFragment"
             app:destination="@id/myDetailsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_deliveryAddressFragment"
+            app:destination="@id/deliveryAddressFragment" />
     </fragment>
 
     <fragment
@@ -115,5 +121,14 @@
         android:id="@+id/myDetailsFragment"
         android:name="com.example.myshop.features.myDetails.ui.MyDetailsFragment"
         android:label="MyDetailsFragment" />
+    <fragment
+        android:id="@+id/deliveryAddressFragment"
+        android:name="com.example.myshop.features.deliveryAddress.ui.DeliveryAddressFragment"
+        android:label="fragment_delivery_address"
+        tools:layout="@layout/fragment_delivery_address" />
+    <fragment
+        android:id="@+id/shopLocationMapFragment"
+        android:name="com.example.myshop.features.shop.ui.ShopLocationMapFragment"
+        android:label="ShopLocationMapFragment" />
 
 </navigation>

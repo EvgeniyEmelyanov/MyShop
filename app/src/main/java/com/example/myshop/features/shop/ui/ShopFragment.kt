@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myshop.R
 import com.example.myshop.app.BaseFragment
+import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.core.ui.CommonProductUiModel
 import com.example.myshop.core.ui.ContentState
-import com.example.myshop.core.decoration.GridSpacingItemDecoration
 import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentShopBinding
 import com.example.myshop.features.productsByCategory.ui.ProductsByCategoryAdapter
@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
-    private val vm: ShopViewModel by viewModels ()
+    private val vm: ShopViewModel by viewModels()
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var exclusiveAdapter: ProductHorizontalAdapter
     private lateinit var bestSellingAdapter: ProductHorizontalAdapter
@@ -127,6 +127,10 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         tvSeeAllThird.setOnClickListener {
             groceriesProductsListMode = groceriesProductsListMode.toggle()
             render(vm.state.value)
+        }
+
+        tvLocation.setOnClickListener {
+            openMap()
         }
     }
 
@@ -280,6 +284,12 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
             Bundle().apply {
                 putString("productId", productId)
             }
+        )
+    }
+
+    private fun openMap() {
+        findNavController().navigate(
+            R.id.action_shopFragment_to_shopLocationMapFragment
         )
     }
 

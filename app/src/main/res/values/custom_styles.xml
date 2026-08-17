@@ -245,5 +245,11 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="TextAppearance.App.BusinessHours" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:gravity">start</item>
+    </style>
 
 </resources>

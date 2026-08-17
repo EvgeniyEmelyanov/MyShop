@@ -34,13 +34,21 @@
                 android:src="@drawable/ic_carrot" />
 
             <TextView
+                android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:drawablePadding="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:contentDescription="@string/cd_open_shop_location"
+                android:drawablePadding="6dp"
+                android:focusable="true"
                 android:fontFamily="@font/gilroy_black"
-                android:text="@string/location_minsk_belarus"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:text="@string/shop_address_osipovichi"
+                android:textColor="@color/text_tertiary"
                 app:drawableStartCompat="@drawable/ic_exclude" />
 
             <EditText
@@ -97,13 +105,12 @@
                     style="@style/TextAppearance.SectionTitle"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="@string/exclusive_offer"
                     android:gravity="center|start"
+                    android:text="@string/exclusive_offer"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvSeeAllFirst"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

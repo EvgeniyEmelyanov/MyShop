@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt.android)
@@ -5,6 +7,17 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose.compiler)
 }
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { inputStream ->
+            load(inputStream)
+        }
+    }
+}
+
+val mapkitApiKey: String = localProperties.getProperty("MAPKIT_API_KEY", "")
 
 android {
     namespace = "com.example.myshop"
@@ -22,6 +35,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "MAPKIT_API_KEY", "\"$mapkitApiKey\"")
     }
 
     buildTypes {
@@ -43,6 +57,11 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
+    }
+
+    lint {
+        disable += "CoarseFineLocation"
     }
 }
 
@@ -74,6 +93,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.lottie)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.mapkit.lite)
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
