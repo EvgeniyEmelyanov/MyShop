@@ -1,11 +1,13 @@
 package com.example.myshop.di
 
 import com.example.myshop.data.cart.repository.CartRepositoryImpl
+import com.example.myshop.data.deliveryAddress.DeliveryAddressRepositoryImpl
 import com.example.myshop.data.favourite.repository.FavouriteRepositoryImpl
 import com.example.myshop.data.order.repository.OrderRepositoryImpl
 import com.example.myshop.data.product.repository.ProductRepositoryImpl
 import com.example.myshop.data.user.repository.UserProfileRepositoryImpl
 import com.example.myshop.domain.cart.CartRepository
+import com.example.myshop.domain.deliveryAddress.DeliveryRepository
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.order.repository.OrderRepository
 import com.example.myshop.domain.product.repository.ProductRepository
@@ -41,4 +43,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindOrderRepository(impl: OrderRepositoryImpl): OrderRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAddressRepository(impl: DeliveryAddressRepositoryImpl): DeliveryRepository
 }

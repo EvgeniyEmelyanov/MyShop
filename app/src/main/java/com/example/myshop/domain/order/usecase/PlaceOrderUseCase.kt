@@ -1,10 +1,12 @@
 package com.example.myshop.domain.order.usecase
 
-
 import com.example.myshop.domain.cart.usecase.CalculateCartTotalsUseCase
 import com.example.myshop.domain.cart.usecase.ClearProductsUseCase
 import com.example.myshop.domain.cart.usecase.GetCartUseCase
+import com.example.myshop.domain.deliveryAddress.usecase.GetAddressByIdUseCase
+import com.example.myshop.domain.order.model.FulfillmentSelection
 import com.example.myshop.domain.order.model.Order
+import com.example.myshop.domain.order.model.OrderFulfillment
 import com.example.myshop.domain.order.model.OrderItem
 import com.example.myshop.domain.order.model.randomOrderStatus
 import com.example.myshop.domain.order.repository.OrderRepository
@@ -12,17 +14,17 @@ import com.example.myshop.domain.order.service.OrderIdGenerator
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import javax.inject.Inject
 
-
 class PlaceOrderUseCase @Inject constructor(
     private val orderRepository: OrderRepository,
     private val getCartUseCase: GetCartUseCase,
     private val calculateCartTotalsUseCase: CalculateCartTotalsUseCase,
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val clearProductsUseCase: ClearProductsUseCase,
-    private val orderIdGenerator: OrderIdGenerator
+    private val orderIdGenerator: OrderIdGenerator,
+    private val getAddressByIdUseCase: GetAddressByIdUseCase
 ) {
 
-    suspend operator fun invoke(): Order? {
+    suspend operator fun invoke(selection: FulfillmentSelection): Order? {
         val cart = getCartUseCase()
 
         if (cart.items.isEmpty()) return null
@@ -48,12 +50,31 @@ class PlaceOrderUseCase @Inject constructor(
 
         if (orderItems.isEmpty()) return null
 
+        val fulfillment: OrderFulfillment = when (selection) {
+            FulfillmentSelection.Pickup -> OrderFulfillment.Pickup
+
+            is FulfillmentSelection.Delivery -> {
+                val address = getAddressByIdUseCase(selection.addressId) ?: return null
+
+                OrderFulfillment.Delivery(
+                    type = address.type,
+                    settlement = address.settlement,
+                    street = address.street,
+                    house = address.house,
+                    building = address.building,
+                    apartment = address.apartment
+                )
+            }
+        }
+
+
         val order = Order(
             id = orderIdGenerator(),
             createdAtMillis = System.currentTimeMillis(),
             status = randomOrderStatus(), // Fake local status until backend/admin panel exists.
             items = orderItems,
-            total = cartTotals.total
+            total = cartTotals.total,
+            fulfillment = fulfillment
         )
 
         orderRepository.saveOrder(order)

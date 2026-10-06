@@ -25,6 +25,12 @@
     <string name="checkout">Checkout</string>
     <string name="checkout_delivery">Delivery</string>
     <string name="checkout_delivery_method">Select Method</string>
+    <string name="checkout_choose_delivery">Choose delivery method</string>
+    <string name="checkout_pickup">Pick up at store</string>
+    <string name="checkout_address_option">%1$s: %2$s, %3$s %4$s</string>
+    <string name="checkout_addresses_loading">Loading addresses</string>
+    <string name="checkout_addresses_error">Could not load addresses. Tap to retry.</string>
+    <string name="checkout_order_error">Could not place the order. Check your delivery address and try again.</string>
     <string name="checkout_payment">Payment</string>
     <string name="checkout_payment_method">Card</string>
     <string name="checkout_promo_code">Promo Code</string>
@@ -84,6 +90,21 @@
     <string name="my_details_title">My Details</string>
     <string name="my_details_add_photo">Add Photo</string>
     <string name="delivery_address_title">Delivery Address</string>
+    <string name="address_type_home">Home</string>
+    <string name="address_type_work">Work</string>
+    <string name="address_type_other">Other</string>
+    <string name="add_delivery_address">Add address</string>
+    <string name="edit_delivery_address">Edit address</string>
+    <string name="address_type">Address type</string>
+    <string name="settlement">City or settlement</string>
+    <string name="street">Street</string>
+    <string name="house">House</string>
+    <string name="building_optional">Building (optional)</string>
+    <string name="apartment_optional">Apartment (optional)</string>
+    <string name="save_address">Save address</string>
+    <string name="required_field">Required field</string>
+    <string name="delivery_address_load_error">Could not load the address</string>
+    <string name="delivery_address_save_error">Could not save the address. Try again.</string>
 
 
     <!-- Accessibility -->

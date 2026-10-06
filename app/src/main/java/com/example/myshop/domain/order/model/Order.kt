@@ -6,6 +6,7 @@ data class Order(
     val id: String,
     val createdAtMillis: Long,
     val status: OrderStatus,
+    val fulfillment: OrderFulfillment,
     val items: List<OrderItem>,
     val total: Money
 )

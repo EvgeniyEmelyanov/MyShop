@@ -2,6 +2,7 @@ package com.example.myshop.features.cart.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -9,16 +10,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myshop.app.BaseFragment
 import com.example.myshop.R
+import com.example.myshop.app.BaseFragment
 import com.example.myshop.core.ui.ContentState
 import com.example.myshop.core.ui.dpToPx
 import com.example.myshop.databinding.FragmentCartBinding
+import com.example.myshop.domain.order.model.FulfillmentSelection
 import com.example.myshop.features.cart.presentation.CartUiState
 import com.example.myshop.features.cart.presentation.CartViewModel
 import com.example.myshop.features.checkout.CheckoutBottomSheetFragment
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_ADDRESS_ID_KEY
 import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_CONFIRMED_KEY
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_FULFILLMENT_KEY
 import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.CHECKOUT_RESULT_KEY
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.FULFILLMENT_DELIVERY
+import com.example.myshop.features.checkout.CheckoutBottomSheetFragment.Companion.FULFILLMENT_PICKUP
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -66,9 +72,17 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
         setFragmentResultListener(CHECKOUT_RESULT_KEY) { _, bundle ->
             val isConfirmed = bundle.getBoolean(CHECKOUT_CONFIRMED_KEY)
 
-            if (isConfirmed) {
-                vm.placeOrder()
+            if (!isConfirmed) return@setFragmentResultListener
+
+            val selection = when (bundle.getString(CHECKOUT_FULFILLMENT_KEY)) {
+                FULFILLMENT_PICKUP -> FulfillmentSelection.Pickup
+                FULFILLMENT_DELIVERY -> {
+                    if (!bundle.containsKey(CHECKOUT_ADDRESS_ID_KEY)) return@setFragmentResultListener
+                    FulfillmentSelection.Delivery(bundle.getLong(CHECKOUT_ADDRESS_ID_KEY))
+                }
+                else -> return@setFragmentResultListener
             }
+            vm.placeOrder(selection)
         }
     }
 
@@ -110,6 +124,12 @@ class CartFragment : BaseFragment(R.layout.fragment_cart) {
                 launch {
                     vm.orderPlacedEvent.collect {
                         openOrderAcceptedScreen()
+                    }
+                }
+
+                launch {
+                    vm.orderFailedEvent.collect {
+                        Toast.makeText(requireContext(), R.string.checkout_order_error, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

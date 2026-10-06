@@ -3,6 +3,7 @@ package com.example.myshop.features.deliveryAddress.ui
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,11 +22,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Business
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.WorkOutline
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,48 +43,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myshop.R
+import com.example.myshop.domain.deliveryAddress.DeliveryAddressType
+import com.example.myshop.features.deliveryAddress.presentation.DeliveryAddressUiModel
+import com.example.myshop.features.deliveryAddress.presentation.DeliveryAddressUiState
 
 @Composable
 fun DeliveryAddressScreen(
+    state: DeliveryAddressUiState,
     onCreateClick: () -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onEditClick: (Long) -> Unit,
+    onRemoveClick: (Long) -> Unit,
+    onSetDefaultClick: (Long) -> Unit
 ) {
-    val addresses = listOf(
-        DeliveryAddressUiModel(
-            id = "home",
-            title = "Home",
-            city = "Minsk",
-            street = "House 12, Road 5, Block A",
-            apartment = "Apartment 24",
-            icon = Icons.Outlined.Home,
-            isDefault = true,
-            accentColor = Color(0xFFFF6B57),
-            accentBackground = Color(0xFFFFEDEA)
-        ),
-        DeliveryAddressUiModel(
-            id = "office",
-            title = "Office",
-            city = "Minsk",
-            street = "Plot 45, Road 12, Block B",
-            apartment = "Office 305",
-            icon = Icons.Outlined.Business,
-            isDefault = false,
-            accentColor = Color(0xFF8B63F6),
-            accentBackground = Color(0xFFF0E9FF)
-        ),
-        DeliveryAddressUiModel(
-            id = "other",
-            title = "Other",
-            city = "Minsk",
-            street = "House 7, Road 3, Block C",
-            apartment = "Apartment 18",
-            icon = Icons.Outlined.LocationOn,
-            isDefault = false,
-            accentColor = MaterialTheme.colorScheme.primary,
-            accentBackground = Color(0xFFEAF6EF)
-        )
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,13 +75,14 @@ fun DeliveryAddressScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(
-                items = addresses,
+                items = state.addresses,
                 key = { address -> address.id }
             ) { address ->
                 DeliveryAddressCard(
                     address = address,
-                    onEditClick = {},
-                    onRemoveClick = {},
+                    onEditClick = { onEditClick(address.id) },
+                    onRemoveClick = { onRemoveClick(address.id) },
+                    onSetDefaultClick = { onSetDefaultClick(address.id) },
                     modifier = Modifier.padding(horizontal = 25.dp)
                 )
             }
@@ -171,12 +144,40 @@ private fun DeliveryAddressCard(
     address: DeliveryAddressUiModel,
     onEditClick: () -> Unit,
     onRemoveClick: () -> Unit,
+    onSetDefaultClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val visuals = when (address.type) {
+        DeliveryAddressType.HOME -> AddressTypeVisuals(
+            titleRes = R.string.address_type_home,
+            icon = Icons.Outlined.Home,
+            accentColor = MaterialTheme.colorScheme.primary,
+            accentBackground = MaterialTheme.colorScheme.primaryContainer
+        )
+
+        DeliveryAddressType.WORK -> AddressTypeVisuals(
+            titleRes = R.string.address_type_work,
+            icon = Icons.Outlined.WorkOutline,
+            accentColor = MaterialTheme.colorScheme.tertiary,
+            accentBackground = MaterialTheme.colorScheme.tertiaryContainer
+        )
+
+        DeliveryAddressType.OTHER -> AddressTypeVisuals(
+            titleRes = R.string.address_type_other,
+            icon = Icons.Outlined.LocationOn,
+            accentColor = MaterialTheme.colorScheme.secondary,
+            accentBackground = MaterialTheme.colorScheme.secondaryContainer
+        )
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
+            .clickable(
+                enabled = !address.isDefault,
+                onClick = onSetDefaultClick
+            )
             .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
@@ -190,16 +191,16 @@ private fun DeliveryAddressCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AddressIcon(
-                icon = address.icon,
-                iconTint = address.accentColor,
-                backgroundColor = address.accentBackground
+                icon = visuals.icon,
+                iconTint = visuals.accentColor,
+                backgroundColor = visuals.accentBackground
             )
 
             Text(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 14.dp),
-                text = address.title,
+                text = stringResource(visuals.titleRes),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -214,12 +215,20 @@ private fun DeliveryAddressCard(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = address.street,
+                text = buildString {
+                    append(address.street)
+                    append(", ")
+                    append(address.house)
+                    address.building?.let { append(", $it") }
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "${address.city}, ${address.apartment}",
+                text = buildString {
+                    append(address.settlement)
+                    address.apartment?.let { append(", $it") }
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -315,14 +324,9 @@ private fun AddressActionButton(
     }
 }
 
-private data class DeliveryAddressUiModel(
-    val id: String,
-    val title: String,
-    val city: String,
-    val street: String,
-    val apartment: String,
+private data class AddressTypeVisuals(
+    val titleRes: Int,
     val icon: ImageVector,
-    val isDefault: Boolean,
     val accentColor: Color,
     val accentBackground: Color
 )
@@ -331,7 +335,11 @@ private data class DeliveryAddressUiModel(
 @Composable
 fun DeliveryAddressScreenPreview() {
     DeliveryAddressScreen(
+        state = DeliveryAddressUiState(),
         onCreateClick = {},
-        onBackClick = {}
+        onBackClick = {},
+        onEditClick = {},
+        onRemoveClick = {},
+        onSetDefaultClick = {}
     )
 }

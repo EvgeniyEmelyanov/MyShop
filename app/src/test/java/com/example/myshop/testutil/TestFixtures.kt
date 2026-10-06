@@ -5,13 +5,15 @@ import com.example.myshop.domain.cart.model.Amount
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.model.CartItem
 import com.example.myshop.domain.common.Money
+import com.example.myshop.domain.deliveryAddress.DeliveryAddress
+import com.example.myshop.domain.deliveryAddress.DeliveryRepository
 import com.example.myshop.domain.favourite.FavouriteRepository
 import com.example.myshop.domain.favourite.model.Favourite
 import com.example.myshop.domain.favourite.model.FavouriteItem
 import com.example.myshop.domain.order.model.Order
+import com.example.myshop.domain.order.model.OrderFulfillment
 import com.example.myshop.domain.order.model.OrderItem
 import com.example.myshop.domain.order.model.OrderStatus
-import com.example.myshop.domain.order.model.randomOrderStatus
 import com.example.myshop.domain.order.repository.OrderRepository
 import com.example.myshop.domain.product.model.AmountType
 import com.example.myshop.domain.product.model.Brand
@@ -154,11 +156,38 @@ class FakeOrderRepository(initialOrders: List<Order> = emptyList()) : OrderRepos
     }
 }
 
+class FakeDeliveryRepository(initialAddresses: List<DeliveryAddress> = emptyList()) : DeliveryRepository {
+    private val addressesFlow = MutableStateFlow(initialAddresses)
+
+    fun emit(addresses: List<DeliveryAddress>) {
+        addressesFlow.value = addresses
+    }
+
+    override fun observeAddresses(): Flow<List<DeliveryAddress>> = addressesFlow
+
+    override suspend fun getAddressById(id: Long): DeliveryAddress? {
+        return addressesFlow.value.firstOrNull { it.id == id }
+    }
+
+    override suspend fun saveAddress(address: DeliveryAddress) {
+        addressesFlow.value = addressesFlow.value.filterNot { it.id == address.id } + address
+    }
+
+    override suspend fun deleteAddress(id: Long) {
+        addressesFlow.value = addressesFlow.value.filterNot { it.id == id }
+    }
+
+    override suspend fun setDefaultAddress(id: Long) {
+        addressesFlow.value = addressesFlow.value.map { it.copy(isDefault = it.id == id) }
+    }
+}
+
 fun testOrder(id: String = "123"): Order {
     return Order(
         id = id,
         createdAtMillis = 0,
         status = OrderStatus.PROCESSING,
+        fulfillment = OrderFulfillment.Pickup,
         items = listOf(
             OrderItem(
                 productId = "apple",
