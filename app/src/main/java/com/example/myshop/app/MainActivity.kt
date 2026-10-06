@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navController)
 
 
-        // 1) Убираем “пилюлю” выбранного пункта (Active Indicator)
         bottomNav.isItemActiveIndicatorEnabled = false
 
         val baseBottomMargin =

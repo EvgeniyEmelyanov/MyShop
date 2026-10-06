@@ -125,7 +125,21 @@
         android:id="@+id/deliveryAddressFragment"
         android:name="com.example.myshop.features.deliveryAddress.ui.DeliveryAddressFragment"
         android:label="fragment_delivery_address"
-        tools:layout="@layout/fragment_delivery_address" />
+        tools:layout="@layout/fragment_delivery_address">
+        <action
+            android:id="@+id/action_deliveryAddressFragment_to_deliveryAddressEditorFragment"
+            app:destination="@id/deliveryAddressEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryAddressEditorFragment"
+        android:name="com.example.myshop.features.deliveryAddress.ui.DeliveryAddressEditorFragment"
+        android:label="fragment_delivery_address_editor"
+        tools:layout="@layout/fragment_delivery_address_editor">
+        <argument
+            android:name="addressId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/shopLocationMapFragment"
         android:name="com.example.myshop.features.shop.ui.ShopLocationMapFragment"
