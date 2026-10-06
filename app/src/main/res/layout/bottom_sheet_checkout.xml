@@ -45,23 +45,26 @@
     <TextView
         android:id="@+id/tvDeliveryLabel"
         style="@style/TextAppearance.App.SectionHeader"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="62dp"
         android:gravity="center_vertical"
         android:text="@string/checkout_delivery"
-        app:layout_constraintEnd_toStartOf="@id/tvDeliveryValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerDivider" />
 
     <TextView
         android:id="@+id/tvDeliveryValue"
         style="@style/TextAppearance.App.Card.ProductWeight.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="@string/checkout_delivery_method"
         app:layout_constraintBottom_toBottomOf="@id/tvDeliveryLabel"
         app:layout_constraintEnd_toStartOf="@id/ivDeliveryArrow"
+        app:layout_constraintStart_toEndOf="@id/tvDeliveryLabel"
         app:layout_constraintTop_toTopOf="@id/tvDeliveryLabel" />
 
     <ImageView
@@ -72,6 +75,16 @@
         android:src="@drawable/ic_back_arrow"
         app:layout_constraintBottom_toBottomOf="@id/tvDeliveryLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDeliveryLabel" />
+
+    <View
+        android:id="@+id/deliveryClickTarget"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/checkout_choose_delivery"
+        app:layout_constraintBottom_toBottomOf="@id/tvDeliveryLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvDeliveryLabel" />
 
     <View

@@ -12,10 +12,13 @@ import com.example.myshop.domain.cart.usecase.GetCartUseCase
 import com.example.myshop.domain.cart.usecase.IncreaseAmountUseCase
 import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
 import com.example.myshop.domain.cart.usecase.RemoveProductUseCase
+import com.example.myshop.domain.deliveryAddress.usecase.GetAddressByIdUseCase
+import com.example.myshop.domain.order.model.FulfillmentSelection
 import com.example.myshop.domain.order.service.OrderIdGenerator
 import com.example.myshop.domain.order.usecase.PlaceOrderUseCase
 import com.example.myshop.domain.product.usecase.GetProductByIdUseCase
 import com.example.myshop.testutil.FakeCartRepository
+import com.example.myshop.testutil.FakeDeliveryRepository
 import com.example.myshop.testutil.FakeOrderRepository
 import com.example.myshop.testutil.FakeProductRepository
 import com.example.myshop.testutil.MainDispatcherRule
@@ -66,12 +69,30 @@ class CartViewModelTest {
             viewModel.orderPlacedEvent.first()
         }
 
-        viewModel.placeOrder()
+        viewModel.placeOrder(FulfillmentSelection.Pickup)
         advanceUntilIdle()
 
         event.await()
         assertTrue(viewModel.state.value.items.isEmpty())
         assertEquals(ContentState.EMPTY, viewModel.state.value.contentState)
+    }
+
+    @Test
+    fun `missing delivery address emits failure and keeps cart`() = runTest(mainDispatcherRule.dispatcher) {
+        val productRepository = FakeProductRepository(listOf(testProduct()))
+        val cartRepository = FakeCartRepository(cartWith())
+        val viewModel = createViewModel(productRepository, cartRepository)
+        advanceUntilIdle()
+        val event = async(start = CoroutineStart.UNDISPATCHED) {
+            viewModel.orderFailedEvent.first()
+        }
+
+        viewModel.placeOrder(FulfillmentSelection.Delivery(99))
+        advanceUntilIdle()
+
+        event.await()
+        assertEquals(1, cartRepository.getCart().items.size)
+        assertEquals(ContentState.CONTENT, viewModel.state.value.contentState)
     }
 
     private fun createViewModel(
@@ -102,7 +123,8 @@ class CartViewModelTest {
                 calculateCartTotalsUseCase = calculateCartTotalsUseCase,
                 getProductByIdUseCase = getProductByIdUseCase,
                 clearProductsUseCase = ClearProductsUseCase(cartRepository),
-                orderIdGenerator = OrderIdGenerator()
+                orderIdGenerator = OrderIdGenerator(),
+                getAddressByIdUseCase = GetAddressByIdUseCase(FakeDeliveryRepository())
             )
         )
 

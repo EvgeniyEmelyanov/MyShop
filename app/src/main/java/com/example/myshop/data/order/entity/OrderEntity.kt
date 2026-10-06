@@ -10,5 +10,13 @@ data class OrderEntity (
     val createdAtMillis: Long,
     val status: String,
     val totalCents: Long,
-    val currency: String
+    val currency: String,
+
+    val fulfillmentType: String,
+    val deliveryAddressType: String?,
+    val deliverySettlement: String?,
+    val deliveryStreet: String?,
+    val deliveryHouse: String?,
+    val deliveryBuilding: String?,
+    val deliveryApartment: String?
 )

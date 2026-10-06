@@ -13,6 +13,7 @@ import com.example.myshop.core.image.ImageKeyResolver
 import com.example.myshop.core.ui.ContentState
 import com.example.myshop.domain.cart.model.Cart
 import com.example.myshop.domain.cart.usecase.ObserveCartUseCase
+import com.example.myshop.domain.order.model.FulfillmentSelection
 import com.example.myshop.domain.order.usecase.PlaceOrderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -43,6 +44,8 @@ class CartViewModel @Inject constructor(
     val state = _state.asStateFlow()
     private val _orderPlacedEvent = MutableSharedFlow<Unit>()
     val orderPlacedEvent = _orderPlacedEvent.asSharedFlow()
+    private val _orderFailedEvent = MutableSharedFlow<Unit>()
+    val orderFailedEvent = _orderFailedEvent.asSharedFlow()
     private var observeCartJob: Job? = null
 
     init {
@@ -72,12 +75,14 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun placeOrder() {
+    fun placeOrder(selection: FulfillmentSelection) {
         viewModelScope.launch {
-            val order = placeOrderUseCase()
+            val order = placeOrderUseCase(selection)
 
             if (order != null) {
                 _orderPlacedEvent.emit(Unit)
+            } else {
+                _orderFailedEvent.emit(Unit)
             }
         }
     }

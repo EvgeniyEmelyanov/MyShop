@@ -21,7 +21,7 @@ import com.example.myshop.data.order.entity.OrderItemEntity
         OrderItemEntity::class,
         DeliveryAddressEntity::class
                ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -25,6 +25,12 @@
     <string name="checkout">Checkout</string>
     <string name="checkout_delivery">Delivery</string>
     <string name="checkout_delivery_method">Select Method</string>
+    <string name="checkout_choose_delivery">Choose delivery method</string>
+    <string name="checkout_pickup">Pick up at store</string>
+    <string name="checkout_address_option">%1$s: %2$s, %3$s %4$s</string>
+    <string name="checkout_addresses_loading">Loading addresses</string>
+    <string name="checkout_addresses_error">Could not load addresses. Tap to retry.</string>
+    <string name="checkout_order_error">Could not place the order. Check your delivery address and try again.</string>
     <string name="checkout_payment">Payment</string>
     <string name="checkout_payment_method">Card</string>
     <string name="checkout_promo_code">Promo Code</string>
